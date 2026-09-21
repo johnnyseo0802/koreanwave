@@ -1,0 +1,4 @@
+import { MvpListingPage } from "@/components/mvp-listing-page";
+import { makeCards } from "@/lib/mock-content";
+const cards = makeCards([["Seongsu at a slower pace", "Studios, bakeries, and an unhurried afternoon.", "Neighborhood", "/local-korea/places"], ["A market morning", "Start with flavors and follow the local rhythm.", "Food", "/local-korea/places"], ["Rooftop coffee stops", "Cafés with room to linger and a view.", "Cafés", "/local-korea/places"], ["Walkable Seoul", "A simple path through smaller favorite streets.", "Places", "/local-korea/places"]]);
+export default function PlacesPage() { return <MvpListingPage eyebrow="Local Korea / Places" title="Places" description="Explore neighborhoods, food, and cafés through a local-first lens." filters={["All", "Neighborhoods", "Food", "Cafés"]} cards={cards} />; }

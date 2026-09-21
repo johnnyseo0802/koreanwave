@@ -1,0 +1,4 @@
+import { MvpListingPage } from "@/components/mvp-listing-page";
+import { makeCards } from "@/lib/mock-content";
+const cards = makeCards([["Where should I stay for a first visit?", "Locals share a few neighborhood perspectives.", "12 answers", "/community/questions"], ["What is a good solo day in Seoul?", "Simple ideas from members who know the city.", "8 answers", "/community/questions"], ["Can I find a relaxed cooking class?", "Recommendations for friendly, hands-on sessions.", "6 answers", "/community/questions"]]);
+export default function QuestionsPage() { return <MvpListingPage eyebrow="Community / Ask a Local" title="Ask a Local" description="Bring your Korea questions to a community that loves to share what it knows." filters={["Latest", "Travel", "Culture", "Food", "Living in Korea"]} cards={cards} action={{ label: "Ask a question", href: "/write" }} />; }

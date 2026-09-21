@@ -1,0 +1,4 @@
+import { MvpListingPage } from "@/components/mvp-listing-page";
+import { makeCards } from "@/lib/mock-content";
+const cards = makeCards([["Han River sunset picnic", "Bring a blanket and meet new people by the water.", "Seoul · Fri 6 PM", "/events"], ["Indie film night", "A community screening followed by a relaxed conversation.", "Seoul · Sat 7 PM", "/events"], ["Local maker's market", "Meet independent artists, makers, and curious neighbors.", "Seoul · Sun 11 AM", "/events"], ["Neighborhood food walk", "A small-group afternoon around market favorites.", "Busan · Sun 2 PM", "/events"]]);
+export default function EventsPage() { return <MvpListingPage eyebrow="What&apos;s happening" title="Events" description="Find cultural gatherings, community meetups, and local experiences across Korea." filters={["All", "This week", "Seoul", "Busan", "Culture"]} cards={cards} />; }

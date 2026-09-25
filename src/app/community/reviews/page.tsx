@@ -1,4 +1,11 @@
-import { MvpListingPage } from "@/components/mvp-listing-page";
-import { makeCards } from "@/lib/mock-content";
-const cards = makeCards([["The cafe I returned to", "A calm neighborhood place with thoughtful coffee.", "Seoul · 4.9", "/community/reviews"], ["A weekend food market", "Easy to navigate, delicious, and worth arriving early.", "Busan · 4.7", "/community/reviews"], ["A small local workshop", "Friendly hosts and a beautiful thing to take home.", "Jeonju · 5.0", "/community/reviews"]]);
-export default function ReviewsPage() { return <MvpListingPage eyebrow="Community / Reviews" title="Reviews" description="Real notes from people who have been there, tried it, and want to help." filters={["Latest", "Places", "Food", "Experiences"]} cards={cards} />; }
+export const metadata = { title: "Community reviews" };
+
+import Link from "next/link";
+import { LocalPageShell } from "@/components/local-content";
+import { PublicReviews } from "@/components/public-reviews";
+export default function ReviewsPage() {
+  return <LocalPageShell title="Community reviews" description="Read approved notes from visitors and find a place for your next Korea experience.">
+    <Link href="/local-korea/places" className="inline-block rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white">Choose a place to review</Link>
+    <PublicReviews />
+  </LocalPageShell>;
+}

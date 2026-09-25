@@ -1,5 +1,21 @@
-# Supabase integration placeholder
+# Supabase integration
 
-Keep future Supabase browser/server clients and database helpers in this folder.
+- client.ts creates the browser client with static NEXT_PUBLIC environment references.
+- server.ts creates a cookie-aware server client using the normal publishable key.
+- config.ts validates server-side environment presence without printing values.
 
-No Supabase package, database connection, or authentication flow is configured yet.
+Create .env.local with NEXT_PUBLIC_SUPABASE_URL and
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY. There is no tracked .env.example; use the
+variable names here, never real values in source. All .env files are Git-ignored.
+
+Authentication, profiles, community, events, and editorial flows are implemented.
+Protected pages and mutations use auth.getUser(); admin flows additionally query
+the verified user's protected profiles.role. getSession() alone is not a server
+authorization check and does not prove network reachability.
+
+Use the offline tests under tests/ and manual staging E2E for verification.
+No connection-test routes should be added to the production app.
+
+Server Components cannot persist refreshed cookies. Review the expired-session
+release gate and other deployment requirements in docs/DEPLOYMENT.md before launch.
+Never use elevated credentials in normal application flows.

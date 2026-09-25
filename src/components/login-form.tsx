@@ -1,9 +1,10 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { isAuthRetryableFetchError, type AuthError } from "@supabase/supabase-js";
 import { createClient, isSupabaseBrowserConfigurationError } from "@/lib/supabase/client";
+import { safeNextPath } from "@/lib/auth/safe-next-path";
 
 function getLoginErrorMessage(error: AuthError) {
   if (isAuthRetryableFetchError(error)) {
@@ -39,6 +40,7 @@ function getUnexpectedLoginErrorMessage(error: unknown) {
 
 export function LoginForm() {
   const router = useRouter();
+  const submitLock = useRef(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -46,6 +48,7 @@ export function LoginForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submitLock.current) return;
     setErrorMessage("");
 
     const normalizedEmail = email.trim();
@@ -60,6 +63,7 @@ export function LoginForm() {
       return;
     }
 
+    submitLock.current = true;
     setIsSubmitting(true);
 
     try {
@@ -79,14 +83,16 @@ export function LoginForm() {
         return;
       }
 
-      router.replace("/");
+      const next = new URLSearchParams(window.location.search).get("next");
+      router.replace(safeNextPath(next));
       router.refresh();
     } catch (error) {
       setErrorMessage(getUnexpectedLoginErrorMessage(error));
     } finally {
+      submitLock.current = false;
       setIsSubmitting(false);
     }
   }
 
-  return <form noValidate onSubmit={handleSubmit}><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#789a50]">Welcome back</p><h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em]">Log in</h2><p className="mt-3 text-sm leading-6 text-[#717a74]">Continue saving the places, stories, and conversations you love.</p><div className="mt-8 space-y-4"><div><label className="mb-2 block text-sm font-medium text-[#3d4941]" htmlFor="login-email">Email address</label><input autoComplete="email" className="w-full rounded-xl border border-[#e0e5e0] px-4 py-3 text-sm outline-none transition focus:border-[#789a50] focus:ring-2 focus:ring-[#dbe4d7]" id="login-email" name="email" onChange={(event) => setEmail(event.target.value)} required type="email" value={email} /></div><div><label className="mb-2 block text-sm font-medium text-[#3d4941]" htmlFor="login-password">Password</label><input autoComplete="current-password" className="w-full rounded-xl border border-[#e0e5e0] px-4 py-3 text-sm outline-none transition focus:border-[#789a50] focus:ring-2 focus:ring-[#dbe4d7]" id="login-password" name="password" onChange={(event) => setPassword(event.target.value)} required type="password" value={password} /></div></div>{errorMessage && <p aria-live="polite" className="mt-4 rounded-xl bg-[#fdf0ed] px-4 py-3 text-sm text-[#a1432d]" role="alert">{errorMessage}</p>}<button className="mt-6 w-full rounded-xl bg-[#17201d] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#2d3c35] disabled:cursor-not-allowed disabled:bg-[#dbe4d7] disabled:text-[#60715c]" disabled={isSubmitting} type="submit">{isSubmitting ? "Logging in…" : "Log in"}</button></form>;
+  return <form noValidate onSubmit={handleSubmit}><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#557b39]">Welcome back</p><h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em]">Log in</h2><p className="mt-3 text-sm leading-6 text-[#717a74]">Return to your profile, community, and event applications.</p><div className="mt-8 space-y-4"><div><label className="mb-2 block text-sm font-medium text-[#3d4941]" htmlFor="login-email">Email address</label><input autoComplete="email" className="w-full rounded-xl border border-[#e0e5e0] px-4 py-3 text-sm outline-none transition focus:border-[#789a50] focus:ring-2 focus:ring-[#dbe4d7]" id="login-email" name="email" onChange={(event) => setEmail(event.target.value)} required type="email" value={email} /></div><div><label className="mb-2 block text-sm font-medium text-[#3d4941]" htmlFor="login-password">Password</label><input autoComplete="current-password" className="w-full rounded-xl border border-[#e0e5e0] px-4 py-3 text-sm outline-none transition focus:border-[#789a50] focus:ring-2 focus:ring-[#dbe4d7]" id="login-password" name="password" onChange={(event) => setPassword(event.target.value)} required type="password" value={password} /></div></div>{errorMessage && <p aria-live="polite" className="mt-4 rounded-xl bg-[#fdf0ed] px-4 py-3 text-sm text-[#a1432d]" role="alert">{errorMessage}</p>}<button className="mt-6 w-full rounded-xl bg-[#17201d] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#2d3c35] disabled:cursor-not-allowed disabled:bg-[#dbe4d7] disabled:text-[#60715c]" disabled={isSubmitting} type="submit">{isSubmitting ? "Logging in…" : "Log in"}</button></form>;
 }

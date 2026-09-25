@@ -12,15 +12,15 @@ export const contentCards = makeCards([
   ["Movies", "Korean cinema beyond the credits.", "K-Movie", "/k-contents/movies"],
 ]);
 
+// Navigation categories, not database records or invented editorial content.
 export const localCards = makeCards([
-  ["Places", "Neighborhoods and local favorites worth finding.", "Explore", "/local-korea/places"],
-  ["Food", "Markets, meals, and comfort-food rituals.", "Places category", "/local-korea/places"],
-  ["Cafés", "Slow mornings and the city’s best views.", "Places category", "/local-korea/places"],
-  ["Experiences", "Make a memory that feels truly local.", "Try it", "/local-korea/experiences"],
+  ["Places", "Neighborhoods, markets, and cafés worth finding.", "Explore", "/local-korea/places"],
+  ["Experiences", "Discover cultural activities and visitor information.", "Try it", "/local-korea/experiences"],
+  ["Events", "Meet people through upcoming community gatherings.", "Join in", "/events"],
 ]);
 
 export const communityCards = makeCards([
   ["Ask a Local", "Thoughtful answers from people who know Korea best.", "Questions", "/community/questions"],
-  ["Share Your Experience", "Help the next traveler with your real stories.", "Write", "/write"],
+  ["Contribute", "Ask a question or share a review of a place you visited.", "Write", "/write"],
   ["Reviews", "Honest recommendations for places worth your time.", "Community", "/community/reviews"],
 ]);

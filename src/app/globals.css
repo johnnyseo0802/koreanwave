@@ -20,3 +20,18 @@ body {
 
 html { scroll-behavior: smooth; }
 summary::-webkit-details-marker { display: none; }
+
+/* Shared mobile and keyboard baseline; keep long UGC inside its card. */
+main, section, article, form, fieldset { min-width: 0; }
+h1, h2, h3, p, a, label { overflow-wrap: anywhere; }
+input, select, textarea { max-width: 100%; }
+:where(a, button, summary, input, select, textarea):focus-visible {
+  outline: 3px solid #557b39;
+  outline-offset: 3px;
+}
+.skip-link { position: fixed; left: 1rem; top: -6rem; z-index: 100; padding: .75rem 1rem; background: #17201d; color: white; border-radius: .75rem; }
+.skip-link:focus { top: 1rem; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}

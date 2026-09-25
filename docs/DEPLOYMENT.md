@@ -10,12 +10,13 @@ No deployment, remote schema change, or production data mutation was performed.
    restricts recipients; a developer confirmation test does not demonstrate public
    signup delivery. Do not disable confirmation as a workaround.
    [Supabase SMTP](https://supabase.com/docs/guides/auth/auth-smtp)
-2. **Expired sessions:** The server Supabase helper cannot persist refreshed cookies
-   from Server Components and catches cookie-write failures. Browser persistence
-   works, but cold server requests after token expiry need E2E verification and a
-   reviewed cookie-refresh strategy (normally Next.js Proxy). This sprint preserves
-   auth rather than silently introducing global middleware.
-   [Supabase Next.js SSR](https://supabase.com/docs/guides/getting-started/tutorials/with-nextjs)
+2. **Session refresh:** Next.js 16 uses src/proxy.ts and a per-request Supabase SSR
+   client. getClaims refreshes expiring sessions; cookie writes reach both the
+   current render and browser response. Page/action authorization still uses
+   getUser, with a separate profiles.role check for admins. Offline tests cover
+   expired, near-expired and invalid refresh tokens. Verify cold expiry on the
+   actual HTTPS deployment before public launch.
+   [Supabase SSR](https://supabase.com/docs/guides/auth/server-side/creating-a-client)
 3. **Operator/contact/policies:** Publish a verified support channel and operator
    identity. Establish abuse/privacy/deletion and event cancellation handling.
    Contact, Privacy, Terms, and Cancellation currently describe limitations, not
@@ -47,6 +48,44 @@ No deployment, remote schema change, or production data mutation was performed.
   schedule; do not automatically execute it during deployments.
 
 ## Security and operations
+
+### Production Auth configuration (operator action; not performed)
+
+- Configure custom SMTP in Supabase Authentication email settings before public
+  signup: verified sender/domain, sender address/name, SMTP host/port, TLS and
+  provider credentials. Enter secrets only in the provider/Supabase dashboard;
+  never commit them or add them to browser-prefixed environment variables.
+- Set Supabase Authentication URL Configuration Site URL to the exact HTTPS
+  production origin, for example https://<production-host> (replace the placeholder).
+- Add https://<production-host>/auth/confirm to Redirect URLs. The signup form uses
+  its current browser origin plus /auth/confirm. Avoid broad production wildcards.
+  Allow each intentional preview/staging origin explicitly; localhost entries are
+  only for development. Do not assume arbitrary Vercel previews are authorized.
+- Keep the default {{ .ConfirmationURL }} email template. /auth/confirm accepts
+  the browser fragment flow and forwards PKCE code callbacks to
+  /auth/confirm/server. PKCE needs the initiating browser's verifier cookie; opening
+  a link in a different browser can fail safely. Failure goes to
+  /auth/confirmation-failed, success to /auth/confirmed. Sensitive URL data is
+  cleared; arbitrary next destinations are not forwarded.
+- No template change is required for SMTP. If deliberately adopting a TokenHash
+  template later, point it at /auth/confirm/server with token_hash and type=signup
+  (or email); review and allowlist that exact callback URL at that time.
+- In Vercel Production (and separately Preview), set NEXT_PUBLIC_SUPABASE_URL and
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY for the intended project before building.
+  Rebuild after changing these values. Do not add service_role/secret credentials.
+- Do not add ISR, shared HTML caching or CDN overrides to authenticated responses.
+  Root rendering is dynamic; Proxy marks matched responses private/no-store,
+  including CDN headers. Preserve Set-Cookie through any additional reverse proxy.
+- Never log callback query strings, cookies or Authorization headers in custom
+  analytics, monitoring or reverse proxies. Test confirmation, cold refresh and
+  logout manually on HTTPS with an operator-controlled account.
+
+Offline security tests (no credentials or remote writes):
+
+    node tests/site-security.mjs
+    node tests/editorial-security.mjs
+    node tests/events-security.mjs
+    node tests/ssr-auth-security.mjs
 
 - Public queries explicitly filter approved/published rows and narrow columns.
 - Admin pages/actions recheck the current user and protected profiles.role.

@@ -16,6 +16,10 @@ authorization check and does not prove network reachability.
 Use the offline tests under tests/ and manual staging E2E for verification.
 No connection-test routes should be added to the production app.
 
-Server Components cannot persist refreshed cookies. Review the expired-session
-release gate and other deployment requirements in docs/DEPLOYMENT.md before launch.
+Server Components cannot persist refreshed cookies. src/proxy.ts delegates to
+proxy.ts here to refresh sessions with getClaims before rendering. Cookie updates
+and deletions propagate to the current request and browser response. getUser
+remains the authorization boundary in protected pages/actions. Responses are
+dynamic and private/no-store; do not add shared authenticated response caching.
+Review production SMTP/URL configuration in docs/DEPLOYMENT.md before launch.
 Never use elevated credentials in normal application flows.

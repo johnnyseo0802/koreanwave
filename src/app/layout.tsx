@@ -3,6 +3,9 @@ import { AuthProvider } from "@/components/auth-provider";
 import { createClient } from "@/lib/supabase/server";
 import "./globals.css";
 
+// Every page contains a session-aware header. Never ISR/cache a user's response.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: { default: "Korean Wave Community — Discover Korea Beyond the Screen", template: "%s | Korean Wave Community" },
   description: "Discover Korean culture, explore local Korea, and connect with people who love Korea.",

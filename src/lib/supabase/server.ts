@@ -5,7 +5,7 @@ import { getSupabaseServerConfig } from "@/lib/supabase/config";
 
 /**
  * Use from Server Components, Server Actions, or Route Handlers.
- * Cookie writes are prepared for a future auth setup; no auth flow is enabled yet.
+ * Proxy refreshes before rendering; actions/handlers can also persist auth writes.
  */
 export async function createClient() {
   const cookieStore = await cookies();
@@ -22,7 +22,9 @@ export async function createClient() {
             cookieStore.set(name, value, options);
           });
         } catch {
-          // Server Components cannot write cookies. A future auth proxy will refresh sessions.
+          // Server Components cannot write cookies. src/proxy.ts already refreshed
+          // the request and response; Server Actions/Route Handlers can write here.
+          // Proxy applies no-store headers to all matching app responses.
         }
       },
     },

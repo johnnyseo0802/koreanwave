@@ -2,8 +2,9 @@ export type PublicEvent = {
   id: string; title: string; description: string; public_area: string; category: string;
   starts_at: string; application_deadline: string | null;
   participation_info: string | null; cancellation_policy: string | null;
+  image_url?: string | null; image_alt?: string | null;
 };
-export const publicEventFields = "id,title,description,public_area,category,starts_at,application_deadline,participation_info,cancellation_policy";
+export const publicEventFields = "id,title,description,public_area,category,starts_at,application_deadline,participation_info,cancellation_policy,image_url,image_alt";
 export function eventDate(value: string) {
   return new Intl.DateTimeFormat("en", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Seoul" }).format(new Date(value)) + " KST";
 }

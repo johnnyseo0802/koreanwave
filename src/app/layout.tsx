@@ -7,6 +7,7 @@ import "./globals.css";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://koreanwave-kappa.vercel.app"),
   title: { default: "Korean Wave Community — Discover Korea Beyond the Screen", template: "%s | Korean Wave Community" },
   description: "Discover Korean culture, explore local Korea, and connect with people who love Korea.",
 };

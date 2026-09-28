@@ -5,19 +5,19 @@ export const editorialCategories = {
 export type EditorialSection = keyof typeof editorialCategories;
 export type EditorialInput = {
   section: EditorialSection; category: string; title: string; summary: string; body: string;
-  image_url: string | null; source_url: string | null; status: "draft" | "published";
+  image_url: string | null; image_alt?: string | null; source_url: string | null; status: "draft" | "published";
 };
 export type PublicArticle = Omit<EditorialInput, "status"> & { id: string; published_at: string | null };
-export type ArticleCard = Pick<PublicArticle, "id" | "section" | "category" | "title" | "summary" | "image_url" | "published_at">;
+export type ArticleCard = Pick<PublicArticle, "id" | "section" | "category" | "title" | "summary" | "image_url" | "image_alt" | "published_at">;
 export type AdminArticle = PublicArticle & { status: "draft" | "published"; updated_at: string };
-export const publicArticleFields = "id,section,category,title,summary,body,image_url,source_url,published_at";
+export const publicArticleFields = "id,section,category,title,summary,body,image_url,image_alt,source_url,published_at";
 export const adminArticleFields = `${publicArticleFields},status,updated_at`;
 export const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export const sectionLabel = (section: EditorialSection) => section === "k-contents" ? "K-Contents" : "K-Trends";
 export const textLength = (text: string) => Array.from(text).length;
 
-// Browser-direct images only: no image proxy/optimizer or server-side URL fetch.
-// Require public DNS-style HTTPS hosts, no credentials, ports or local IP literals.
+// Source/attribution URL validation. Cover images have a separate, stricter
+// site-media allowlist at save/render boundaries; never optimize arbitrary URLs.
 export function safeEditorialUrl(value: string | null | undefined): string | null {
   if (!value || value.length > 2048 || /[\s\\]/.test(value)) return null;
   try {
@@ -44,5 +44,8 @@ export function validateEditorial(form: FormData): { value?: EditorialInput; err
   if (status !== "draft" && status !== "published") return { error: "Choose Save draft or Publish." };
   const image = read("image_url"), source = read("source_url");
   if ((image && !safeEditorialUrl(image)) || (source && !safeEditorialUrl(source))) return { error: "Use a valid public HTTPS URL without credentials for image and source links." };
-  return { value: { section, category, title, summary, body, status, image_url: image || null, source_url: source || null } };
+  const image_alt = read("image_alt");
+  if (textLength(image_alt) > 240) return { error: "Image description must be at most 240 characters." };
+  if (image && !image_alt) return { error: "Describe the image before saving." };
+  return { value: { section, category, title, summary, body, status, image_url: image || null, image_alt: image_alt || null, source_url: source || null } };
 }

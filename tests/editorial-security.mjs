@@ -12,7 +12,7 @@ function load(path, imports = {}) {
     if (name === 'server-only') return {};
     if (Object.hasOwn(imports, name)) return imports[name];
     throw new Error(`Unexpected import: ${name}`);
-  }, FormData, URL, Date });
+  }, FormData, URL, Date, process: { env: { NEXT_PUBLIC_SUPABASE_URL: "https://fixture.supabase.co" } } });
   return loadedModule.exports;
 }
 const model = load('src/lib/editorial.ts');
@@ -41,6 +41,7 @@ let access = { status: 'admin', client };
 const actions = load('src/app/admin/content/actions.ts', {
   '@/lib/auth/admin-access': { getAdminAccess: async () => access },
   '@/lib/editorial': model,
+  '@/lib/media': load('src/lib/media.ts'),
   'next/cache': { revalidatePath() {} },
 });
 for (const status of ['unauthenticated', 'forbidden', 'unavailable']) {
@@ -51,7 +52,7 @@ for (const status of ['unauthenticated', 'forbidden', 'unavailable']) {
 access = { status: 'admin', client };
 calls = [];
 assert.equal((await actions.saveArticle(null, null, form({ published_at: 'forged', status: 'published' }))).ok, true);
-assert.deepEqual(Object.keys(calls.find(c => c[0] === 'insert')[1]).sort(), ['body', 'category', 'image_url', 'section', 'source_url', 'status', 'summary', 'title']);
+assert.deepEqual(Object.keys(calls.find(c => c[0] === 'insert')[1]).sort(), ['body', 'category', 'image_alt', 'image_url', 'section', 'source_url', 'status', 'summary', 'title']);
 calls = [];
 assert.equal((await actions.saveArticle(id, revision, form())).ok, true);
 assert.ok(calls.some(c => c[0] === 'eq' && c[1] === 'id' && c[2] === id));

@@ -7,9 +7,12 @@ import { ReviewForm } from "@/components/review-form";
 import { PublicReviews } from "@/components/public-reviews";
 import { submitReview } from "@/lib/submit-review";
 import type { ReactNode } from "react";
+import { ContentImage } from "@/components/content-image";
+import { DiscoveryCards } from "@/components/discovery-cards";
+import { filterTerm } from "@/lib/discovery";
 
 type Kind = "places" | "experiences";
-type LocalItem = { id: string; name: string; area: string; category: string; description: string; visitor_info: string | null };
+type LocalItem = { id: string; name: string; area: string; category: string; description: string; visitor_info: string | null; image_url: string | null; image_alt: string | null };
 
 export function LocalPageShell({ title, description, children }: { title: string; description: string; children: ReactNode }) {
   return <main className="min-h-screen bg-[#fcfcfa] text-[#18201d]"><SiteHeader />
@@ -22,22 +25,22 @@ export function LocalPageShell({ title, description, children }: { title: string
   </main>;
 }
 
-export async function LocalContentList({ kind }: { kind: Kind }) {
+export async function LocalContentList({ kind, filter }: { kind: Kind; filter?: unknown }) {
   let items: LocalItem[] | null = null;
   try {
     const client = await createClient();
-    const { data, error } = await client.from(kind).select("id,name,area,category,description")
-      .eq("status", "published").order("published_at", { ascending: false });
+    const { data, error } = await client.from(kind).select("id,name,area,category,description,image_url,image_alt")
+      .eq("status", "published").order("published_at", { ascending: false }).limit(100);
     if (!error && data) items = data.map((item) => ({ ...item, visitor_info: null }));
   } catch { /* Show a safe read failure, including when the migration is not applied. */ }
   const title = kind === "places" ? "Places" : "Experiences";
+  const field = kind === "places" ? "area" : "category";
+  const selected = filterTerm(filter);
+  const options = [...new Set((items ?? []).map(item => item[field]))].sort();
+  const visible = selected ? (items ?? []).filter(item => item[field] === selected) : items ?? [];
   return <LocalPageShell title={title} description={kind === "places" ? "Discover local places across Korea. Choose a place to read visitor information and write a review." : "Explore local activities and cultural experiences. Discover what to expect before you visit."}>
-    {items === null ? <p role="alert">We couldn’t load {kind}. Please try again later.</p> : !items.length ? <p>No {kind} have been published yet.</p> : <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{items.map((item) => <Link key={item.id} href={`/local-korea/${kind}/${item.id}`} className="rounded-2xl border border-[#e3e7e2] bg-white p-4 transition hover:shadow-lg">
-      <div aria-hidden="true" className="flex aspect-[2/1] items-end rounded-xl bg-gradient-to-br from-[#dceee4] to-[#ffe1c7] p-5 text-3xl font-semibold text-[#34443b]">{item.name.charAt(0)}</div>
-      <p className="mt-4 text-xs font-medium text-[#557b39]">{item.category} · {item.area}</p>
-      <h2 className="mt-2 break-words text-xl font-semibold">{item.name}</h2>
-      <p className="mt-3 line-clamp-3 break-words text-sm leading-6 text-[#69736c]">{item.description}</p>
-    </Link>)}</div>}
+    <nav aria-label={`Filter by ${field}`} className="mb-8 flex flex-wrap gap-3">{["", ...options].map(option => <Link key={option} href={`/local-korea/${kind}${option ? `?${field}=${encodeURIComponent(option)}` : ""}`} aria-current={selected === option ? "page" : undefined} className={`max-w-full break-words rounded-full border border-[#dce2dc] px-5 py-2 text-sm ${selected === option ? "bg-[#17201d] text-white" : "bg-white"}`}>{option || "All"}</Link>)}</nav>
+    {items === null ? <p role="alert">We couldn’t load {kind}. Please try again later.</p> : !visible.length ? <p>No published {kind} match this filter. Choose All to explore more.</p> : <DiscoveryCards cards={visible.map(item => ({ ...item, title: item.name, summary: item.description, href: `/local-korea/${kind}/${item.id}`, label: `${item.category} · ${item.area}` }))} />}
   </LocalPageShell>;
 }
 
@@ -46,7 +49,7 @@ export async function LocalContentDetail({ kind, id }: { kind: Kind; id: string 
   let item: LocalItem | null = null;
   try {
     const client = await createClient();
-    const { data, error } = await client.from(kind).select("id,name,area,category,description,visitor_info")
+    const { data, error } = await client.from(kind).select("id,name,area,category,description,visitor_info,image_url,image_alt")
       .eq("id", id).eq("status", "published").maybeSingle();
     if (!error && data) item = data;
   } catch { /* Fail closed; do not reveal private or unavailable content. */ }
@@ -68,6 +71,7 @@ export async function LocalContentDetail({ kind, id }: { kind: Kind; id: string 
   return <LocalPageShell title={item.name} description={`${item.category} · ${item.area}`}>
     <div className="mx-auto max-w-4xl">
       <article className="rounded-[2rem] border border-[#e3e7e2] bg-white p-7 sm:p-10">
+        <div className="mb-7"><ContentImage url={item.image_url} alt={item.image_alt} sizes="(max-width: 768px) 100vw, 896px" /></div>
         <p className="whitespace-pre-wrap break-words leading-8 text-[#56625a]">{item.description}</p>
         {item.visitor_info && <section className="mt-8"><h2 className="text-xl font-semibold">Before you visit</h2><p className="mt-3 whitespace-pre-wrap break-words leading-7 text-[#69736c]">{item.visitor_info}</p></section>}
       </article>

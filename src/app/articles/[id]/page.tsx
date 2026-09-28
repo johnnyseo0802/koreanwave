@@ -2,11 +2,12 @@ import { notFound } from "next/navigation";
 import { ArticleBody, EditorialShell } from "@/components/editorial-content";
 import { getPublicArticle } from "@/lib/editorial-data";
 import { sectionLabel, uuidPattern } from "@/lib/editorial";
+import { publicMetadata } from "@/lib/public-metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const article = uuidPattern.test(id) ? await getPublicArticle(id) : null;
-  return article ? { title: article.title, description: article.summary } : { title: "Page unavailable", robots: { index: false } };
+  return article ? publicMetadata(article.title, article.summary, `/articles/${id}`, article.image_url, article.image_alt) : { title: "Page unavailable", robots: { index: false } };
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ id: string }> }) {

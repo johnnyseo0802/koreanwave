@@ -2,13 +2,13 @@ import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { publicArticleFields, type EditorialSection, type PublicArticle, type ArticleCard } from "@/lib/editorial";
 
-export async function listPublicArticles(section: EditorialSection, category?: string): Promise<ArticleCard[] | null> {
+export async function listPublicArticles(section: EditorialSection, category?: string, limit = 60): Promise<ArticleCard[] | null> {
   try {
     const client = await createClient();
-    let query = client.from("editorial_articles").select("id,section,category,title,summary,image_url,published_at")
+    let query = client.from("editorial_articles").select("id,section,category,title,summary,image_url,image_alt,published_at")
       .eq("status", "published").eq("section", section);
     if (category) query = query.eq("category", category);
-    const { data, error } = await query.order("published_at", { ascending: false }).order("id", { ascending: true });
+    const { data, error } = await query.order("published_at", { ascending: false }).order("id", { ascending: true }).limit(limit);
     return error ? null : data as ArticleCard[];
   } catch { return null; }
 }

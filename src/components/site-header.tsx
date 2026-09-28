@@ -12,6 +12,7 @@ const navigation = [
   { label: "K-Trends", href: "/k-trends" },
   { label: "Community", href: "/community" },
   { label: "Events", href: "/events" },
+  { label: "Search", href: "/search" },
 ];
 
 export function SiteHeader() {
@@ -52,7 +53,7 @@ export function SiteHeader() {
         <span className="grid size-8 place-items-center rounded-xl bg-[#17201d] text-sm text-white">K</span>
         Korean Wave <span className="hidden sm:inline">Community</span>
       </Link>
-      <nav aria-label="Main navigation" className="hidden flex-1 items-center justify-center gap-4 text-[13px] font-medium text-[#5b635f] xl:flex xl:gap-7 xl:text-sm">
+      <nav aria-label="Main navigation" className="hidden flex-1 items-center justify-center gap-4 text-[13px] font-medium text-[#5b635f] xl:flex xl:text-sm">
         {navigation.map((item) => <Link className="whitespace-nowrap transition hover:text-[#17201d]" href={item.href} key={item.href}>{item.label}</Link>)}
       </nav>
       <div className="hidden shrink-0 items-center gap-4 xl:flex">

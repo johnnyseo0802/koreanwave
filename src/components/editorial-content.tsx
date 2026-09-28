@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { editorialCategories, safeEditorialUrl, sectionLabel, type EditorialSection, type PublicArticle } from "@/lib/editorial";
 import { listPublicArticles } from "@/lib/editorial-data";
+import { ContentImage } from "@/components/content-image";
 
 export function EditorialShell({ title, eyebrow, children }: { title: string; eyebrow: string; children: ReactNode }) {
   return <main className="min-h-screen bg-[#fcfcfa] text-[#18201d]"><SiteHeader />
@@ -15,11 +16,7 @@ export function EditorialShell({ title, eyebrow, children }: { title: string; ey
 }
 
 export function EditorialImage({ url, title }: { url: string | null; title: string }) {
-  const safe = safeEditorialUrl(url);
-  if (!safe) return <div aria-hidden="true" className="aspect-[16/9] rounded-2xl bg-gradient-to-br from-[#dceee4] via-[#dce8ff] to-[#eadffd]" />;
-  // Direct browser request avoids exposing an arbitrary-URL server image fetcher.
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img src={safe} alt={title} loading="lazy" referrerPolicy="no-referrer" className="aspect-[16/9] w-full rounded-2xl bg-[#f4f7f0] object-cover" />;
+  return <ContentImage url={url} alt={title} />;
 }
 
 export function PublicationDate({ value }: { value: string | null }) {
@@ -32,7 +29,7 @@ export function ArticleBody({ article }: { article: PublicArticle }) {
   return <article className="max-w-4xl">
     <p className="text-sm text-[#69736c]"><PublicationDate value={article.published_at} /></p>
     <p className="mt-5 whitespace-pre-wrap break-words text-xl leading-8 text-[#56625a]">{article.summary}</p>
-    {safeEditorialUrl(article.image_url) && <div className="mt-8"><EditorialImage url={article.image_url} title={article.title} /></div>}
+    <div className="mt-8"><ContentImage url={article.image_url} alt={article.image_alt} sizes="(max-width: 768px) 100vw, 896px" /></div>
     <div className="mt-8 whitespace-pre-wrap break-words rounded-[2rem] border border-[#e3e7e2] bg-white p-7 text-base leading-8 sm:p-10">{article.body}</div>
     {source && <p className="mt-6 text-sm"><a href={source} target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" className="underline">Source / attribution ↗</a></p>}
     <Link href={`/${article.section}/${article.category}`} className="mt-8 inline-block rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white">← Back to {article.category}</Link>
@@ -51,7 +48,7 @@ export async function EditorialListing({ section, category }: { section: Editori
     {articles === null ? <p role="alert" className="rounded-2xl border border-[#e3e7e2] bg-white p-7">We couldn’t load these stories. Please try again later.</p>
       : articles.length === 0 ? <p className="rounded-2xl border border-[#e3e7e2] bg-white p-7">No stories have been published yet. Check back for our next discoveries.</p>
       : <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{articles.map(article => <Link href={`/articles/${article.id}`} key={article.id} className="rounded-2xl border border-[#e3e7e2] bg-white p-3 transition hover:shadow-lg">
-        <EditorialImage url={article.image_url} title={article.title} />
+        <ContentImage url={article.image_url} alt={article.image_alt} />
         <div className="px-2 py-4"><p className="text-xs font-semibold uppercase tracking-wider text-[#557b39]">{article.category}</p><h2 className="mt-2 break-words text-xl font-semibold">{article.title}</h2><p className="mt-3 line-clamp-3 break-words text-sm leading-6 text-[#69736c]">{article.summary}</p><p className="mt-4 text-xs text-[#69736c]"><PublicationDate value={article.published_at} /></p></div>
       </Link>)}</div>}
   </EditorialShell>;

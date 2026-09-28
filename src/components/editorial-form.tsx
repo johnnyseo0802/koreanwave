@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveArticle } from "@/app/admin/content/actions";
+import { MediaInput } from "@/components/media-input";
 import { editorialCategories, sectionLabel, textLength, validateEditorial, type AdminArticle, type EditorialSection } from "@/lib/editorial";
 
 export function EditorialForm({ article }: { article?: AdminArticle }) {
   const router = useRouter();
   const lock = useRef(false);
   const [busy, setBusy] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [section, setSection] = useState<EditorialSection>(article?.section ?? "k-contents");
   const [category, setCategory] = useState(article?.category ?? "music");
   const [body, setBody] = useState(article?.body ?? "");
@@ -19,7 +21,7 @@ export function EditorialForm({ article }: { article?: AdminArticle }) {
   const inputClass = "mt-2 w-full rounded-xl border border-[#dce2dc] bg-white px-4 py-3 font-normal text-[#18201d]";
 
   async function submit(form: FormData) {
-    if (lock.current) return;
+    if (lock.current || uploading) return;
     setFeedback(null);
     const checked = validateEditorial(form);
     if (!checked.value) { setFeedback({ ok: false, message: checked.error ?? "Check your fields." }); return; }
@@ -59,11 +61,11 @@ export function EditorialForm({ article }: { article?: AdminArticle }) {
       <label className="block text-sm font-semibold">Title (2–160 characters)<input name="title" required defaultValue={article?.title} className={inputClass} /></label>
       <label className="block text-sm font-semibold">Summary (10–500 characters)<textarea name="summary" required rows={3} defaultValue={article?.summary} className={inputClass} /></label>
       <label className="block text-sm font-semibold">Body (20–30,000 characters)<textarea name="body" required rows={16} value={body} onChange={e => setBody(e.target.value)} className={inputClass} /><span className="mt-1 block font-normal text-[#69736c]">{textLength(body.trim()).toLocaleString("en")} / 30,000 · Plain text, no HTML</span></label>
-      <label className="block text-sm font-semibold">Image URL (optional)<input name="image_url" type="url" maxLength={2048} defaultValue={article?.image_url ?? ""} placeholder="https://" className={inputClass} /><span className="mt-1 block font-normal text-[#69736c]">Use a public HTTPS image you have permission to publish. Visitors load it directly from that host.</span></label>
+      <MediaInput initialUrl={article?.image_url} initialAlt={article?.image_alt} onBusy={setUploading} />
       <label className="block text-sm font-semibold">Source / attribution URL (optional)<input name="source_url" type="url" maxLength={2048} defaultValue={article?.source_url ?? ""} placeholder="https://" className={inputClass} /></label>
       <div className="flex flex-wrap gap-3">
-        <button disabled={busy} name="status" value="draft" className="rounded-full border border-[#dce2dc] px-5 py-3 text-sm font-semibold">{busy ? "Saving…" : article?.status === "published" ? "Return to draft" : "Save draft"}</button>
-        <button disabled={busy} name="status" value="published" className="rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white">{busy ? "Saving…" : "Publish / save published"}</button>
+        <button disabled={busy || uploading} name="status" value="draft" className="rounded-full border border-[#dce2dc] px-5 py-3 text-sm font-semibold disabled:opacity-50">{busy ? "Saving…" : article?.status === "published" ? "Return to draft" : "Save draft"}</button>
+        <button disabled={busy || uploading} name="status" value="published" className="rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">{busy ? "Saving…" : "Publish / save published"}</button>
       </div>
     </fieldset>
     {feedback && <p role={feedback.ok ? "status" : "alert"} className={`mt-6 rounded-xl p-4 text-sm ${feedback.ok ? "bg-[#eef5e7]" : "bg-[#fff0ea]"}`}>{feedback.message}</p>}

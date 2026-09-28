@@ -1,5 +1,7 @@
 // Isolated anonymous browser QA. Never submits forms or uses an existing profile.
 // Supply PLAYWRIGHT_MODULE_PATH only if Playwright is provided outside this repo.
+// Next's background RSC prefetch can stay open on filter links. Assert rendered UI
+// after document load, not networkidle; background requests are not page readiness.
 import assert from 'node:assert/strict';
 import { mkdir } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
@@ -18,7 +20,7 @@ try {
   for (const [name, width] of [['mobile', 375], ['tablet', 768], ['desktop', 1440]]) {
     await page.setViewportSize({ width, height: 900 });
     for (const path of publicPaths) {
-      const response = await page.goto(base + path, { waitUntil: 'networkidle' });
+      const response = await page.goto(base + path, { waitUntil: 'load' });
       assert.equal(response.status(), 200, `${path}: expected HTTP 200`);
       assert.equal(await page.locator('h1').count(), 1, `${path}: one h1`);
       assert.ok((await page.title()).includes('Korean Wave Community'), `${path}: title`);
@@ -39,7 +41,7 @@ try {
           await page.waitForURL('**/community');
           assert.ok(new URL(page.url()).pathname === '/community');
           assert.equal(await page.locator('#mobile-navigation').isVisible(), false);
-          await page.goto(base, { waitUntil: 'networkidle' });
+          await page.goto(base, { waitUntil: 'load' });
         }
         await page.screenshot({ path: `.next/site-qa/${name}.png`, fullPage: true });
       }
@@ -47,23 +49,24 @@ try {
     console.log(`PASS: ${name} ${width}px — ${publicPaths.length} pages, overflow, heading, metadata, menu checks`);
   }
   for (const path of ['/account', '/account/events', '/write', '/write/question', '/admin/questions', '/admin/answers', '/admin/reviews', '/admin/event-applications', '/admin/content', '/admin/content/new', '/admin/content/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', '/admin/content/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa/preview']) {
-    await page.goto(base + path, { waitUntil: 'networkidle' });
+    await page.goto(base + path, { waitUntil: 'load' });
+    await page.waitForURL(url => url.pathname === '/login', { waitUntil: 'load' });
     assert.equal(new URL(page.url()).pathname, '/login');
     assert.equal(new URL(page.url()).searchParams.get('next'), path);
   }
   // Invalid IDs share the public not-found screen; no private identifiers needed.
   for (const path of ['/articles/not-an-id', '/event/not-an-id', '/community/questions/not-an-id', '/local-korea/places/not-an-id', '/local-korea/experiences/not-an-id', '/missing-page']) {
-    await page.goto(base + path, { waitUntil: 'networkidle' });
+    await page.goto(base + path, { waitUntil: 'load' });
     assert.equal(await page.getByRole('heading', { name: 'This page isn’t available.' }).count(), 1);
   }
   // Follow only IDs already disclosed by public listing links. Never guess private rows.
   for (const [listing, prefix] of [['/events', '/event/'], ['/community/questions', '/community/questions/'], ['/local-korea/places', '/local-korea/places/'], ['/local-korea/experiences', '/local-korea/experiences/'], ['/k-contents', '/articles/'], ['/k-trends', '/articles/']]) {
-    await page.goto(base + listing, { waitUntil: 'networkidle' });
+    await page.goto(base + listing, { waitUntil: 'load' });
     const href = await page.locator(`a[href^="${prefix}"]`).first().getAttribute('href').catch(() => null);
     if (!href) { console.log(`SKIP: ${listing} detail — no public item available`); continue; }
     for (const width of [375, 768, 1440]) {
       await page.setViewportSize({ width, height: 900 });
-      await page.goto(base + href, { waitUntil: 'networkidle' });
+      await page.goto(base + href, { waitUntil: 'load' });
       assert.equal(await page.locator('h1').count(), 1);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false);
     }

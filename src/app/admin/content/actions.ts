@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getAdminAccess } from "@/lib/auth/admin-access";
 import { uuidPattern, validateEditorial } from "@/lib/editorial";
+import { safeMediaUrl } from "@/lib/media";
 
 export async function saveArticle(id: unknown, revision: unknown, form: FormData): Promise<{ ok: boolean; message: string; id?: string; revision?: string }> {
   const access = await getAdminAccess();
@@ -14,8 +15,9 @@ export async function saveArticle(id: unknown, revision: unknown, form: FormData
   if (!validated.value) return { ok: false, message: validated.error ?? "Check the article fields." };
   // Explicit whitelist from validation. Never accept identity, timestamps, table names,
   // role claims or extra form fields. RLS independently rechecks the current admin.
-  const { section, category, title, summary, body, image_url, source_url, status } = validated.value;
-  const payload = { section, category, title, summary, body, image_url, source_url, status };
+  const { section, category, title, summary, body, image_url, image_alt, source_url, status } = validated.value;
+  if (image_url && !safeMediaUrl(image_url)) return { ok: false, message: "Upload a site-media image or remove the old external image before saving." };
+  const payload = { section, category, title, summary, body, image_url, image_alt, source_url, status };
   try {
     const query = id === null
       ? access.client.from("editorial_articles").insert(payload)

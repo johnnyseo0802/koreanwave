@@ -6,15 +6,17 @@ import { applyToEvent } from "@/lib/apply-to-event";
 import { EventShell } from "@/components/event-shell";
 import { EventApplicationForm } from "@/components/event-application-form";
 import { eventRequestTime } from "@/lib/event-request-time";
+import { ContentImage } from "@/components/content-image";
+import { publicMetadata } from "@/lib/public-metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
     try {
       const client = await createClient();
-      const { data, error } = await client.from("events").select("title,description")
+      const { data, error } = await client.from("events").select("title,description,image_url,image_alt")
         .eq("id", id).eq("status", "published").maybeSingle();
-      if (!error && data) return { title: data.title, description: data.description.slice(0, 160) };
+      if (!error && data) return publicMetadata(data.title, data.description, `/event/${id}`, data.image_url, data.image_alt);
     } catch { /* Only public content can appear in metadata. */ }
   }
   return { title: "Page unavailable", robots: { index: false } };
@@ -53,6 +55,7 @@ export default async function EventPage({ params }: { params: Promise<{ id: stri
     <p className="text-sm text-[#557b39]">{event.category} · {event.public_area}</p>
     <p className="mt-3 font-semibold">{eventDate(event.starts_at)}</p>
     <article className="mt-6 rounded-[2rem] border border-[#e3e7e2] bg-white p-7 sm:p-10">
+      <div className="mb-7"><ContentImage url={event.image_url} alt={event.image_alt} sizes="(max-width: 768px) 100vw, 896px" /></div>
       <p className="whitespace-pre-wrap break-words leading-8 text-[#56625a]">{event.description}</p>
       {event.participation_info && <section className="mt-6"><h2 className="text-xl font-semibold">Before you join</h2><p className="mt-3 whitespace-pre-wrap break-words leading-7">{event.participation_info}</p></section>}
       {event.cancellation_policy && <section className="mt-6"><h2 className="text-xl font-semibold">Cancellation information</h2><p className="mt-3 whitespace-pre-wrap break-words leading-7">{event.cancellation_policy}</p></section>}

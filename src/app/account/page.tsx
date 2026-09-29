@@ -32,11 +32,12 @@ export default async function AccountPage() {
         {profile ? <ProfileForm initialProfile={profile} /> : <p role="alert" className="mt-10 rounded-2xl border border-[#e3e7e2] bg-white p-7 text-sm">We couldn’t load your profile. Please refresh the page or try again later.</p>}
         <nav aria-label="Account shortcuts" className="mt-10 grid gap-4 sm:grid-cols-2">{[
           ["My Events", "Check your applications and approved meeting details.", "/account/events"],
+          ["My Contributions", "Check your submissions and publication status.", "/account/contributions"],
           ["Ask a Local", "Read published questions and share a helpful answer.", "/community/questions"],
           ["Write & contribute", "Submit a question or choose a place to review.", "/write"],
           ["Profile", "Update the private profile information on this page.", "#profile"],
         ].map(([title, description, href]) => <Link key={href} href={href} className="rounded-2xl border border-[#e3e7e2] bg-white p-7"><h2 className="text-xl font-semibold">{title} →</h2><p className="mt-3 text-sm leading-6 text-[#626c66]">{description}</p></Link>)}</nav>
-        <p className="mt-6 text-sm leading-6 text-[#626c66]">Questions, answers, and reviews appear publicly after approval. A personal community submissions list is not available yet.</p>
+        <p className="mt-6 text-sm leading-6 text-[#626c66]">Contributions appear publicly after approval. View your submission history in My Contributions.</p>
       </section>
       <SiteFooter />
     </main>

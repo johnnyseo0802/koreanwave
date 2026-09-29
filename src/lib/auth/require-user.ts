@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 /** Call before rendering protected content; never trust client UI state. */
-export async function requireUser(path: "/account" | "/account/events" | "/write" | "/write/question") {
+export async function requireUser(path: "/account" | "/account/events" | "/account/contributions" | "/write" | "/write/question" | "/write/moment" | "/write/story" | "/write/tip") {
   let user = null;
   try {
     const client = await createClient();

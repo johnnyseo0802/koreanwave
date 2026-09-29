@@ -11,6 +11,7 @@ const navigation = [
   { label: "Local Korea", href: "/local-korea" },
   { label: "K-Trends", href: "/k-trends" },
   { label: "Community", href: "/community" },
+  { label: "Share", href: "/write" },
   { label: "Events", href: "/events" },
   { label: "Search", href: "/search" },
 ];

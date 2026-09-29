@@ -20,7 +20,7 @@ export const informationPages = {
     title: "Frequently asked questions", intro: "A short guide to using the community.",
     sections: [
       ["Do I need an account?", "You can read published content without logging in. Sign in to contribute, apply to events, or manage your private profile."],
-      ["Why is my contribution not visible?", "New questions, answers, and reviews are pending until an administrator approves them. Submission does not guarantee publication or a review time. A personal submissions list is not available yet."],
+      ["Why is my contribution not visible?", "New Moments, Stories, Tips, questions, answers, and reviews are pending until an administrator approves them. Submission does not guarantee publication or a review time. Check My Account → My Contributions for your status."],
       ["Where are my event details?", "Open My Account → My Events to see your application status. Exact meeting instructions become available there only after approval and while the event remains published."],
       ["How do I confirm my email?", "After signing up, open the confirmation link in your email. If the link fails or has expired, return to the login page and review the confirmation guidance. Password recovery and social login are not available in this MVP."],
       ["Can I cancel or pay on the site?", "There are no payments or self-service cancellations. Read the event-specific participation and cancellation information before applying."],
@@ -30,7 +30,7 @@ export const informationPages = {
     title: "Contact", intro: "Support availability for the early Korean Wave Community MVP.",
     sections: [
       ["Support channel not yet published", "A verified operator contact address has not been configured. This page does not accept messages and no response time is promised. A working contact channel must be published before the public launch."],
-      ["Account and privacy requests", "Account deletion, data requests, and abuse reports do not yet have a self-service workflow. The operator must provide a contact and handling process before general public use. Do not post private account details in Ask a Local."],
+      ["Account and privacy requests", "Signed-in members can report approved Moments, Stories and Tips from their detail pages. Account deletion, data requests, and other abuse concerns still require an operator contact and handling process before general public use. Do not post private account details in Ask a Local."],
       ["Event questions", "Use only organizer contact instructions actually provided for your event. Do not assume a contact form, cancellation tool, or organizer message system exists."],
     ],
   },

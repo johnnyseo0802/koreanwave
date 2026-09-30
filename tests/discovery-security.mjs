@@ -4,9 +4,10 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import ts from 'typescript';
 import { randomUUID } from 'node:crypto';
+import sharp from 'sharp';
 const read = p => fs.readFileSync(p, 'utf8');
 function load(path, imports = {}) {
-  const context = { exports: {}, process: { env: { NEXT_PUBLIC_SUPABASE_URL: 'https://fixture.supabase.co' } }, URL, FormData, File, Uint8Array, crypto: { randomUUID }, require: n => n === 'server-only' ? {} : imports[n] };
+  const context = { exports: {}, Buffer, process: { env: { NEXT_PUBLIC_SUPABASE_URL: 'https://fixture.supabase.co' } }, URL, FormData, File, Uint8Array, crypto: { randomUUID }, require: n => n === 'server-only' ? {} : imports[n] };
   vm.runInNewContext(ts.transpileModule(read(path), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText, context);
   return context.exports;
 }
@@ -29,9 +30,9 @@ const chain = new Proxy({}, { get: (_, name) => name === 'then' ? resolve => Pro
 const client = { from: table => { calls.push(['from', table]); return chain; } };
 const data = load('src/lib/discovery-data.ts', { '@/lib/discovery': discovery, '@/lib/editorial': model, '@/lib/supabase/server': { createClient: async () => client } });
 await data.searchPublicContent('Seoul');
-assert.deepEqual(calls.filter(c=>c[0]==='from').map(c=>c[1]).sort(), ['editorial_articles','experiences','places']);
-assert.equal(calls.filter(c=>c[0]==='eq' && c[1]==='status' && c[2]==='published').length, 3);
-assert.equal(calls.filter(c=>c[0]==='limit' && c[1]===20).length, 3);
+assert.deepEqual(calls.filter(c=>c[0]==='from').map(c=>c[1]).sort(), ['content_clusters','editorial_articles','experiences','places']);
+assert.equal(calls.filter(c=>c[0]==='eq' && c[1]==='status' && c[2]==='published').length, 4);
+assert.equal(calls.filter(c=>c[0]==='limit' && c[1]===20).length, 4);
 for (const c of calls.filter(c=>c[0]==='select')) assert.doesNotMatch(c[1], /\*|author|member|meeting|profile/);
 calls=[]; await data.searchPublicContent(''); assert.equal(calls.length,0);
 result={data:null,error:{message:'PRIVATE_ERROR'}};
@@ -55,8 +56,9 @@ form.set('description','short'); assert.ok(managed.validateManaged('places',form
 
 let uploads=0;
 const storage={from:bucket=>{assert.equal(bucket,'site-media');return {upload:async(path,_file,options)=>{uploads++;assert.match(path,media.mediaPathPattern);assert.equal(options.upsert,false);assert.ok(!path.includes('private'));return {error:null};},getPublicUrl:()=>({data:{publicUrl:image}})};}};
-const upload=load('src/app/admin/media/upload/route.ts',{'@/lib/auth/admin-access':{getAdminAccess:async()=>access},'@/lib/media':media,'next/server':{NextResponse:{json:(body,init)=>({body,...init})}}});
-const uploadForm=new FormData();uploadForm.set('file',png);
+const sanitizer = load('src/lib/community-image.ts', {'sharp': {default:sharp}, '@/lib/media':media});
+const upload=load('src/app/admin/media/upload/route.ts',{'@/lib/auth/admin-access':{getAdminAccess:async()=>access},'@/lib/media':media,'@/lib/community-image':sanitizer,'next/server':{NextResponse:{json:(body,init)=>({body,...init})}}});
+const uploadForm=new FormData();uploadForm.set('file',new File([await sharp({create:{width:8,height:8,channels:3,background:'green'}}).png().toBuffer()],'fixture.png',{type:'image/png'}));
 const req={url:'http://localhost/admin/media/upload',headers:new Headers({origin:'http://localhost','content-length':'1024'}),formData:async()=>uploadForm};
 access={status:'forbidden'};assert.equal((await upload.POST(req)).status,403);assert.equal(uploads,0);
 access={status:'admin',client:{storage}};assert.equal((await upload.POST(req)).status,201);assert.equal(uploads,1);

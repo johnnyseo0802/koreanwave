@@ -3,8 +3,8 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MediaInput } from "@/components/media-input";
 import { managedFields, validateManaged, type ManagedKind, type ManagedRecord } from "@/lib/managed-content";
-import { saveManaged } from "@/app/admin/local-content/actions";
-export function ManagedContentForm({ kind, item }: { kind: ManagedKind; item: ManagedRecord }) {
+import { saveManaged, createManaged } from "@/app/admin/local-content/actions";
+export function ManagedContentForm({ kind, item, create = false }: { kind: ManagedKind; item: ManagedRecord; create?: boolean }) {
   const [busy, setBusy] = useState(false), [uploading, setUploading] = useState(false);
   const [revision, setRevision] = useState(item.updated_at);
   const [feedback, setFeedback] = useState<{ ok: boolean; message: string } | null>(null);
@@ -15,7 +15,7 @@ export function ManagedContentForm({ kind, item }: { kind: ManagedKind; item: Ma
     const checked = validateManaged(kind, form);
     if (!checked.value) { setFeedback({ ok: false, message: checked.error ?? "Check your fields." }); return; }
     lock.current = true; setBusy(true);
-    try { const result = await saveManaged(kind, item.id, revision, form); setFeedback(result); if (result.ok && result.revision) { setRevision(result.revision); router.refresh(); } }
+    try { const result = create ? await createManaged(kind, form) : await saveManaged(kind, item.id, revision, form); setFeedback(result); if (result.ok && result.revision) { setRevision(result.revision); if (create && "id" in result) router.replace(`/admin/local-content/${kind}/${result.id}`); router.refresh(); } }
     catch { setFeedback({ ok: false, message: "Could not confirm the save. Reload to check." }); }
     finally { lock.current = false; setBusy(false); }
   }}>

@@ -1,0 +1,1490 @@
+{
+  "version": 1,
+  "mode": "planning-only-no-import",
+  "inventory_snapshot": "2026-09-29 public read-only inventory; private drafts not enumerated",
+  "classification_rules": "origin is EXISTING/EXISTING_DRAFT/NEW; verification/image flags are independent. READY_TO_PUBLISH may be added only after human fact/rights/preview approval.",
+  "clusters": [
+    {
+      "slug": "seongsu",
+      "title": "Seongsu",
+      "priority": 1,
+      "status": "BRIEF",
+      "launch_ready": false
+    },
+    {
+      "slug": "hongdae-yeonnam",
+      "title": "Hongdae / Yeonnam",
+      "priority": 2,
+      "status": "BRIEF",
+      "launch_ready": false
+    },
+    {
+      "slug": "mangwon",
+      "title": "Mangwon",
+      "priority": 1,
+      "status": "BRIEF",
+      "launch_ready": false
+    },
+    {
+      "slug": "ikseon-dong",
+      "title": "Ikseon-dong",
+      "priority": 2,
+      "status": "BRIEF",
+      "launch_ready": false
+    },
+    {
+      "slug": "seochon",
+      "title": "Seochon",
+      "priority": 2,
+      "status": "BRIEF",
+      "launch_ready": false
+    },
+    {
+      "slug": "han-river",
+      "title": "Han River",
+      "priority": 2,
+      "status": "BRIEF",
+      "launch_ready": false
+    },
+    {
+      "slug": "korean-cafe-culture",
+      "title": "Korean Café Culture",
+      "priority": 2,
+      "status": "BRIEF",
+      "launch_ready": false
+    },
+    {
+      "slug": "everyday-food",
+      "title": "Convenience Store & Everyday Food Culture",
+      "priority": 2,
+      "status": "BRIEF",
+      "launch_ready": false
+    },
+    {
+      "slug": "traditional-markets",
+      "title": "Traditional Markets & K-Food",
+      "priority": 2,
+      "status": "BRIEF",
+      "launch_ready": false
+    },
+    {
+      "slug": "first-trip",
+      "title": "First Trip to Korea",
+      "priority": 1,
+      "status": "BRIEF",
+      "launch_ready": false
+    }
+  ],
+  "assets": [
+    {
+      "id": "article-01",
+      "type": "article",
+      "title": "Why K-Pop Fans Explore Seoul Beyond Concert Venues",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "hongdae-yeonnam",
+        "first-trip"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-01",
+      "has_image": true,
+      "match_by": "Exact title; verify existing UUID through admin before editing"
+    },
+    {
+      "id": "article-02",
+      "type": "article",
+      "title": "A Considerate Live Music Visit",
+      "origin": "EXISTING_DRAFT",
+      "classification": [
+        "EXISTING_DRAFT",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "hongdae-yeonnam"
+      ],
+      "lifecycle": "Draft",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-02",
+      "category": "music",
+      "draft_source": "docs/content/sprint-6-editorial-drafts.json",
+      "draft_title": "A Considerate Live Music Visit"
+    },
+    {
+      "id": "article-03",
+      "type": "article",
+      "title": "From Screen Setting to Respectful Visit",
+      "origin": "EXISTING_DRAFT",
+      "classification": [
+        "EXISTING_DRAFT",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "ikseon-dong",
+        "seochon"
+      ],
+      "lifecycle": "Draft",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-03",
+      "category": "dramas",
+      "draft_source": "docs/content/sprint-6-editorial-drafts.json",
+      "draft_title": "From Screen Setting to Respectful Visit"
+    },
+    {
+      "id": "article-04",
+      "type": "article",
+      "title": "Plan a Cinema Visit Abroad",
+      "origin": "EXISTING_DRAFT",
+      "classification": [
+        "EXISTING_DRAFT",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "first-trip"
+      ],
+      "lifecycle": "Draft",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-04",
+      "category": "movies",
+      "draft_source": "docs/content/sprint-6-editorial-drafts.json",
+      "draft_title": "Plan a Cinema Visit Abroad"
+    },
+    {
+      "id": "article-05",
+      "type": "article",
+      "title": "Read Beauty Packaging With Curiosity",
+      "origin": "EXISTING_DRAFT",
+      "classification": [
+        "EXISTING_DRAFT",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "first-trip"
+      ],
+      "lifecycle": "Draft",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-05",
+      "category": "beauty",
+      "draft_source": "docs/content/sprint-6-editorial-drafts.json",
+      "draft_title": "Read Beauty Packaging With Curiosity"
+    },
+    {
+      "id": "article-06",
+      "type": "article",
+      "title": "Make a Small Beauty Shopping Plan",
+      "origin": "EXISTING_DRAFT",
+      "classification": [
+        "EXISTING_DRAFT",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seongsu",
+        "first-trip"
+      ],
+      "lifecycle": "Draft",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-06",
+      "category": "beauty",
+      "draft_source": "docs/content/sprint-6-editorial-drafts.json",
+      "draft_title": "Make a Small Beauty Shopping Plan"
+    },
+    {
+      "id": "article-07",
+      "type": "article",
+      "title": "Notice Street Style Without Intruding",
+      "origin": "EXISTING_DRAFT",
+      "classification": [
+        "EXISTING_DRAFT",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "hongdae-yeonnam"
+      ],
+      "lifecycle": "Draft",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-07",
+      "category": "fashion",
+      "draft_source": "docs/content/sprint-6-editorial-drafts.json",
+      "draft_title": "Notice Street Style Without Intruding"
+    },
+    {
+      "id": "article-08",
+      "type": "article",
+      "title": "Browse Independent Shops Considerately",
+      "origin": "EXISTING_DRAFT",
+      "classification": [
+        "EXISTING_DRAFT",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seongsu"
+      ],
+      "lifecycle": "Draft",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-08",
+      "category": "fashion",
+      "draft_source": "docs/content/sprint-6-editorial-drafts.json",
+      "draft_title": "Browse Independent Shops Considerately"
+    },
+    {
+      "id": "article-09",
+      "type": "article",
+      "title": "Build a Flexible Travel Wardrobe",
+      "origin": "EXISTING_DRAFT",
+      "classification": [
+        "EXISTING_DRAFT",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "first-trip"
+      ],
+      "lifecycle": "Draft",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-09",
+      "category": "fashion",
+      "draft_source": "docs/content/sprint-6-editorial-drafts.json",
+      "draft_title": "Build a Flexible Travel Wardrobe"
+    },
+    {
+      "id": "article-10",
+      "type": "article",
+      "title": "Ask Better Questions Before Ordering",
+      "origin": "EXISTING_DRAFT",
+      "classification": [
+        "EXISTING_DRAFT",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "everyday-food",
+        "traditional-markets"
+      ],
+      "lifecycle": "Draft",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-10",
+      "category": "food",
+      "draft_source": "docs/content/sprint-6-editorial-drafts.json",
+      "draft_title": "Ask Better Questions Before Ordering"
+    },
+    {
+      "id": "article-11",
+      "type": "article",
+      "title": "Explore a Market at a Comfortable Pace",
+      "origin": "EXISTING_DRAFT",
+      "classification": [
+        "EXISTING_DRAFT",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "mangwon",
+        "traditional-markets"
+      ],
+      "lifecycle": "Draft",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-11",
+      "category": "food",
+      "draft_source": "docs/content/sprint-6-editorial-drafts.json",
+      "draft_title": "Explore a Market at a Comfortable Pace"
+    },
+    {
+      "id": "article-12",
+      "type": "article",
+      "title": "A Thoughtful Café Afternoon in Seongsu",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seongsu",
+        "korean-cafe-culture"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-12",
+      "category": "food"
+    },
+    {
+      "id": "article-13",
+      "type": "article",
+      "title": "A Slower Café Visit in Yeonnam",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "hongdae-yeonnam",
+        "korean-cafe-culture"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-13",
+      "category": "food"
+    },
+    {
+      "id": "article-14",
+      "type": "article",
+      "title": "Visiting Ikseon-dong Cafés Considerately",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "ikseon-dong",
+        "korean-cafe-culture"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-14",
+      "category": "food"
+    },
+    {
+      "id": "article-15",
+      "type": "article",
+      "title": "From Drama Atmosphere to a Respectful Seochon Visit",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seochon"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-15",
+      "category": "dramas"
+    },
+    {
+      "id": "article-16",
+      "type": "article",
+      "title": "Food and Shared Space at a Han River Picnic",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "han-river"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-16",
+      "category": "food"
+    },
+    {
+      "id": "article-17",
+      "type": "article",
+      "title": "Your First Korean Convenience Store Food Stop",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "everyday-food",
+        "first-trip"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-17",
+      "category": "food"
+    },
+    {
+      "id": "article-18",
+      "type": "article",
+      "title": "Choosing a Traditional Market Food Visit",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "traditional-markets",
+        "mangwon"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "article-18",
+      "category": "food"
+    },
+    {
+      "id": "place-01",
+      "type": "place",
+      "title": "Seongsu",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seongsu"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-01"
+    },
+    {
+      "id": "place-02",
+      "type": "place",
+      "title": "Ikseon-dong",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "ikseon-dong"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-02"
+    },
+    {
+      "id": "place-03",
+      "type": "place",
+      "title": "Seochon",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seochon"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-03"
+    },
+    {
+      "id": "place-04",
+      "type": "place",
+      "title": "Mangwon Market",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "mangwon",
+        "traditional-markets"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-04"
+    },
+    {
+      "id": "place-05",
+      "type": "place",
+      "title": "Yeonnam-dong",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "hongdae-yeonnam"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-05"
+    },
+    {
+      "id": "place-06",
+      "type": "place",
+      "title": "Euljiro",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "first-trip"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-06"
+    },
+    {
+      "id": "place-07",
+      "type": "place",
+      "title": "Hongdae neighborhood",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "hongdae-yeonnam"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-07",
+      "candidate_only": true
+    },
+    {
+      "id": "place-08",
+      "type": "place",
+      "title": "Gyeongui Line Forest Park",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "hongdae-yeonnam"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-08",
+      "candidate_only": true
+    },
+    {
+      "id": "place-09",
+      "type": "place",
+      "title": "Seoul Forest",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seongsu"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-09",
+      "candidate_only": true
+    },
+    {
+      "id": "place-10",
+      "type": "place",
+      "title": "Yeouido riverside park candidate",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "han-river"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-10",
+      "candidate_only": true
+    },
+    {
+      "id": "place-11",
+      "type": "place",
+      "title": "Gwangjang Market",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "traditional-markets"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-11",
+      "candidate_only": true
+    },
+    {
+      "id": "place-12",
+      "type": "place",
+      "title": "Tongin Market",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seochon",
+        "traditional-markets"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-12",
+      "candidate_only": true
+    },
+    {
+      "id": "place-13",
+      "type": "place",
+      "title": "Seongsu café — venue to be verified",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seongsu",
+        "korean-cafe-culture"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-13",
+      "candidate_only": true
+    },
+    {
+      "id": "place-14",
+      "type": "place",
+      "title": "Ikseon-dong café — venue to be verified",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "ikseon-dong",
+        "korean-cafe-culture"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-14",
+      "candidate_only": true
+    },
+    {
+      "id": "place-15",
+      "type": "place",
+      "title": "Convenience store branch A — to be verified",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "everyday-food",
+        "first-trip"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-15",
+      "candidate_only": true
+    },
+    {
+      "id": "place-16",
+      "type": "place",
+      "title": "Convenience store branch B — to be verified",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "everyday-food"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "place-16",
+      "candidate_only": true
+    },
+    {
+      "id": "experience-01",
+      "type": "experience",
+      "title": "Traditional Market Food Walk",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "mangwon",
+        "traditional-markets"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "experience-01"
+    },
+    {
+      "id": "experience-02",
+      "type": "experience",
+      "title": "Han River Picnic",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "han-river"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "experience-02"
+    },
+    {
+      "id": "experience-03",
+      "type": "experience",
+      "title": "Seongsu Café & Pop-up Exploration",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seongsu",
+        "korean-cafe-culture"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "experience-03"
+    },
+    {
+      "id": "experience-04",
+      "type": "experience",
+      "title": "Old Seoul Neighborhood Walk",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seochon",
+        "ikseon-dong"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "experience-04"
+    },
+    {
+      "id": "experience-05",
+      "type": "experience",
+      "title": "Hongdae and Yeonnam Observation Walk",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "hongdae-yeonnam"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "experience-05",
+      "format": "Self-guided editorial idea, not a booked tour or operator promise"
+    },
+    {
+      "id": "experience-06",
+      "type": "experience",
+      "title": "Your First Café Visit",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "korean-cafe-culture"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "experience-06",
+      "format": "Self-guided editorial idea, not a booked tour or operator promise"
+    },
+    {
+      "id": "experience-07",
+      "type": "experience",
+      "title": "Everyday Food Discovery",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "everyday-food"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "experience-07",
+      "format": "Self-guided editorial idea, not a booked tour or operator promise"
+    },
+    {
+      "id": "experience-08",
+      "type": "experience",
+      "title": "A Calm First-day Neighborhood Walk",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "first-trip"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "experience-08",
+      "format": "Self-guided editorial idea, not a booked tour or operator promise"
+    },
+    {
+      "id": "ask_idea-01",
+      "type": "ask_idea",
+      "title": "What are some hidden places to visit in Seoul?",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "first-trip"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-01",
+      "format": "Existing approved question; operator must confirm genuine launch use, otherwise replace with editorial prompt"
+    },
+    {
+      "id": "ask_idea-02",
+      "type": "ask_idea",
+      "title": "What should I check before visiting a pop-up?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "seongsu"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-02",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-03",
+      "type": "ask_idea",
+      "title": "How can I plan a considerate Seongsu visit?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "seongsu"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-03",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-04",
+      "type": "ask_idea",
+      "title": "How do I check venue entry and recording rules?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "hongdae-yeonnam"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-04",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-05",
+      "type": "ask_idea",
+      "title": "What helps when planning a neighborhood walk?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "hongdae-yeonnam"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-05",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-06",
+      "type": "ask_idea",
+      "title": "What should I ask before ordering at a market stall?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "mangwon"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-06",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-07",
+      "type": "ask_idea",
+      "title": "How can I avoid obstructing busy market paths?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "mangwon"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-07",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-08",
+      "type": "ask_idea",
+      "title": "What should I check before taking café photos?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "ikseon-dong"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-08",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-09",
+      "type": "ask_idea",
+      "title": "How can visitors explore residential lanes considerately?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "seochon"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-09",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-10",
+      "type": "ask_idea",
+      "title": "What should I check before planning a riverside picnic?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "han-river"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-10",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-11",
+      "type": "ask_idea",
+      "title": "How can I prepare to leave a picnic spot clean?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "han-river"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-11",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-12",
+      "type": "ask_idea",
+      "title": "What should I check before settling into a café?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "korean-cafe-culture"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-12",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-13",
+      "type": "ask_idea",
+      "title": "How can I ask about a café’s ordering process?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "korean-cafe-culture"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-13",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-14",
+      "type": "ask_idea",
+      "title": "Where can I check ingredients and preparation instructions?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "everyday-food"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-14",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-15",
+      "type": "ask_idea",
+      "title": "How can I check whether in-store eating is allowed?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "everyday-food"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-15",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-16",
+      "type": "ask_idea",
+      "title": "What would help me choose a market visit?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "traditional-markets"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-16",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-17",
+      "type": "ask_idea",
+      "title": "How can I compare market visits without rushing?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "traditional-markets"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-17",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "ask_idea-18",
+      "type": "ask_idea",
+      "title": "What would make my first day easier?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "first-trip"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "ask_idea-18",
+      "format": "Editorial prompt only; never seed as member question"
+    },
+    {
+      "id": "participation_prompt-01",
+      "type": "participation_prompt",
+      "title": "Share one detail you noticed in Seongsu.",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "seongsu"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "participation_prompt-01",
+      "kind": "moment"
+    },
+    {
+      "id": "participation_prompt-02",
+      "type": "participation_prompt",
+      "title": "Tell us what your music interest led you to notice.",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "hongdae-yeonnam"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "participation_prompt-02",
+      "kind": "story"
+    },
+    {
+      "id": "participation_prompt-03",
+      "type": "participation_prompt",
+      "title": "Share one useful lesson from a genuine market visit.",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "mangwon"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "participation_prompt-03",
+      "kind": "tip"
+    },
+    {
+      "id": "participation_prompt-04",
+      "type": "participation_prompt",
+      "title": "Share a photo detail you had permission to capture.",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "ikseon-dong"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "participation_prompt-04",
+      "kind": "moment"
+    },
+    {
+      "id": "participation_prompt-05",
+      "type": "participation_prompt",
+      "title": "Describe an everyday observation from your walk.",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "seochon"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "participation_prompt-05",
+      "kind": "story"
+    },
+    {
+      "id": "participation_prompt-06",
+      "type": "participation_prompt",
+      "title": "Share a real riverside moment without private details.",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "han-river"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "participation_prompt-06",
+      "kind": "moment"
+    },
+    {
+      "id": "participation_prompt-07",
+      "type": "participation_prompt",
+      "title": "What made a café visit comfortable for you?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "korean-cafe-culture"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "participation_prompt-07",
+      "kind": "story"
+    },
+    {
+      "id": "participation_prompt-08",
+      "type": "participation_prompt",
+      "title": "Share an ordering question that helped you.",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "everyday-food"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "participation_prompt-08",
+      "kind": "tip"
+    },
+    {
+      "id": "participation_prompt-09",
+      "type": "participation_prompt",
+      "title": "Share one considerate market visiting habit.",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "traditional-markets"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "participation_prompt-09",
+      "kind": "tip"
+    },
+    {
+      "id": "participation_prompt-10",
+      "type": "participation_prompt",
+      "title": "What do you wish you had known on your first day?",
+      "origin": "NEW",
+      "classification": [
+        "NEW",
+        "NEEDS_VERIFICATION"
+      ],
+      "clusters": [
+        "first-trip"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "participation_prompt-10",
+      "kind": "story"
+    },
+    {
+      "id": "event-01",
+      "type": "event",
+      "title": "Seongsu Social Walk",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seongsu"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "event-01",
+      "source": "supabase/seeds/initial_events.sql",
+      "warning": "Do not rerun seed. Organizer reconfirmation required; no private meeting details in manifest."
+    },
+    {
+      "id": "event-02",
+      "type": "event",
+      "title": "Han River Evening Picnic",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "han-river"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "event-02",
+      "source": "supabase/seeds/initial_events.sql",
+      "warning": "Do not rerun seed. Organizer reconfirmation required; no private meeting details in manifest."
+    },
+    {
+      "id": "event-03",
+      "type": "event",
+      "title": "Mangwon Market Food Meetup",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "mangwon"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "event-03",
+      "source": "supabase/seeds/initial_events.sql",
+      "warning": "Do not rerun seed. Organizer reconfirmation required; no private meeting details in manifest."
+    },
+    {
+      "id": "event-04",
+      "type": "event",
+      "title": "Seochon Culture Walk",
+      "origin": "EXISTING",
+      "classification": [
+        "EXISTING",
+        "NEEDS_VERIFICATION",
+        "NEEDS_IMAGE"
+      ],
+      "clusters": [
+        "seochon"
+      ],
+      "lifecycle": "Brief",
+      "ready_to_publish": false,
+      "existing_record_id": null,
+      "verification_record": "event-04",
+      "source": "supabase/seeds/initial_events.sql",
+      "warning": "Do not rerun seed. Organizer reconfirmation required; no private meeting details in manifest."
+    }
+  ]
+}

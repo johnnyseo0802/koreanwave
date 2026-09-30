@@ -1,0 +1,16 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { requireEditorialAdmin } from "@/lib/editorial-admin";
+import { uuidPattern } from "@/lib/editorial";
+import { clusterFields,targets,type Cluster,type Target } from "@/lib/clusters";
+import { EditorialShell } from "@/components/editorial-content";
+import { AdminModerationNav } from "@/components/admin-moderation-nav";
+import { ClusterEditor,ClusterConnections,ClusterPromptEditor,type Candidate } from "@/components/cluster-admin";
+export default async function Page({params}:{params:Promise<{id:string}>}){const {id}=await params;const client=await requireEditorialAdmin(`/admin/clusters/${id}`);if(!uuidPattern.test(id))notFound();const r=await client.from("content_clusters").select(`${clusterFields},updated_at`).eq("id",id).maybeSingle();if(r.error||!r.data)notFound();const cluster=r.data as Cluster;
+  const candidates:Candidate[]=[];let unavailable=false;
+  for(const [key,t]of Object.entries(targets)){const title=t.table==='places'||t.table==='experiences'?'name':'title';let q=client.from(t.table).select(`id,${title},status`).order(title).limit(100);if(t.status==='approved')q=q.eq('status','approved');const result=await q;if(result.error)unavailable=true;else for(const item of (result.data??[]) as unknown as {id:string;title?:string;name?:string;status:string}[])candidates.push({id:item.id,title:item.title??item.name??'Korea Moment',status:item.status,target:key as Target});}
+  const links=await client.from('content_cluster_items').select(`id,display_order,${Object.keys(targets).join(',')}`).eq('cluster_id',id).order('display_order').order('id').limit(200);
+  const prompts=await client.from('content_cluster_prompts').select('id,kind,prompt,display_order').eq('cluster_id',id).order('display_order').order('id').limit(100);
+  const rows=(links.data??[]) as unknown as ({id:string;display_order:number}&Partial<Record<Target,string>>)[];
+  return <EditorialShell title={`Edit ${cluster.title}`} eyebrow="Administration"><AdminModerationNav active="clusters"/><Link className="mb-6 inline-block py-3 underline" href={`/admin/clusters/${id}/preview`}>Preview public-facing content →</Link><ClusterEditor cluster={cluster}/>{unavailable||links.error||prompts.error?<p role="alert" className="mt-6">Some editor data is unavailable. Reload before changing connections.</p>:<><ClusterConnections clusterId={id} candidates={candidates} links={rows.map(row=>{const key=Object.keys(targets).find(k=>row[k as Target]) as Target;return {id:row.id,display_order:row.display_order,label:candidates.find(c=>c.target===key&&c.id===row[key])?.title??'Previously connected item (not in current selection list)'};})}/><p className="mt-4 text-sm">Selector shows up to 100 items per type. Editor shows 200 connections; public pages show up to 24 per type. Prompts: 100 in editor, 20 public. Equal order uses a stable ID tie-break.</p><section className="mt-10"><h2 className="text-2xl font-semibold">Participation prompts</h2><p className="mt-3">These are editorial ideas, not member questions or posts. Weekly Community inspiration is managed separately in Community moderation.</p>{(prompts.data??[]).map(p=><ClusterPromptEditor key={p.id} clusterId={id} prompt={p}/>)}<ClusterPromptEditor clusterId={id}/></section></>}</EditorialShell>;
+}

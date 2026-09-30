@@ -4,6 +4,19 @@ import { uuidPattern } from "@/lib/editorial";
 import { managedKind, validateManaged } from "@/lib/managed-content";
 import { revalidatePath } from "next/cache";
 
+export async function createManaged(kind: unknown, form: FormData) {
+  const access = await getAdminAccess();
+  if (access.status !== "admin" || (kind !== "places" && kind !== "experiences") || !(form instanceof FormData)) return { ok: false, message: "Administrator access required for local content creation." };
+  const checked = validateManaged(kind, form);
+  if (!checked.value) return { ok: false, message: checked.error ?? "Check the content fields." };
+  try {
+    const { data, error } = await access.client.from(kind).insert(checked.value).select("id,updated_at").single();
+    if (error || !data) return { ok: false, message: "Could not create content. Check the list before retrying and confirm the migration is applied." };
+    revalidatePath("/", "layout");
+    return { ok: true, id: data.id as string, revision: data.updated_at as string, message: "Local content created." };
+  } catch { return { ok: false, message: "Could not confirm creation. Check the list before retrying." }; }
+}
+
 export async function saveManaged(kind: unknown, id: unknown, revision: unknown, form: FormData) {
   const access = await getAdminAccess();
   if (access.status !== "admin") return { ok: false, message: "Administrator access could not be verified." };

@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { HomeEvents } from "@/components/home-events";
 import { HomeDiscovery } from "@/components/home-discovery";
 import { HomeCommunity } from "@/components/home-community";
+import { HomeClusters } from "@/components/cluster-content";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -15,8 +16,11 @@ export default function Home() {
       </div>
       <Link href="/local-korea" className="flex aspect-[4/4.5] flex-col justify-between rounded-[2rem] bg-gradient-to-br from-[#669286] via-[#a7c5aa] to-[#ece0bd] p-7"><span className="self-start rounded-full bg-white/85 px-4 py-2 text-xs font-semibold">Seoul, Korea</span><div className="rounded-2xl bg-white/90 p-6"><p className="text-xs uppercase tracking-widest text-[#71816d]">Explore at your pace</p><h2 className="mt-2 text-3xl font-semibold tracking-tight">Find your side of Seoul →</h2><p className="mt-3 text-sm text-[#647068]">Places · Experiences · Events</p></div></Link>
     </section>
+    <Suspense fallback={null}><HomeClusters /></Suspense>
+    {(["k-contents", "k-trends", "local-korea"] as const).map(section => <Suspense key={section} fallback={<div className="mx-auto max-w-7xl px-5 py-12" role="status">Loading discoveries…</div>}><HomeDiscovery section={section} /></Suspense>)}
     <Suspense fallback={<p className="px-5 py-12">Loading community…</p>}><HomeCommunity /></Suspense>
-    {(["k-contents", "local-korea", "k-trends", "community"] as const).map(section => <Suspense key={section} fallback={<div className="mx-auto max-w-7xl px-5 py-12" role="status">Loading discoveries…</div>}><HomeDiscovery section={section} /></Suspense>)}
+    <Suspense fallback={null}><HomeDiscovery section="community" /></Suspense>
+    <section className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10"><div className="rounded-2xl bg-[#edf3e5] p-7"><h2 className="text-3xl font-semibold">Help shape the first chapter</h2><p className="mt-4 leading-7">Live here, travel here, or love Korean culture? Start with one genuine contribution.</p><Link href="/founding-members" className="mt-5 inline-block py-3 font-semibold underline">Meet the Founding Member program →</Link></div></section>
     <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-10"><div className="grid gap-8 rounded-[2rem] bg-[#efc5b4] p-6 sm:p-10 lg:grid-cols-2"><div><p className="text-xs uppercase tracking-widest text-[#8d4c3b]">What&apos;s happening</p><h2 className="mt-4 text-4xl font-semibold tracking-tight text-[#432f2b]">Meet Korea in the moment.</h2><p className="mt-5 leading-7 text-[#75564e]">Discover cultural gatherings and community events. Exact meeting instructions are shared only with approved participants.</p><Link href="/events" className="mt-7 inline-block rounded-full bg-[#432f2b] px-5 py-3 font-semibold text-white">Browse events →</Link></div><Suspense fallback={<p>Loading gatherings…</p>}><HomeEvents /></Suspense></div></section>
     <section className="mx-auto max-w-7xl px-5 py-16 text-center"><h2 className="text-3xl font-semibold">Make Korea feel closer.</h2><p className="mt-4 text-[#626c66]">Ask a question, share a useful review, or join a local gathering.</p><Link href="/write/question" className="mt-6 inline-block rounded-full bg-[#17201d] px-6 py-3 font-semibold text-white">Ask a Local</Link></section><SiteFooter />
   </main>;

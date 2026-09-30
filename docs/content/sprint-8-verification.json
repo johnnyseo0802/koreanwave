@@ -1,0 +1,1863 @@
+{
+  "version": 1,
+  "workflow": [
+    "Brief",
+    "Draft",
+    "Fact review",
+    "Rights review",
+    "Preview",
+    "Human publish"
+  ],
+  "records": [
+    {
+      "asset_id": "article-01",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-02",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-03",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-04",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-05",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-06",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-07",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-08",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-09",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-10",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-11",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-12",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-13",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-14",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-15",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-16",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-17",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "article-18",
+      "claims": [
+        {
+          "claim": "Every factual/volatile statement and cultural generalization in the draft",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-01",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-02",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-03",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-04",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-05",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-06",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-07",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-08",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-09",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-10",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-11",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-12",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-13",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-14",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-15",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "place-16",
+      "claims": [
+        {
+          "claim": "Identity, location, current access and any practical details",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "experience-01",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "experience-02",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "experience-03",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "experience-04",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "experience-05",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "experience-06",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "experience-07",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "experience-08",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-01",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-02",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-03",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-04",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-05",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-06",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-07",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-08",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-09",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-10",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-11",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-12",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-13",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-14",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-15",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-16",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-17",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "ask_idea-18",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "participation_prompt-01",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "participation_prompt-02",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "participation_prompt-03",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "participation_prompt-04",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "participation_prompt-05",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "participation_prompt-06",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "participation_prompt-07",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "participation_prompt-08",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "participation_prompt-09",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "participation_prompt-10",
+      "claims": [
+        {
+          "claim": "Accuracy, genuine provenance and suitability for launch",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": false,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "event-01",
+      "claims": [
+        {
+          "claim": "Organizer, schedule and current participation arrangements",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "event-02",
+      "claims": [
+        {
+          "claim": "Organizer, schedule and current participation arrangements",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "event-03",
+      "claims": [
+        {
+          "claim": "Organizer, schedule and current participation arrangements",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    },
+    {
+      "asset_id": "event-04",
+      "claims": [
+        {
+          "claim": "Organizer, schedule and current participation arrangements",
+          "official_source_url": null,
+          "verified_at": null,
+          "verifier": null,
+          "recheck_at": null,
+          "uncertainty": "Not yet independently reviewed for Sprint 8"
+        }
+      ],
+      "image": {
+        "required": true,
+        "source_url": null,
+        "rights": null,
+        "rights_evidence": null,
+        "photo_filming_consent": null,
+        "metadata_stripped": false
+      },
+      "fact_review_passed": false,
+      "rights_review_passed": false,
+      "preview_passed": false,
+      "human_publish_approved": false
+    }
+  ]
+}

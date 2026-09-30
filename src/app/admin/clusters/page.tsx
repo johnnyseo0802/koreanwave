@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { requireEditorialAdmin } from "@/lib/editorial-admin";
+import { EditorialShell } from "@/components/editorial-content";
+import { AdminModerationNav } from "@/components/admin-moderation-nav";
+export default async function Page(){const client=await requireEditorialAdmin("/admin/clusters");const r=await client.from("content_clusters").select("id,title,status,display_order").order("display_order").order("id").limit(100);return <EditorialShell title="Content clusters" eyebrow="Administration"><AdminModerationNav active="clusters"/><Link className="inline-block rounded-full bg-[#17201d] px-5 py-3 text-white" href="/admin/clusters/new">Create topic</Link>{r.error?<p role="alert" className="mt-6">Topics unavailable. Check that the reviewed migration is applied.</p>:<ul className="mt-6 space-y-3">{(r.data??[]).map(c=><li key={c.id}><Link className="block rounded-xl border bg-white p-5" href={`/admin/clusters/${c.id}`}>{c.title} · {c.status} · Order {c.display_order}</Link></li>)}</ul>}</EditorialShell>;}

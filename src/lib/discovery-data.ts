@@ -18,13 +18,18 @@ export async function searchPublicContent(input: string): Promise<{ cards: Disco
   const term = searchTerm(input);
   if (!term) return { cards: [], unavailable: false };
   const groups = await Promise.all([
-    searchGroup("editorial_articles", term), searchGroup("places", term), searchGroup("experiences", term),
+    searchGroup("editorial_articles", term), searchGroup("places", term), searchGroup("experiences", term), searchGroup("content_clusters", term),
   ]);
   return { cards: groups.flatMap(g => g ?? []), unavailable: groups.some(g => g === null) };
 }
-async function searchGroup(kind: "editorial_articles" | LocalKind, term: string): Promise<DiscoveryCard[] | null> {
+async function searchGroup(kind: "editorial_articles" | "content_clusters" | LocalKind, term: string): Promise<DiscoveryCard[] | null> {
   try {
     const client = await createClient();
+    if (kind === "content_clusters") {
+      const { data, error } = await client.from("content_clusters").select("id,slug,title,summary").eq("status", "published")
+        .or(`title.ilike.%${term}%,summary.ilike.%${term}%`).order("display_order").order("id").limit(20);
+      return error ? null : (data ?? []).map(c=>({...c,href:`/explore/${c.slug}`,label:"Explore / topic"}));
+    }
     // Table/fields from constants only; sanitized literal value cannot alter filter grammar.
     if (kind === "editorial_articles") {
       const { data, error } = await client.from("editorial_articles").select("id,section,category,title,summary,image_url,image_alt")

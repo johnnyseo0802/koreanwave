@@ -1,0 +1,630 @@
+{
+  "version": 1,
+  "prepared_at": "2026-10-02",
+  "language": "en",
+  "mode": "human-review-only-no-import",
+  "cluster": {
+    "id": "seongsu-cluster",
+    "slug": "seongsu",
+    "title": "Seongsu Beyond the Screen",
+    "summary": "Explore the creative side of Seoul through pop-ups, cafés, K-beauty, fashion, local streets and Seoul Forest.",
+    "positioning": [
+      "DISCOVER",
+      "PLAN",
+      "VISIT",
+      "ASK",
+      "SHARE"
+    ],
+    "introduction": "Start with one interest, check the practical details, and leave room for your own discoveries. Connect our planning drafts with the existing Seongsu Place, ask a genuine question before visiting, and share only experiences you actually have.",
+    "status": "local_review_draft",
+    "ready_to_publish": false,
+    "traffic_intent": "planning",
+    "future_commercial_intent": "none",
+    "primary_acquisition_channel": "seo",
+    "source_claim_ids": [
+      "C02",
+      "C03"
+    ],
+    "image_id": "img-01"
+  },
+  "assets": [
+    {
+      "id": "seongsu-pillar",
+      "title": "Seongsu Seoul Guide: What to Do Beyond the Hype",
+      "role": "Pillar / SEO hub",
+      "slug": "seongsu-seoul-guide",
+      "traffic_intent": "discovery",
+      "type": "editorial",
+      "mapping": null,
+      "body": "Start with one reason to visit, not a list of places you feel obliged to finish. Do you want to browse a temporary installation, look more closely at clothing and design, or combine a street walk with time outdoors? Choose that first. Everything else is optional.\n\n## Read the neighborhood in layers\nSeongsu has a documented shoemaking history [C01]. Official Seoul tourism information describes Yeonmujang-gil as a street where industrial traces meet cafés, shops and changing pop-ups [C02]. Those layers are a better starting point than a promise that every doorway contains a discovery. A working entrance is not an invitation to enter. Look from public space; ask before photographing a workshop or retail interior.\n\n## Build a visit that survives a closed door\nChoose one priority stop from a current official announcement. Confirm its actual operating dates, admission rules and location before leaving. Put a second, optional stop nearby, but avoid making the entire afternoon depend on a limited giveaway or a reservation you have not secured.\n\nKeep a café break as a choice, not a compulsory purchase. Check the menu and available seating yourself. If a queue exceeds the time you want to spend, move on. The point is to enjoy your afternoon, not prove that you reached every saved pin.\n\n## Leave room for the park\nSeoul Forest is an urban park in Seongdong-gu [C03]. It can be the outdoor part of this proposed visit, but the connecting street route still needs an on-foot check [C04]. Use current pedestrian directions and official park notices rather than treating this draft as turn-by-turn guidance.\n\n## Ask a question that someone can answer\nInstead of “What is the best place?”, explain what matters to you: your visit date, interests, available time and any access requirements. Do not post booking references or private contact details. After visiting, share what you actually saw, with a date, rather than repeating an old recommendation.\n\nStart with our half-day plan, use the existing Seongsu Place as the neighborhood anchor, and ask the community about the part you cannot verify. This guide is a pre-shoot editorial draft, not a report of a visit.",
+      "status": "local_review_draft",
+      "ready_to_publish": false,
+      "seo_title": "Seongsu Seoul Guide: What to Do Beyond the Hype",
+      "meta_description": "Plan a thoughtful Seongsu visit with culture, shopping questions and a flexible Seoul Forest connection—without relying on an outdated pop-up list.",
+      "primary_keyword": "Seongsu Seoul guide",
+      "secondary_keywords": [
+        "what to do in Seongsu",
+        "Seongsu first visit"
+      ],
+      "search_intent": "Pillar / SEO hub",
+      "future_commercial_intent": "none",
+      "primary_acquisition_channel": "seo",
+      "internal_links": [
+        {
+          "content_id": "seongsu-pillar",
+          "purpose": "pillar",
+          "url": null
+        },
+        {
+          "content_id": "seongsu-cluster",
+          "url": "/explore/seongsu",
+          "state": "not_published"
+        },
+        {
+          "content_id": "existing-seongsu-place",
+          "url": "/local-korea/places/94844f11-6e7c-4a1b-8d83-268bfa6d3602",
+          "state": "observed_public"
+        },
+        {
+          "content_id": "seongsu-half-day",
+          "url": null,
+          "state": "local_draft"
+        },
+        {
+          "url": "/community/questions",
+          "state": "existing_route"
+        },
+        {
+          "url": "/signup",
+          "state": "existing_route"
+        }
+      ],
+      "primary_cta": {
+        "label": "Explore Seongsu Beyond the Screen",
+        "url": "/explore/seongsu",
+        "gate": "publish_cluster_first"
+      },
+      "secondary_cta": {
+        "label": "Ask a Local",
+        "url": "/write/question",
+        "gate": "requires_login"
+      },
+      "source_claim_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "adapted_from": [],
+      "public_url": null,
+      "slug_is_planning_only": true
+    },
+    {
+      "id": "seongsu-half-day",
+      "title": "A Half-Day in Seongsu: Pop-Ups, Cafés & Seoul Forest",
+      "role": "Planning / itinerary",
+      "slug": "half-day-seongsu-seoul-forest",
+      "traffic_intent": "planning",
+      "type": "editorial",
+      "mapping": null,
+      "body": "Treat this as a flexible allocation of your own time, not a measured route. Set aside roughly four hours if that suits your day. The suggested blocks below are editorial planning choices; queues, crossings, rest needs and detours have not been timed on location [C04].\n\n## Before leaving\nChoose one pop-up or shop you genuinely want to see. Find the organizer's current announcement, confirm the dates and read admission conditions. Save a fallback that does not require a booking. Check weather and park notices, and decide in advance which part you will skip if you are tired or delayed.\n\n## First block: orient yourself\nAllow about 30 minutes to arrive and settle into the neighborhood. Use the existing Seongsu Place page for context. Do not follow a saved café pin straight into a private courtyard. Check the entrance and whether photography is permitted.\n\n## Second block: one priority visit\nReserve approximately 60 minutes of your own schedule for the stop you checked. This is a budget, not a claim about waiting time. If entry is unavailable, replace it with a public street walk; do not spend the whole afternoon chasing an alternative promotion. The pop-up guide explains what to verify.\n\n## Third block: pause and browse\nKeep around 60 minutes for a café, a shop or simply a rest. Check prices and seating on arrival. You do not need a second drink or a shopping bag to justify slowing down. Ask staff about product details instead of guessing from a display.\n\n## Final block: outdoor time, if conditions work\nUse the remaining time for the proposed Seoul Forest connection [C03, C04]. Consult a current walking map and choose the entrance that suits your mobility and onward journey. No step-free route, exact distance or access time is promised here. Shorten the plan if weather or an entrance closure makes the park unsuitable.\n\nAt the end, keep one useful note: what you confirmed, when you visited and what you would do differently. That is a better contribution than a copied “perfect itinerary.” For a version without a retail focus, review the Slow Local Walk draft after its route has been checked.",
+      "status": "local_review_draft",
+      "ready_to_publish": false,
+      "seo_title": "A Half-Day in Seongsu: Pop-Ups, Cafés & Seoul Forest",
+      "meta_description": "Build a flexible half-day in Seongsu with one priority stop, a café break and optional Seoul Forest time. Check current access before you go.",
+      "primary_keyword": "Seongsu half day itinerary",
+      "secondary_keywords": [
+        "Seongsu cafés itinerary",
+        "Seongsu Seoul Forest walk"
+      ],
+      "search_intent": "Planning / itinerary",
+      "future_commercial_intent": "none",
+      "primary_acquisition_channel": "seo",
+      "internal_links": [
+        {
+          "content_id": "seongsu-pillar",
+          "purpose": "pillar",
+          "url": null
+        },
+        {
+          "content_id": "seongsu-cluster",
+          "url": "/explore/seongsu",
+          "state": "not_published"
+        },
+        {
+          "content_id": "existing-seongsu-place",
+          "url": "/local-korea/places/94844f11-6e7c-4a1b-8d83-268bfa6d3602",
+          "state": "observed_public"
+        },
+        {
+          "content_id": "seongsu-pillar",
+          "url": null,
+          "state": "local_draft"
+        },
+        {
+          "url": "/community/questions",
+          "state": "existing_route"
+        },
+        {
+          "url": "/signup",
+          "state": "existing_route"
+        }
+      ],
+      "primary_cta": {
+        "label": "Explore Seongsu Beyond the Screen",
+        "url": "/explore/seongsu",
+        "gate": "publish_cluster_first"
+      },
+      "secondary_cta": {
+        "label": "Ask a Local",
+        "url": "/write/question",
+        "gate": "requires_login"
+      },
+      "source_claim_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "adapted_from": [
+        "A Thoughtful Café Afternoon in Seongsu (Sprint 8 brief, not a completed Sprint 6 draft)"
+      ],
+      "public_url": null,
+      "slug_is_planning_only": true
+    },
+    {
+      "id": "seongsu-popups",
+      "title": "How to Find Seongsu Pop-Ups Before They Disappear",
+      "role": "High-intent utility content",
+      "slug": "find-seongsu-pop-ups",
+      "traffic_intent": "high_intent",
+      "type": "editorial",
+      "mapping": null,
+      "body": "A pop-up listing is a lead, not a guarantee of entry. This guide deliberately contains no “open now” list. A temporary event should never become a permanent promise in a neighborhood guide [C05].\n\n## Start with the organizer\nUse a discovery post to find the brand or organizer's own current announcement. Check the year as well as the month and day. A familiar photograph can belong to a previous edition. If you cannot find a primary announcement, treat the stop as unconfirmed.\n\n## Make a five-line visit note\nRecord the event's full name; operating dates; the date you last checked; the official visitor link; and what you still need to ask. Keep an address only after checking it against the organizer's instructions and a current map. Do not assume a previous pop-up used the same entrance.\n\n## Read the conditions, not just the poster\nLook for booking requirements, walk-in rules, last admission, eligibility and any purchase condition attached to a gift. These are questions to verify, not rules we claim apply to every event. Ask whether the booking process works with the phone number or identity documents you actually have. Do not send passport images or account credentials to a stranger offering to reserve a place.\n\n## Plan a fallback\nChoose a part of your day that is not dependent on admission. The half-day itinerary works as a time budget even if the planned event is unavailable. If a queue forms, set your own stopping point and respect staff instructions. Do not describe an event as foreigner-friendly merely because its poster includes English.\n\n## Share useful, dated information\nIf you ask the community about a pop-up, include the official link, the date you hope to visit and one specific uncertainty. If you later report your own visit, separate what happened that day from what the organizer guarantees. Avoid posting another person's booking screen.\n\nEditorial maintenance rule: any future named listing requires its own claim record, official source, checked date and recheck before publication and before travel. Remove or label expired entries. Nothing in this draft confirms a current event or available reservation.",
+      "status": "local_review_draft",
+      "ready_to_publish": false,
+      "seo_title": "How to Find Seongsu Pop-Ups Before They Disappear",
+      "meta_description": "Learn what to check before visiting a Seongsu pop-up: official dates, entry conditions, reservations and a fallback when plans change.",
+      "primary_keyword": "Seongsu pop ups",
+      "secondary_keywords": [
+        "Seongsu pop up dates",
+        "Seongsu pop up reservations"
+      ],
+      "search_intent": "High-intent utility content",
+      "future_commercial_intent": "none",
+      "primary_acquisition_channel": "seo",
+      "internal_links": [
+        {
+          "content_id": "seongsu-pillar",
+          "purpose": "pillar",
+          "url": null
+        },
+        {
+          "content_id": "seongsu-cluster",
+          "url": "/explore/seongsu",
+          "state": "not_published"
+        },
+        {
+          "content_id": "existing-seongsu-place",
+          "url": "/local-korea/places/94844f11-6e7c-4a1b-8d83-268bfa6d3602",
+          "state": "observed_public"
+        },
+        {
+          "content_id": "seongsu-pillar",
+          "url": null,
+          "state": "local_draft"
+        },
+        {
+          "url": "/community/questions",
+          "state": "existing_route"
+        },
+        {
+          "url": "/signup",
+          "state": "existing_route"
+        }
+      ],
+      "primary_cta": {
+        "label": "Ask about your visit",
+        "url": "/write/question",
+        "gate": "requires_login"
+      },
+      "secondary_cta": {
+        "label": "Ask a Local",
+        "url": "/write/question",
+        "gate": "requires_login"
+      },
+      "source_claim_ids": [
+        "C02",
+        "C05"
+      ],
+      "adapted_from": [],
+      "public_url": null,
+      "slug_is_planning_only": true
+    },
+    {
+      "id": "seongsu-culture",
+      "title": "Why Seongsu Became Seoul's Creative Neighborhood",
+      "role": "K-Contents / culture / discovery",
+      "slug": "seongsu-creative-neighborhood",
+      "traffic_intent": "discovery",
+      "type": "editorial",
+      "mapping": null,
+      "body": "The useful question is not whether Seongsu deserves a fashionable nickname. It is how to look at the neighborhood without reducing it to one.\n\n## Begin with work\nKorea Tourism Organization's account of Seongsu's handmade-shoe district traces the gathering of shoemakers to the 1970s [C01]. That gives a visitor a concrete historical thread. It does not mean every old-looking building was a shoe factory, or that a particular business has operated continuously since that period.\n\nLook for verified interpretation, not an invented backstory. A brick wall alone cannot tell you who worked behind it. If you want to name a building's original use, research that building separately and ask permission before entering an active workplace.\n\n## Notice the layers, without inventing the cause\nSeoul's official tourism description connects Yeonmujang-gil's industrial traces with a present-day mix of cafés, shops and pop-ups [C02]. It supports describing a contrast. It does not, by itself, prove why rents changed, who benefited, or what every resident thinks.\n\nThe title's “became” question therefore needs a careful answer: this draft documents a historical trade and a tourism-described retail layer, not a complete causal history. Claims about redevelopment, artists, displacement or the effect of social media remain research questions [C06]. Do not fill those gaps with a neat story.\n\n## Make a culture visit attentive\nSpend part of the walk noticing materials, signs and how space is used. Do not turn workers or residents into background characters for a travel video. Ask before interviews and explain where the recording may appear. A refusal is not an obstacle to work around.\n\n## Bring the screen into perspective\nIf Korean music, drama or design first made you curious about Seoul, use that curiosity as a doorway rather than pretending a street represents all of Korea. The existing K-pop travel article offers that broader connection. No artist visit, filming location or brand relationship is claimed here.\n\nAfter the field shoot, add only observations genuinely recorded and independently checked. Until then, this is a sourced introduction with an explicit research boundary, not an eyewitness neighborhood portrait.",
+      "status": "local_review_draft",
+      "ready_to_publish": false,
+      "seo_title": "Why Seongsu Became Seoul's Creative Neighborhood",
+      "meta_description": "Look beyond the Seongsu nickname: explore its shoemaking history and changing streets while separating documented facts from unverified stories.",
+      "primary_keyword": "Seongsu neighborhood history",
+      "secondary_keywords": [
+        "Seongsu shoemaking",
+        "Seongsu industrial heritage"
+      ],
+      "search_intent": "K-Contents / culture / discovery",
+      "future_commercial_intent": "none",
+      "primary_acquisition_channel": "seo",
+      "internal_links": [
+        {
+          "content_id": "seongsu-pillar",
+          "purpose": "pillar",
+          "url": null
+        },
+        {
+          "content_id": "seongsu-cluster",
+          "url": "/explore/seongsu",
+          "state": "not_published"
+        },
+        {
+          "content_id": "existing-seongsu-place",
+          "url": "/local-korea/places/94844f11-6e7c-4a1b-8d83-268bfa6d3602",
+          "state": "observed_public"
+        },
+        {
+          "content_id": "seongsu-pillar",
+          "url": null,
+          "state": "local_draft"
+        },
+        {
+          "url": "/community/questions",
+          "state": "existing_route"
+        },
+        {
+          "url": "/signup",
+          "state": "existing_route"
+        }
+      ],
+      "primary_cta": {
+        "label": "Explore Seongsu Beyond the Screen",
+        "url": "/explore/seongsu",
+        "gate": "publish_cluster_first"
+      },
+      "secondary_cta": {
+        "label": "Ask a Local",
+        "url": "/write/question",
+        "gate": "requires_login"
+      },
+      "source_claim_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "adapted_from": [],
+      "public_url": null,
+      "slug_is_planning_only": true
+    },
+    {
+      "id": "seongsu-beauty",
+      "title": "K-Beauty Shopping in Seongsu: A First-Timer's Guide",
+      "role": "K-Trends / Beauty",
+      "slug": "seongsu-k-beauty-shopping",
+      "traffic_intent": "high_intent",
+      "type": "editorial",
+      "mapping": {
+        "section": "k-trends",
+        "category": "beauty"
+      },
+      "body": "Make a short shopping plan before choosing a store: one product category you want to understand, one question you need answered and a spending limit that works for you. This is a guide to browsing, not a list of products you need.\n\n## Verify the shop before the trip\nThis pre-shoot draft does not confirm any brand's current Seongsu stock or store opening [C07]. Use the retailer's own current information for location, trading hours and visitor conditions. Do not assume a beauty-related pop-up sells every product it displays.\n\n## Ask for information you can use\nWrite down the exact product name and the information you cannot read. Ask the retailer or manufacturer about intended use, instructions and the label rather than relying on a trend description. If your question involves a health condition, consult a qualified professional; this guide does not offer treatment advice or promise results.\n\n## Follow the tester instructions\nAsk staff whether and how a sample may be used. Do not open sealed sale stock. Avoid filming customers at a shared counter. If you cannot use a tester comfortably under the shop's rules, it is fine to skip it.\n\n## Separate price from value\nCheck the actual price and return conditions before paying. Do not assume that a bundle, tourist promotion or “limited” label makes an item right for you. Keep your receipt private. Any future tax-refund or promotion advice needs a separate current source; none is promised here.\n\n## Keep your notes personal\nA useful note can say why you chose not to buy, which question staff answered, or which product information you still could not confirm. Avoid turning a personal impression into a claim about everyone's skin or presenting sponsored material as independent experience.\n\nPair a short browsing stop with the half-day plan rather than allowing shopping to absorb the entire visit. If you ask the community for help, ask about finding accurate information or navigating the visit—not for a guaranteed medical outcome. After filming, add a named shop only once current access, stock-related wording, photography permission and image rights have been reviewed.",
+      "status": "local_review_draft",
+      "ready_to_publish": false,
+      "seo_title": "K-Beauty Shopping in Seongsu: A First-Timer's Guide",
+      "meta_description": "Prepare for K-beauty browsing in Seongsu with useful product questions, considerate tester habits and a shopping plan built around your needs.",
+      "primary_keyword": "Seongsu K beauty shopping",
+      "secondary_keywords": [
+        "Seongsu beauty stores",
+        "K beauty shopping questions"
+      ],
+      "search_intent": "K-Trends / Beauty",
+      "future_commercial_intent": "none",
+      "primary_acquisition_channel": "seo",
+      "internal_links": [
+        {
+          "content_id": "seongsu-pillar",
+          "purpose": "pillar",
+          "url": null
+        },
+        {
+          "content_id": "seongsu-cluster",
+          "url": "/explore/seongsu",
+          "state": "not_published"
+        },
+        {
+          "content_id": "existing-seongsu-place",
+          "url": "/local-korea/places/94844f11-6e7c-4a1b-8d83-268bfa6d3602",
+          "state": "observed_public"
+        },
+        {
+          "content_id": "seongsu-pillar",
+          "url": null,
+          "state": "local_draft"
+        },
+        {
+          "url": "/community/questions",
+          "state": "existing_route"
+        },
+        {
+          "url": "/signup",
+          "state": "existing_route"
+        }
+      ],
+      "primary_cta": {
+        "label": "Explore Seongsu Beyond the Screen",
+        "url": "/explore/seongsu",
+        "gate": "publish_cluster_first"
+      },
+      "secondary_cta": {
+        "label": "Ask a Local",
+        "url": "/write/question",
+        "gate": "requires_login"
+      },
+      "source_claim_ids": [
+        "C07"
+      ],
+      "adapted_from": [
+        "Make a Small Beauty Shopping Plan",
+        "Read Beauty Packaging With Curiosity",
+        "A Thoughtful Approach to Testers"
+      ],
+      "public_url": null,
+      "slug_is_planning_only": true
+    },
+    {
+      "id": "seongsu-fashion",
+      "title": "Seongsu Fashion & Concept Stores: What to Look For",
+      "role": "K-Trends / Fashion",
+      "slug": "seongsu-fashion-concept-stores",
+      "traffic_intent": "discovery",
+      "type": "editorial",
+      "mapping": {
+        "section": "k-trends",
+        "category": "fashion"
+      },
+      "body": "Give yourself a way to browse that does not depend on buying. Pick something to notice: the cut of a jacket, a color combination, a display material or how a room guides your attention. The point is to look carefully, not to announce a universal “Seoul style.”\n\n## Check what the space actually is\nA concept-store label does not tell you whether everything on display is for sale. Ask which areas are open to visitors, whether fitting is available and whether photographs are allowed. Current locations, stock, access rules and prices are not confirmed in this draft [C07].\n\n## Ask specific clothing questions\nIf you are interested in an item, ask about measurements, material, care and returns. Do not infer production origin, sustainability credentials or a designer's identity from its appearance. Those claims need product-level evidence.\n\n## Collect ideas without collecting strangers\nDescribe shapes or sketch a palette. If you want a portrait, ask clearly and explain the intended website, video or social use. Do not treat a person walking past as an unpaid model. Frame details without identifiable faces when consent is unavailable.\n\n## Look beyond the display\nUse official visitor information to choose one retail stop along the Yeonmujang-gil area described by Seoul tourism [C02]. Keep a public walking option in your plan in case the shop is closed or unsuitable. A list of brand logos is not a substitute for a visit that interests you.\n\n## Share what you can stand behind\nWhen writing afterwards, separate a personal preference from a verified fact. “I liked the color” does not need to become “the neighborhood's defining trend.” Credit permissioned images, disclose any relevant commercial relationship and avoid implying a brand endorsed your visit.\n\nThis draft adapts our earlier considerate-shopping and visual-diary material. It deliberately offers no current store ranking. The field shoot can add a small number of independently checked examples, not a claim that every visitor should buy the same things. Continue to the culture article for context or use the half-day itinerary to keep browsing in proportion.",
+      "status": "local_review_draft",
+      "ready_to_publish": false,
+      "seo_title": "Seongsu Fashion & Concept Stores: What to Look For",
+      "meta_description": "Browse Seongsu fashion and concept stores thoughtfully, with questions about materials, photography and access rather than an unverified ranking.",
+      "primary_keyword": "Seongsu fashion concept stores",
+      "secondary_keywords": [
+        "Seongsu fashion shopping",
+        "Seongsu design shops"
+      ],
+      "search_intent": "K-Trends / Fashion",
+      "future_commercial_intent": "none",
+      "primary_acquisition_channel": "seo",
+      "internal_links": [
+        {
+          "content_id": "seongsu-pillar",
+          "purpose": "pillar",
+          "url": null
+        },
+        {
+          "content_id": "seongsu-cluster",
+          "url": "/explore/seongsu",
+          "state": "not_published"
+        },
+        {
+          "content_id": "existing-seongsu-place",
+          "url": "/local-korea/places/94844f11-6e7c-4a1b-8d83-268bfa6d3602",
+          "state": "observed_public"
+        },
+        {
+          "content_id": "seongsu-pillar",
+          "url": null,
+          "state": "local_draft"
+        },
+        {
+          "url": "/community/questions",
+          "state": "existing_route"
+        },
+        {
+          "url": "/signup",
+          "state": "existing_route"
+        }
+      ],
+      "primary_cta": {
+        "label": "Explore Seongsu Beyond the Screen",
+        "url": "/explore/seongsu",
+        "gate": "publish_cluster_first"
+      },
+      "secondary_cta": {
+        "label": "Ask a Local",
+        "url": "/write/question",
+        "gate": "requires_login"
+      },
+      "source_claim_ids": [
+        "C02",
+        "C07"
+      ],
+      "adapted_from": [
+        "Browse Independent Shops Considerately",
+        "Notice Street Style Without Intruding",
+        "Keep a Color-and-Texture Travel Diary"
+      ],
+      "public_url": null,
+      "slug_is_planning_only": true
+    },
+    {
+      "id": "seongsu-walk",
+      "title": "Seongsu to Seoul Forest: A Slow Local Walk",
+      "role": "Local Korea / Experience",
+      "slug": "seongsu-seoul-forest-slow-walk",
+      "traffic_intent": "local_experience",
+      "type": "experience",
+      "mapping": {
+        "table": "experiences",
+        "category": "walking"
+      },
+      "body": "A proposed self-guided walk, not a guided service, ticket or bookable product. Use it to shift the focus from shopping to observation and outdoor time. The precise route has not yet been walked for this pack [C04].\n\n## Start with a current map\nUse the existing Seongsu Place as your neighborhood reference. Select a starting point based on your transport and access needs. Check a current pedestrian route toward Seoul Forest rather than following an unverified exit number or a straight line between map pins.\n\n## Notice one street detail\nIn the Yeonmujang-gil area, choose a detail you can observe respectfully from public space [C02]: a sign, a material or a shopfront with permission to photograph it. Do not label an individual building as a former factory without evidence. Leave working doorways and pavements clear.\n\n## Make the transition part of the plan\nAllow yourself rest and crossing time. No exact duration, distance, step-free route, toilet availability or suitable park entrance has been verified [C04, C08]. Before publication, the field team must check those practical details and identify a shorter alternative. If the connection does not suit you, end the walk rather than forcing a fixed route.\n\n## Finish outdoors if conditions allow\nSeoul Forest is an urban park [C03], but specific facilities and access conditions need a current check [C08]. Follow signs and staff instructions. Do not promise seasonal colors, wildlife sightings, an event or a quiet space. Choose an ordinary observation—a change in sound, light or pace—without disturbing other visitors.\n\n## Keep the contribution honest\nAfter your own walk, share a useful dated tip or a photo you have permission to publish. Avoid exposing faces, private routes, booking details or contact information. If you have not visited yet, ask a question rather than writing a review.\n\nThis proposed Experience is distinct from the existing Café & Pop-up Exploration because it prioritizes the street-to-park connection. Confirm there is no equivalent private draft before creating it. Until the connecting route and access information pass review, keep it local and unpublished.",
+      "status": "local_review_draft",
+      "ready_to_publish": false,
+      "seo_title": "Seongsu to Seoul Forest: A Slow Local Walk",
+      "meta_description": "Review a proposed self-guided Seongsu-to-Seoul-Forest walk, with practical checks to complete before following the street-to-park connection.",
+      "primary_keyword": "Seongsu to Seoul Forest walk",
+      "secondary_keywords": [
+        "Seongsu walking plan",
+        "Seoul Forest self guided walk"
+      ],
+      "search_intent": "Local Korea / Experience",
+      "future_commercial_intent": "none",
+      "primary_acquisition_channel": "seo",
+      "internal_links": [
+        {
+          "content_id": "seongsu-pillar",
+          "purpose": "pillar",
+          "url": null
+        },
+        {
+          "content_id": "seongsu-cluster",
+          "url": "/explore/seongsu",
+          "state": "not_published"
+        },
+        {
+          "content_id": "existing-seongsu-place",
+          "url": "/local-korea/places/94844f11-6e7c-4a1b-8d83-268bfa6d3602",
+          "state": "observed_public"
+        },
+        {
+          "content_id": "seongsu-pillar",
+          "url": null,
+          "state": "local_draft"
+        },
+        {
+          "url": "/community/questions",
+          "state": "existing_route"
+        },
+        {
+          "url": "/signup",
+          "state": "existing_route"
+        }
+      ],
+      "primary_cta": {
+        "label": "Explore Seongsu Beyond the Screen",
+        "url": "/explore/seongsu",
+        "gate": "publish_cluster_first"
+      },
+      "secondary_cta": {
+        "label": "Ask a Local",
+        "url": "/write/question",
+        "gate": "requires_login"
+      },
+      "source_claim_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C08"
+      ],
+      "adapted_from": [
+        "Seongsu Café & Pop-up Exploration (existing published Experience; related, not to be recreated)"
+      ],
+      "public_url": null,
+      "slug_is_planning_only": true
+    }
+  ],
+  "prompts": [
+    {
+      "id": "prompt-1",
+      "kind": "question",
+      "prompt": "What's actually worth visiting in Seongsu right now?",
+      "editorial_only": true,
+      "destination_table": "content_cluster_prompts",
+      "no_ugc_insert": true,
+      "cta": "/write/question"
+    },
+    {
+      "id": "prompt-2",
+      "kind": "question",
+      "prompt": "Which part of Seongsu is best for a first-time visitor?",
+      "editorial_only": true,
+      "destination_table": "content_cluster_prompts",
+      "no_ugc_insert": true,
+      "cta": "/write/question"
+    },
+    {
+      "id": "prompt-3",
+      "kind": "question",
+      "prompt": "Are Seongsu pop-ups usually foreigner-friendly?",
+      "editorial_only": true,
+      "destination_table": "content_cluster_prompts",
+      "no_ugc_insert": true,
+      "cta": "/write/question"
+    },
+    {
+      "id": "prompt-4",
+      "kind": "question",
+      "prompt": "Weekday or weekend—which is better for Seongsu?",
+      "editorial_only": true,
+      "destination_table": "content_cluster_prompts",
+      "no_ugc_insert": true,
+      "cta": "/write/question"
+    },
+    {
+      "id": "prompt-5",
+      "kind": "moment",
+      "prompt": "Show us your favorite Seongsu discovery.",
+      "editorial_only": true,
+      "destination_table": "content_cluster_prompts",
+      "no_ugc_insert": true,
+      "cta": "/write/moment"
+    },
+    {
+      "id": "prompt-6",
+      "kind": "story",
+      "prompt": "What surprised you most about Seongsu?",
+      "editorial_only": true,
+      "destination_table": "content_cluster_prompts",
+      "no_ugc_insert": true,
+      "cta": "/write/story"
+    },
+    {
+      "id": "prompt-7",
+      "kind": "moment",
+      "prompt": "Found a pop-up worth sharing?",
+      "editorial_only": true,
+      "destination_table": "content_cluster_prompts",
+      "no_ugc_insert": true,
+      "cta": "/write/moment"
+    },
+    {
+      "id": "prompt-8",
+      "kind": "tip",
+      "prompt": "Share one Seongsu tip you wish you knew before visiting.",
+      "editorial_only": true,
+      "destination_table": "content_cluster_prompts",
+      "no_ugc_insert": true,
+      "cta": "/write/tip"
+    }
+  ],
+  "linking_policy": "Resolve actual database UUID links after operator publication. Do not use planning slugs as /articles/{slug}; current article URLs use UUID. Cluster URL is not live until published. No import script.",
+  "new_place_proposals": [
+    {
+      "title": "Seoul Forest",
+      "reason": "Distinct park anchor; not present in observed published Places.",
+      "description": "Seoul Forest is an urban park in Seongdong-gu, Seoul. Check current park information before planning a visit.",
+      "source_claim_ids": [
+        "C03",
+        "C08"
+      ],
+      "duplicate_check": "Public inventory clear; private inventory operator check required.",
+      "ready_to_create": false,
+      "source_url": "https://english.visitseoul.net/nature/Seoul-Forest/ENP001838"
+    }
+  ]
+}

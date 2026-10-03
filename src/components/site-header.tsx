@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthenticated } from "@/components/auth-provider";
 import { createClient } from "@/lib/supabase/client";
@@ -24,6 +24,50 @@ export function SiteHeader() {
   const [error, setError] = useState("");
   const menu = useRef<HTMLDetailsElement>(null);
   function closeMenu() { if (menu.current) menu.current.open = false; }
+
+  useEffect(() => {
+    const details = menu.current;
+    if (!details) return;
+    let restoreScroll: (() => void) | undefined;
+    function syncScroll() {
+      if (details!.open && !restoreScroll) {
+        const bodyOverflow = document.body.style.overflow;
+        const rootOverflow = document.documentElement.style.overflow;
+        document.body.style.overflow = "hidden";
+        document.documentElement.style.overflow = "hidden";
+        restoreScroll = () => {
+          document.body.style.overflow = bodyOverflow;
+          document.documentElement.style.overflow = rootOverflow;
+        };
+      } else if (!details!.open) {
+        restoreScroll?.();
+        restoreScroll = undefined;
+      }
+    }
+    // A touch can blur summary with relatedTarget=null before link activation.
+    // Check the actual pointer/focus destination instead; never cancel link events.
+    function dismissOutside(event: Event) {
+      if (details!.open && event.target instanceof Node && !details!.contains(event.target)) {
+        details!.open = false;
+        syncScroll();
+      }
+    }
+    const desktop = window.matchMedia("(min-width: 1280px)");
+    function onDesktop() { if (desktop.matches) { details!.open = false; syncScroll(); } }
+    details.addEventListener("toggle", syncScroll);
+    document.addEventListener("pointerdown", dismissOutside);
+    document.addEventListener("focusin", dismissOutside);
+    desktop.addEventListener("change", onDesktop);
+    onDesktop();
+    syncScroll();
+    return () => {
+      details.removeEventListener("toggle", syncScroll);
+      document.removeEventListener("pointerdown", dismissOutside);
+      document.removeEventListener("focusin", dismissOutside);
+      desktop.removeEventListener("change", onDesktop);
+      restoreScroll?.();
+    };
+  }, []);
 
   async function logout() {
     if (logoutLock.current) return;
@@ -61,9 +105,9 @@ export function SiteHeader() {
         <Link className="whitespace-nowrap text-sm font-medium text-[#3b4540] transition hover:text-black" href={authenticated ? "/account" : "/login"}>{authenticated ? "My Account" : "Log in"}</Link>
         {authenticated ? <button type="button" disabled={pending} onClick={logout} className="whitespace-nowrap rounded-full bg-[#17201d] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#35413c] disabled:cursor-wait disabled:opacity-60">{pending ? "Logging out…" : "Log out"}</button> : <Link className="rounded-full bg-[#17201d] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#35413c]" href="/signup">Join free</Link>}
       </div>
-      <details ref={menu} className="relative xl:hidden" onKeyDown={event => { if (event.key === "Escape") { closeMenu(); menu.current?.querySelector("summary")?.focus(); } }} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) closeMenu(); }}>
+      <details ref={menu} className="relative xl:hidden" onKeyDown={event => { if (event.key === "Escape") { closeMenu(); menu.current?.querySelector("summary")?.focus(); } }}>
         <summary aria-label="Main menu" aria-controls="mobile-navigation" className="grid size-11 cursor-pointer place-items-center rounded-full border border-[#dfe3df] bg-white text-lg list-none">☰</summary>
-        <nav id="mobile-navigation" aria-label="Mobile navigation" onClick={event => { if ((event.target as HTMLElement).closest("a")) closeMenu(); }} className="absolute right-0 z-30 mt-2 max-h-[75dvh] w-64 max-w-[calc(100vw-2.5rem)] overflow-y-auto rounded-2xl border border-[#e3e6e3] bg-white p-2 shadow-xl shadow-black/10">
+        <nav id="mobile-navigation" aria-label="Mobile navigation" onClick={event => { if ((event.target as HTMLElement).closest("a")) closeMenu(); }} className="absolute right-0 z-30 mt-2 max-h-[75dvh] w-64 max-w-[calc(100vw-2.5rem)] overflow-y-auto overscroll-contain rounded-2xl border border-[#e3e6e3] bg-white p-2 shadow-xl shadow-black/10">
           {navigation.map((item) => <Link className="block rounded-xl px-4 py-3 text-sm font-medium hover:bg-[#f4f5f2]" href={item.href} key={item.href}>{item.label}</Link>)}
           <Link className="block rounded-xl px-4 py-3 text-sm font-medium hover:bg-[#f4f5f2]" href={authenticated ? "/account" : "/login"}>{authenticated ? "My Account" : "Log in"}</Link>
           {authenticated ? <button type="button" disabled={pending} onClick={logout} className="mt-1 block w-full rounded-xl bg-[#17201d] px-4 py-3 text-center text-sm font-medium text-white disabled:cursor-wait disabled:opacity-60">{pending ? "Logging out…" : "Log out"}</button> : <Link className="mt-1 block rounded-xl bg-[#17201d] px-4 py-3 text-center text-sm font-medium text-white" href="/signup">Join free</Link>}

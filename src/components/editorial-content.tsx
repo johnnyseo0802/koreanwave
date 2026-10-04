@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { editorialCategories, safeEditorialUrl, sectionLabel, type EditorialSection, type PublicArticle } from "@/lib/editorial";
 import { listPublicArticles } from "@/lib/editorial-data";
 import { ContentImage } from "@/components/content-image";
+import { EditorialBody } from "@/components/editorial-body";
 
 export function EditorialShell({ title, eyebrow, children }: { title: string; eyebrow: string; children: ReactNode }) {
   return <main className="min-h-screen bg-[#fcfcfa] text-[#18201d]"><SiteHeader />
@@ -30,7 +31,7 @@ export function ArticleBody({ article }: { article: PublicArticle }) {
     <p className="text-sm text-[#69736c]"><PublicationDate value={article.published_at} /></p>
     <p className="mt-5 whitespace-pre-wrap break-words text-xl leading-8 text-[#56625a]">{article.summary}</p>
     <div className="mt-8"><ContentImage url={article.image_url} alt={article.image_alt} sizes="(max-width: 768px) 100vw, 896px" /></div>
-    <div className="mt-8 whitespace-pre-wrap break-words rounded-[2rem] border border-[#e3e7e2] bg-white p-7 text-base leading-8 sm:p-10">{article.body}</div>
+    <EditorialBody body={article.body} />
     {source && <p className="mt-6 text-sm"><a href={source} target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" className="underline">Source / attribution ↗</a></p>}
     <Link href={`/${article.section}/${article.category}`} className="mt-8 inline-block rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white">← Back to {article.category}</Link>
   </article>;

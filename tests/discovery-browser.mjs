@@ -31,6 +31,8 @@ const rows={
 rows.editorial_articles.push({...rows.editorial_articles[0],id:uuid(98),title:'PRIVATE DRAFT SENTINEL',status:'draft'});
 rows.editorial_articles.push({...rows.editorial_articles[0],id:uuid(7),section:'local-korea',category:'guides',title:'Fixture local guide'});
 rows.editorial_articles.push({...rows.editorial_articles[0],id:uuid(97),section:'local-korea',category:'guides',title:'PRIVATE DRAFT SENTINEL',status:'draft'});
+const typographyFixture='Introductory paragraph.\n\n\n1. Search close to the day you visit\n\nCheck current information.\n\n2. Check the brand’s official channels\n\n• Official announcement\n- Current conditions\n\n## A better way to experience Seongsu\n\nA normal short sentence.\n\n## Planning a Seongsu visit?\n\nAsk a focused question.\n\n## Already visited a Seongsu pop-up?\n\n<script>window.articleInjected=true</script><img src=x onerror="window.articleInjected=true"><style>body{display:none}</style>\n\n'+ 'LongUnbrokenText'.repeat(30);
+for(const id of [uuid(7),uuid(97)]) rows.editorial_articles.find(a=>a.id===id).body=typographyFixture;
 // Read only the built public image allowlist (never env/key values). Image requests
 // are fulfilled in the browser with a tiny local PNG; no remote image is fetched.
 const host=JSON.parse(readFileSync('.next/required-server-files.json','utf8')).config.images.remotePatterns[0]?.hostname;
@@ -86,6 +88,19 @@ try {
   await page.getByRole('link',{name:/Fixture local guide/}).click();
   await page.waitForURL(`**/articles/${uuid(7)}`);
   await page.getByText('Local Korea / guides',{exact:true}).waitFor();
+  const body=page.locator('[data-editorial-body]');
+  assert.equal(await body.locator('h2').count(),5);
+  assert.equal(await body.locator('ul > li').count(),2);
+  assert.equal(await body.locator('script,img,style,a').count(),0);
+  assert.ok((await body.innerText()).includes('<script>'));
+  assert.ok(!(await body.innerText()).includes('## '));
+  assert.equal(await page.evaluate(()=>window.articleInjected===true),false);
+  const typography=await body.evaluate(el=>{
+   const h=getComputedStyle(el.querySelector('h2')),p=getComputedStyle(el.querySelector('p'));
+   return {heading:parseFloat(h.fontSize),paragraph:parseFloat(p.fontSize),paragraphGap:parseFloat(p.marginBottom),lineHeight:parseFloat(p.lineHeight),overflow:document.documentElement.scrollWidth>innerWidth+1};
+  });
+  assert.ok(typography.heading>typography.paragraph);assert.equal(typography.paragraphGap,16);assert.equal(typography.lineHeight,28);assert.equal(typography.overflow,false);
+  await body.screenshot({path:`.next/discovery-qa/editorial-body-${width}.png`});
   await page.getByRole('link',{name:/Back to guides/}).click();
   await page.waitForURL('**/local-korea/guides');
   assert.ok(!(await page.locator('body').innerText()).includes('PRIVATE DRAFT SENTINEL'));
@@ -98,6 +113,8 @@ try {
    assert.ok(!(await page.locator('body').innerText()).includes('PRIVATE DRAFT SENTINEL'),path);
    if(path==='/search?q=Fixture')assert.ok(await page.getByText('Fixture music story',{exact:true}).count());
    if(path===`/articles/${uuid(1)}`){
+    assert.equal(await page.locator('[data-editorial-body] p').count(),2);
+    assert.equal(await page.locator('[data-editorial-body] h2').count(),0);
     const img=page.locator('article img');await img.scrollIntoViewIfNeeded();
     await page.waitForFunction(()=>{const el=document.querySelector('article img');return el?.complete && el.naturalWidth>0;},{},{timeout:10000}).catch(async()=>{
       const state=await page.locator('article').evaluate(el=>{const img=el.querySelector('img');return {imageExists:!!img,naturalWidth:img?.naturalWidth,complete:img?.complete,optimized:img?.currentSrc.includes('/_next/image'),fallback:el.innerText.includes('Korean Wave / Discover')};});
@@ -146,6 +163,7 @@ try {
   await page.screenshot({path:`.next/discovery-qa/admin-${width}.png`,fullPage:true});
   await page.goto(base+`/admin/content/${uuid(97)}/preview`,{waitUntil:'networkidle'});
   assert.ok((await page.locator('body').innerText()).includes('PRIVATE DRAFT SENTINEL'));
+  assert.equal(await page.locator('[data-editorial-body] h2').count(),5);
  }
  assert.equal(mutations,0);assert.equal(privateReads,0);assert.deepEqual(errors,[]);
  console.log('PASS: admin protection + fixture admin form/upload layout, no real accounts, no form submissions, no writes or private meeting reads.');

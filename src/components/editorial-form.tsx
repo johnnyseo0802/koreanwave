@@ -49,6 +49,7 @@ export function EditorialForm({ article }: { article?: AdminArticle }) {
     void submit(form);
   }} className="mt-8 rounded-[2rem] border border-[#e3e7e2] bg-white p-6 sm:p-8">
     <p className="mb-6 text-sm leading-6 text-[#69736c]">Write in English using plain text. Save a draft before previewing. Publishing makes the article visible immediately; saving as draft removes it from public pages.</p>
+    <p className="mb-6 text-sm leading-6 text-[#69736c]">Separate paragraphs with a blank line. Start a heading with ## or a number from 1–99 followed by a period and a space. Start bullet lines with • or - followed by a space. HTML and other Markdown remain plain text.</p>
     <fieldset disabled={busy} className="space-y-6 disabled:opacity-60">
       <div className="grid gap-6 sm:grid-cols-2">
         <label className="block text-sm font-semibold">Section<select name="section" className={inputClass} value={section} onChange={e => { const next = e.target.value as EditorialSection; setSection(next); setCategory(Object.keys(editorialCategories[next])[0]); }}>

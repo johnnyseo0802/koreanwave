@@ -40,10 +40,10 @@ export async function EditorialListing({ section, category }: { section: Editori
   const categories = editorialCategories[section];
   const title = category ? Object.entries(categories).find(([key]) => key === category)?.[1] ?? sectionLabel(section) : sectionLabel(section);
   const articles = await listPublicArticles(section, category);
-  return <EditorialShell title={title} eyebrow={section === "k-contents" ? "Culture, curated / K-Contents" : "Now in Korea / K-Trends"}>
-    <p className="max-w-2xl leading-7 text-[#69736c]">{section === "k-contents" ? "Explore the sounds, stories, and screen moments that lead people toward Korea." : "Discover Korean beauty, fashion, and food through our editorial stories."}</p>
+  return <EditorialShell title={title} eyebrow={section === "local-korea" ? "Local Korea / Editorial guides" : section === "k-contents" ? "Culture, curated / K-Contents" : "Now in Korea / K-Trends"}>
+    <p className="max-w-2xl leading-7 text-[#69736c]">{section === "local-korea" ? "Plan your visit with editorial travel guides. Explore Places and Experiences for individual local destinations and activities." : section === "k-contents" ? "Explore the sounds, stories, and screen moments that lead people toward Korea." : "Discover Korean beauty, fashion, and food through our editorial stories."}</p>
     <nav aria-label="Article categories" className="my-8 flex flex-wrap gap-3 border-b border-[#e4e8e1] pb-7">
-      {[["", "All"], ...Object.entries(categories)].map(([key, label]) => <Link key={key} href={`/${section}${key ? `/${key}` : ""}`} aria-current={(category ?? "") === key ? "page" : undefined} className={`rounded-full px-5 py-2 text-sm font-semibold ${(category ?? "") === key ? "bg-[#17201d] text-white" : "border border-[#dce2dc] bg-white text-[#56625a]"}`}>{label}</Link>)}
+      {[["", section === "local-korea" ? "Local Korea overview" : "All"], ...Object.entries(categories)].map(([key, label]) => <Link key={key} href={`/${section}${key ? `/${key}` : ""}`} aria-current={(category ?? "") === key ? "page" : undefined} className={`rounded-full px-5 py-2 text-sm font-semibold ${(category ?? "") === key ? "bg-[#17201d] text-white" : "border border-[#dce2dc] bg-white text-[#56625a]"}`}>{label}</Link>)}
     </nav>
     {articles === null ? <p role="alert" className="rounded-2xl border border-[#e3e7e2] bg-white p-7">We couldn’t load these stories. Please try again later.</p>
       : articles.length === 0 ? <p className="rounded-2xl border border-[#e3e7e2] bg-white p-7">No stories have been published yet. Check back for our next discoveries.</p>

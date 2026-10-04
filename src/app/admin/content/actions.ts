@@ -32,6 +32,7 @@ export async function saveArticle(id: unknown, revision: unknown, form: FormData
     // Both old and new categories are covered when moving an article.
     revalidatePath("/k-contents", "layout");
     revalidatePath("/k-trends", "layout");
+    revalidatePath("/local-korea", "layout");
     return { ok: true, id: data.id, revision: data.updated_at, message: status === "published" ? "Article published. Saved changes are now public." : "Draft saved. This article is not publicly available." };
   } catch {
     return { ok: false, message: "We couldn’t confirm the save. Check the content list before retrying to avoid a duplicate." };

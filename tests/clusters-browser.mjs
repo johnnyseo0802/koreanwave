@@ -16,6 +16,9 @@ for(let i=0;i<kinds.length;i++){
  rows[kinds[i]]=[row,{...row,id:id(30+i),title:'PRIVATE TARGET SENTINEL',name:'PRIVATE TARGET SENTINEL',status:i<4?'draft':'pending'},{...row,id:id(50+i),title:'REJECTED TARGET SENTINEL',name:'REJECTED TARGET SENTINEL',status:i<4?'draft':'rejected'}];
  for(let j=0;j<3;j++)rows.content_cluster_items.push({id:id(100+i*3+j),cluster_id:id(1),[keys[i]]:id(10+i+j*20),display_order:j});
 }
+// Cluster relationships remain article_id for Local Korea editorial guides,
+// never place_id/experience_id. Includes draft/rejected sentinels above.
+for (const article of rows.editorial_articles) { article.section='local-korea'; article.category='guides'; }
 const api=http.createServer((req,res)=>{
  const u=new URL(req.url,'http://127.0.0.1:4042');res.setHeader('Content-Type','application/json');
  if(req.method!=='GET'){writes++;res.writeHead(405);res.end('{}');return;}

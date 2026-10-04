@@ -22,6 +22,8 @@ function form(overrides = {}) {
   return data;
 }
 assert.ok(model.validateEditorial(form()).value);
+assert.equal(model.sectionLabel('local-korea'), 'Local Korea');
+for (const bad of [{section:'local-korea',category:'food'},{section:'k-trends',category:'guides'},{section:'k-contents',category:'guides'}]) assert.ok(model.validateEditorial(form(bad)).error);
 for (const [section, categories] of Object.entries(model.editorialCategories)) for (const category of Object.keys(categories)) assert.ok(model.validateEditorial(form({ section, category })).value);
 for (const bad of [{ category: 'beauty' }, { category: '__proto__' }, { section: 'other' }, { status: 'approved' }, { title: ' ' }, { title: 'x'.repeat(161) }, { summary: 'short' }, { body: 'x'.repeat(30001) }, { image_url: 'javascript:alert(1)' }]) assert.ok(model.validateEditorial(form(bad)).error);
 assert.equal(model.textLength('😀'), 1);
@@ -50,6 +52,11 @@ for (const status of ['unauthenticated', 'forbidden', 'unavailable']) {
   assert.equal(calls.length, 0);
 }
 access = { status: 'admin', client };
+for (const status of ['draft','published']) {
+  calls=[];
+  assert.equal((await actions.saveArticle(null,null,form({section:'local-korea',category:'guides',status}))).ok,true);
+  assert.equal(calls.find(c=>c[0]==='insert')[1].category,'guides');
+}
 calls = [];
 assert.equal((await actions.saveArticle(null, null, form({ published_at: 'forged', status: 'published' }))).ok, true);
 assert.deepEqual(Object.keys(calls.find(c => c[0] === 'insert')[1]).sort(), ['body', 'category', 'image_alt', 'image_url', 'section', 'source_url', 'status', 'summary', 'title']);
@@ -63,6 +70,9 @@ result = { data: null, error: { message: 'PRIVATE_DATABASE_ERROR', code: '42501'
 assert.ok(!(await actions.saveArticle(id, revision, form())).message.includes('PRIVATE_DATABASE_ERROR'));
 
 const publicData = load('src/lib/editorial-data.ts', { '@/lib/editorial': model, '@/lib/supabase/server': { createClient: async () => client } });
+calls=[];
+await publicData.listPublicArticles('local-korea','guides');
+for (const [field,value] of [['status','published'],['section','local-korea'],['category','guides']]) assert.ok(calls.some(c=>c[0]==='eq'&&c[1]===field&&c[2]===value));
 result = { data: [], error: null };
 calls = [];
 await publicData.listPublicArticles('k-trends', 'food');

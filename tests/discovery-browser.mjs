@@ -29,6 +29,8 @@ const rows={
  reviews:[],answers:[],event_applications:[],profiles:[{id:uuid(99),role:'admin'}],
 };
 rows.editorial_articles.push({...rows.editorial_articles[0],id:uuid(98),title:'PRIVATE DRAFT SENTINEL',status:'draft'});
+rows.editorial_articles.push({...rows.editorial_articles[0],id:uuid(7),section:'local-korea',category:'guides',title:'Fixture local guide'});
+rows.editorial_articles.push({...rows.editorial_articles[0],id:uuid(97),section:'local-korea',category:'guides',title:'PRIVATE DRAFT SENTINEL',status:'draft'});
 // Read only the built public image allowlist (never env/key values). Image requests
 // are fulfilled in the browser with a tiny local PNG; no remote image is fetched.
 const host=JSON.parse(readFileSync('.next/required-server-files.json','utf8')).config.images.remotePatterns[0]?.hostname;
@@ -77,6 +79,18 @@ try {
  const paths=['/','/search','/search?q=Fixture','/search?q=unmatched','/k-contents','/k-contents/music','/k-contents/dramas','/k-contents/movies','/k-trends','/k-trends/beauty','/k-trends/fashion','/k-trends/food','/local-korea/places','/local-korea/places?area=Seongsu','/local-korea/experiences?category=Culture',`/articles/${uuid(1)}`,`/local-korea/places/${uuid(11)}`,`/local-korea/experiences/${uuid(21)}`,'/events',`/event/${uuid(31)}`];
  for(const width of [375,768,1440]){
   await page.setViewportSize({width,height:900});
+  await page.goto(base+'/local-korea',{waitUntil:'networkidle'});
+  await page.getByRole('link',{name:/Guides.*Read editorial/}).click();
+  await page.waitForURL('**/local-korea/guides');
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
+  await page.getByRole('link',{name:/Fixture local guide/}).click();
+  await page.waitForURL(`**/articles/${uuid(7)}`);
+  await page.getByText('Local Korea / guides',{exact:true}).waitFor();
+  await page.getByRole('link',{name:/Back to guides/}).click();
+  await page.waitForURL('**/local-korea/guides');
+  assert.ok(!(await page.locator('body').innerText()).includes('PRIVATE DRAFT SENTINEL'));
+  await page.goto(base+'/search?q=guides',{waitUntil:'networkidle'});
+  assert.ok(await page.getByRole('link',{name:/Fixture local guide/}).count());
   for(const path of paths){
    const response=await page.goto(base+path,{waitUntil:'networkidle'});
    assert.equal(response.status(),200,path);assert.equal(await page.locator('h1').count(),1,path);
@@ -120,9 +134,18 @@ try {
    await page.goto(base+path,{waitUntil:'networkidle'});
    assert.equal(new URL(page.url()).pathname,path);
    assert.equal(await page.getByLabel('Upload cover image').count(),1);
+   if(path==='/admin/content/new'){
+    await page.locator('select[name="section"]').selectOption('local-korea');
+    assert.equal(await page.locator('select[name="category"]').inputValue(),'guides');
+    assert.equal(await page.locator('select[name="category"] option').count(),1);
+    await page.locator('select[name="section"]').selectOption('k-trends');
+    assert.equal(await page.locator('select[name="category"]').inputValue(),'beauty');
+   }
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,`${width} admin overflow`);
   }
   await page.screenshot({path:`.next/discovery-qa/admin-${width}.png`,fullPage:true});
+  await page.goto(base+`/admin/content/${uuid(97)}/preview`,{waitUntil:'networkidle'});
+  assert.ok((await page.locator('body').innerText()).includes('PRIVATE DRAFT SENTINEL'));
  }
  assert.equal(mutations,0);assert.equal(privateReads,0);assert.deepEqual(errors,[]);
  console.log('PASS: admin protection + fixture admin form/upload layout, no real accounts, no form submissions, no writes or private meeting reads.');

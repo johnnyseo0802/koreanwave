@@ -1,6 +1,7 @@
 export const editorialCategories = {
   "k-contents": { music: "Music", dramas: "Dramas", movies: "Movies" },
   "k-trends": { beauty: "Beauty", fashion: "Fashion", food: "Food" },
+  "local-korea": { guides: "Guides" },
 } as const;
 export type EditorialSection = keyof typeof editorialCategories;
 export type EditorialInput = {
@@ -13,7 +14,7 @@ export type AdminArticle = PublicArticle & { status: "draft" | "published"; upda
 export const publicArticleFields = "id,section,category,title,summary,body,image_url,image_alt,source_url,published_at";
 export const adminArticleFields = `${publicArticleFields},status,updated_at`;
 export const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-export const sectionLabel = (section: EditorialSection) => section === "k-contents" ? "K-Contents" : "K-Trends";
+export const sectionLabel = (section: EditorialSection) => ({ "k-contents": "K-Contents", "k-trends": "K-Trends", "local-korea": "Local Korea" })[section];
 export const textLength = (text: string) => Array.from(text).length;
 
 // Source/attribution URL validation. Cover images have a separate, stricter
@@ -34,7 +35,7 @@ export function validateEditorial(form: FormData): { value?: EditorialInput; err
   const read = (key: string) => typeof form.get(key) === "string" ? (form.get(key) as string).trim() : "";
   const section = read("section");
   const category = read("category");
-  if ((section !== "k-contents" && section !== "k-trends")
+  if ((section !== "k-contents" && section !== "k-trends" && section !== "local-korea")
     || !Object.hasOwn(editorialCategories[section], category)) return { error: "Choose a valid section and category." };
   const title = read("title"), summary = read("summary"), body = read("body");
   for (const [label, value, min, max] of [["Title", title, 2, 160], ["Summary", summary, 10, 500], ["Body", body, 20, 30000]] as const) {

@@ -4,7 +4,8 @@ import Link from "next/link";
 import { LocalPageShell } from "@/components/local-content";
 export default function LocalKoreaPage() {
   return <LocalPageShell title="Discover Local Korea" description="Go beyond the guidebook. Find local places, discover cultural experiences, and connect through events.">
-    <div className="grid gap-5 sm:grid-cols-3">{[
+    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{[
+      ["Guides", "Read editorial travel guides to discover ideas and plan your visit.", "/local-korea/guides"],
       ["Places", "Find neighborhoods, cafés, and places worth a visit. Read visitor information and share a review.", "/local-korea/places"],
       ["Experiences", "Explore local culture and hands-on activities before planning your visit.", "/local-korea/experiences"],
       ["Events", "Discover cultural gatherings and community events across Korea.", "/events"],

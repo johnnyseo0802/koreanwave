@@ -51,7 +51,7 @@ export function EditorialForm({ article }: { article?: AdminArticle }) {
     <p className="mb-6 text-sm leading-6 text-[#69736c]">Write in English using plain text. Save a draft before previewing. Publishing makes the article visible immediately; saving as draft removes it from public pages.</p>
     <fieldset disabled={busy} className="space-y-6 disabled:opacity-60">
       <div className="grid gap-6 sm:grid-cols-2">
-        <label className="block text-sm font-semibold">Section<select name="section" className={inputClass} value={section} onChange={e => { const next = e.target.value as EditorialSection; setSection(next); setCategory(next === "k-contents" ? "music" : "beauty"); }}>
+        <label className="block text-sm font-semibold">Section<select name="section" className={inputClass} value={section} onChange={e => { const next = e.target.value as EditorialSection; setSection(next); setCategory(Object.keys(editorialCategories[next])[0]); }}>
           {Object.keys(editorialCategories).map(key => <option key={key} value={key}>{sectionLabel(key as EditorialSection)}</option>)}
         </select></label>
         <label className="block text-sm font-semibold">Category<select name="category" className={inputClass} value={category} onChange={e => setCategory(e.target.value)}>

@@ -45,6 +45,8 @@ let mutations=0,privateReads=0;
 const api=http.createServer((req,res)=>{
  const url=new URL(req.url,'http://127.0.0.1:4032');
  res.setHeader('content-type','application/json');
+ // Read-only Sprint 9 home aggregate uses POST as required by PostgREST RPC.
+ if(req.method==='POST'&&url.pathname==='/rest/v1/rpc/trending_conversations'){res.end('[]');return;}
  if(req.method!=='GET'){mutations++;res.writeHead(405);res.end('{}');return;}
  if(url.pathname==='/auth/v1/user'){res.end(JSON.stringify({id:uuid(99),aud:'authenticated',role:'authenticated',app_metadata:{},user_metadata:{},email_confirmed_at:date,created_at:date}));return;}
  const table=url.pathname.split('/').at(-1);

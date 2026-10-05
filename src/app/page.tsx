@@ -4,6 +4,7 @@ import { HomeEvents } from "@/components/home-events";
 import { HomeDiscovery } from "@/components/home-discovery";
 import { HomeCommunity } from "@/components/home-community";
 import { HomeClusters } from "@/components/cluster-content";
+import { TrendingConversations } from "@/components/conversation";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -16,6 +17,7 @@ export default function Home() {
       </div>
       <Link href="/local-korea" className="flex aspect-[4/4.5] flex-col justify-between rounded-[2rem] bg-gradient-to-br from-[#669286] via-[#a7c5aa] to-[#ece0bd] p-7"><span className="self-start rounded-full bg-white/85 px-4 py-2 text-xs font-semibold">Seoul, Korea</span><div className="rounded-2xl bg-white/90 p-6"><p className="text-xs uppercase tracking-widest text-[#71816d]">Explore at your pace</p><h2 className="mt-2 text-3xl font-semibold tracking-tight">Find your side of Seoul →</h2><p className="mt-3 text-sm text-[#647068]">Places · Experiences · Events</p></div></Link>
     </section>
+    <Suspense fallback={null}><TrendingConversations home /></Suspense>
     <Suspense fallback={null}><HomeClusters /></Suspense>
     {(["k-contents", "k-trends", "local-korea"] as const).map(section => <Suspense key={section} fallback={<div className="mx-auto max-w-7xl px-5 py-12" role="status">Loading discoveries…</div>}><HomeDiscovery section={section} /></Suspense>)}
     <Suspense fallback={<p className="px-5 py-12">Loading community…</p>}><HomeCommunity /></Suspense>

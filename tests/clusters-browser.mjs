@@ -21,6 +21,7 @@ for(let i=0;i<kinds.length;i++){
 for (const article of rows.editorial_articles) { article.section='local-korea'; article.category='guides'; }
 const api=http.createServer((req,res)=>{
  const u=new URL(req.url,'http://127.0.0.1:4042');res.setHeader('Content-Type','application/json');
+ if(req.method==='POST'&&u.pathname==='/rest/v1/rpc/trending_conversations'){res.end('[]');return;}
  if(req.method!=='GET'){writes++;res.writeHead(405);res.end('{}');return;}
  if(u.pathname==='/auth/v1/user'){res.end(JSON.stringify({id:id(99),aud:'authenticated',role:'authenticated',app_metadata:{},user_metadata:{},email_confirmed_at:date,created_at:date}));return;}
  const table=u.pathname.split('/').at(-1);if(table==='profiles'){res.end(JSON.stringify(String(req.headers.accept).includes('vnd.pgrst.object')?{role}:[{role}]));return;}

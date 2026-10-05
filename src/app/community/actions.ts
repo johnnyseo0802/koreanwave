@@ -26,7 +26,7 @@ export async function setHelpful(id: string, enabled: boolean): Promise<ActionRe
     if (authError || !data.user) return { ok: false, message: "Log in to mark a post helpful." };
     const { data: allowed, error: allowedError } = await client.rpc("community_can_help", { target: id });
     if (allowedError || !allowed) return { ok: false, message: "Helpful is available for other members’ published posts." };
-    const result = enabled ? await client.from("community_helpful").insert({ post_id: id }) : await client.from("community_helpful").delete().eq("post_id", id);
+    const result = enabled ? await client.from("community_helpful").insert({ post_id: id }) : await client.from("community_helpful").delete().eq("post_id", id).eq("reaction_type", "helpful");
     if (result.error && !(enabled && result.error.code === "23505")) return failure;
     revalidatePath(`/community/posts/${id}`);
     return { ok: true, message: enabled ? "Marked helpful." : "Helpful removed." };

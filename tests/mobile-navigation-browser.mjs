@@ -11,7 +11,7 @@ createRequire(require.resolve('next/package.json'))('@next/env').loadEnvConfig(p
 const browserStorageKey=process.env.NEXT_PUBLIC_SUPABASE_URL?`sb-${new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname.split('.')[0]}-auth-token`:'sb-127-auth-token';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE_PATH?pathToFileURL(process.env.PLAYWRIGHT_MODULE_PATH).href:'playwright');
 const id='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';let writes=0;
-const api=http.createServer((req,res)=>{res.setHeader('Content-Type','application/json');if(req.method!=='GET'){writes++;res.writeHead(405);res.end('{}');return;}if(req.url.startsWith('/auth/v1/user')){res.end(JSON.stringify({id,aud:'authenticated',role:'authenticated',app_metadata:{},user_metadata:{},created_at:'2026-01-01T00:00:00Z'}));return;}res.end(req.headers.accept?.includes('vnd.pgrst.object')?'null':'[]');});
+const api=http.createServer((req,res)=>{res.setHeader('Content-Type','application/json');if(req.method==='POST'&&req.url==='/rest/v1/rpc/trending_conversations'){res.end('[]');return;}if(req.method!=='GET'){writes++;res.writeHead(405);res.end('{}');return;}if(req.url.startsWith('/auth/v1/user')){res.end(JSON.stringify({id,aud:'authenticated',role:'authenticated',app_metadata:{},user_metadata:{},created_at:'2026-01-01T00:00:00Z'}));return;}res.end(req.headers.accept?.includes('vnd.pgrst.object')?'null':'[]');});
 await new Promise(r=>api.listen(4052,'127.0.0.1',r));
 const app=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--port','4051'],{env:{...process.env,NEXT_PUBLIC_SUPABASE_URL:'http://127.0.0.1:4052',NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:'fixture-only'},stdio:'ignore',windowsHide:true});
 let browser;
@@ -48,7 +48,9 @@ try{
  const box=await menu.boundingBox();assert.ok(box.x>=0&&box.x+box.width<=390&&box.y+box.height<=320);
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
  assert.equal(await menu.evaluate(el=>el.scrollHeight>el.clientHeight),true);
- assert.equal(await page.evaluate(()=>getComputedStyle(document.body).overflow==='hidden'),true);
+ // Native details visibility changes before its queued toggle listener locks
+ // scrolling. Wait for the observable lock, not an arbitrary delay.
+ await page.waitForFunction(()=>getComputedStyle(document.body).overflow==='hidden',undefined,{timeout:5000});
  await page.mouse.move(5,200);const before=await page.evaluate(()=>scrollY);await page.mouse.wheel(0,400);
  await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));assert.equal(await page.evaluate(()=>scrollY),before);
  await menu.getByRole('link',{name:'Join free',exact:true}).tap();await page.waitForURL('**/signup');await closed();

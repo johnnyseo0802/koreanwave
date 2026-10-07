@@ -61,7 +61,8 @@ for (const path of walk('src').filter(p => /\.(ts|tsx)$/.test(p))) {
   const code = read(path);
   assert.doesNotMatch(code, /console\.(?:log|error|warn|debug)\(/, `${path}: no production diagnostics`);
   assert.doesNotMatch(code, /\.select\(["']\*["']\)/, `${path}: no SELECT *`);
-  // Exactly one server-only Storage writer may reference the modern secret.
+  // Separate fixed-purpose Storage and translation adapters may reference their
+  // modern secrets. Normal cookie/browser clients must never use either.
   // Permit its format-prefix check, not a literal credential or a browser import.
   const writer = path === 'src/lib/supabase/community-media-writer.ts';
   if (writer) {
@@ -72,7 +73,14 @@ for (const path of walk('src').filter(p => /\.(ts|tsx)$/.test(p))) {
     assert.doesNotMatch(code, /SUPABASE_COMMUNITY_MEDIA_SECRET_KEY/);
   }
   if (code.includes('@/lib/supabase/community-media-writer')) assert.equal(path, 'src/app/community/media/upload/route.ts');
-  assert.doesNotMatch(writer ? code.replace('startsWith("sb_secret_")', 'startsWith("KEY_PREFIX")') : code, /dangerouslySetInnerHTML|SUPABASE_SERVICE_ROLE|sb_secret_/, `${path}: no credential literal/unsafe HTML`);
+  const translation = path === 'src/lib/supabase/translation-cache.ts';
+  if (translation) {
+    assert.match(code, /^import "server-only";/);
+    assert.match(code, /process\.env\.SUPABASE_TRANSLATION_SECRET_KEY/);
+    assert.doesNotMatch(code, /cookies\(|createServerClient|"use client"|\.storage|\.from\("(?:profiles|community_posts|community_comments)"/);
+  } else assert.doesNotMatch(code, /SUPABASE_TRANSLATION_SECRET_KEY/);
+  if (code.includes('@/lib/supabase/translation-cache')) assert.equal(path, 'src/app/community/translation-actions.ts');
+  assert.doesNotMatch(writer || translation ? code.replace('startsWith("sb_secret_")', 'startsWith("KEY_PREFIX")') : code, /dangerouslySetInnerHTML|SUPABASE_SERVICE_ROLE|sb_secret_/, `${path}: no credential literal/unsafe HTML`);
   assert.doesNotMatch(code, /(?:sb_publishable_|eyJhbGci)[A-Za-z0-9_.-]{20,}/, `${path}: no hardcoded credential`);
 }
 console.log('PASS: safe redirects, public status/identity filters, own approved-only meeting detail scope, live-role admin checks, guarded moderation actions, source secret/debug scan. Static/mock checks only.');

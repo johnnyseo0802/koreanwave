@@ -2,11 +2,12 @@ import Link from "next/link";
 import { articleConversation, conversationData, trendingConversations } from "@/lib/conversation-data";
 import { CommentComposer, CommentReport, ReactionButtons } from "@/components/conversation-controls";
 import type { Comment } from "@/lib/conversation";
+import { TranslatableContent } from "@/components/translatable-content";
 export async function PostConversation({ postId }: { postId: string }) {
   const data = await conversationData(postId);
   const login = `/login?next=${encodeURIComponent(`/community/posts/${postId}`)}`;
   const roots = data.comments.filter(c => !c.parent_comment_id);
-  const render = (c: Comment) => <div className="min-w-0 break-words [overflow-wrap:anywhere]"><p className="text-sm font-semibold">{data.own.some(o => o.id === c.id) ? "You" : "Community member"}</p><time className="text-xs text-[#69736c]" dateTime={c.created_at}>{new Date(c.created_at).toLocaleDateString("en", { timeZone: "Asia/Seoul" })}</time><p className="mt-3 whitespace-pre-wrap leading-7">{c.body}</p>{data.authenticated && <CommentReport postId={postId} id={c.id} />}</div>;
+  const render = (c: Comment) => <div className="min-w-0 break-words [overflow-wrap:anywhere]"><p className="text-sm font-semibold">{data.own.some(o => o.id === c.id) ? "You" : "Community member"}</p><time className="text-xs text-[#69736c]" dateTime={c.created_at}>{new Date(c.created_at).toLocaleDateString("en", { timeZone: "Asia/Seoul" })}</time><TranslatableContent contentType="comment" contentId={c.id} originalText={c.body} authenticated={data.authenticated} postId={postId} />{data.authenticated && <CommentReport postId={postId} id={c.id} />}</div>;
   return <section aria-label="Conversation" className="mt-10 border-t pt-8"><h2 className="text-2xl font-semibold">Join the conversation</h2><p className="mt-3 text-sm">Strong opinions welcome. Personal attacks, threats, hate, sexual harassment and spam are not.</p>
     {data.unavailable ? <p role="status" className="mt-4">Conversation features are temporarily unavailable. Please try again later.</p> : <>
       {data.authenticated ? <><ReactionButtons postId={postId} mine={data.mine} counts={data.counts} /><CommentComposer postId={postId} /></> : <><p className="mt-4 text-sm">Like {data.counts.like ?? 0} · Interesting {data.counts.interesting ?? 0} · Agree {data.counts.agree ?? 0}</p><Link className="my-4 inline-block rounded-full border px-5 py-3 underline" href={login}>Log in to add your take or react</Link></>}

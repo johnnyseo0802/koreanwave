@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { CommunityShell, CommunityImage } from "@/components/community-shell";
 import { CommunityInteractions } from "@/components/community-interactions";
 import { PostConversation } from "@/components/conversation";
+import { TranslatableContent } from "@/components/translatable-content";
 export const metadata = { title: "Community contribution" };
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -22,7 +23,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     <p className="mt-5 text-sm text-[#557b39]">{[post.topic,post.location_label].filter(Boolean).join(" · ")}</p>
     {post.published_at && <time className="mt-3 block text-sm" dateTime={post.published_at}>{new Date(post.published_at).toLocaleDateString("en", { dateStyle: "medium", timeZone: "Asia/Seoul" })}</time>}
     {post.type === "discussion" && <p className="mt-3 text-sm font-semibold">Operator-started discussion · Add your own perspective</p>}
-    <p className="mt-6 whitespace-pre-wrap break-words leading-8">{post.body}</p>
+    <div className="mt-6"><TranslatableContent contentType="post" contentId={id} originalText={post.body} authenticated={authenticated} postId={id} /></div>
     {unavailable ? <p className="mt-6">Helpful is temporarily unavailable.</p> : authenticated ? <CommunityInteractions id={id} initialHelpful={helpful} total={total} /> : <div className="mt-6"><p>{total} found this helpful</p><Link className="mt-3 inline-block py-3 underline" href={`/login?next=${encodeURIComponent(`/community/posts/${id}`)}`}>Log in to mark Helpful or report</Link></div>}
     <PostConversation postId={id} />
     <Link href="/community" className="mt-8 inline-block py-3 font-semibold underline">← Back to Community</Link>

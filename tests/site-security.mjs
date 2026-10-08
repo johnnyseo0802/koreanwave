@@ -59,7 +59,11 @@ role = 'admin'; assert.equal((await getAdminAccess()).status, 'admin');
 function walk(dir) { return fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(`${dir}/${e.name}`) : [`${dir}/${e.name}`]); }
 for (const path of walk('src').filter(p => /\.(ts|tsx)$/.test(p))) {
   const code = read(path);
-  assert.doesNotMatch(code, /console\.(?:log|error|warn|debug)\(/, `${path}: no production diagnostics`);
+  if (path === 'src/lib/translation-diagnostics.ts') {
+    assert.match(code, /^import "server-only";/);
+    assert.match(code, /console\.warn\(JSON\.stringify\(event\)\)/);
+    assert.doesNotMatch(code, /process\.env|\.headers|\.message|\.stack|\.\.\.(?:error|input)/);
+  } else assert.doesNotMatch(code, /console\.(?:log|error|warn|debug)\(/, `${path}: no unreviewed production diagnostics`);
   assert.doesNotMatch(code, /\.select\(["']\*["']\)/, `${path}: no SELECT *`);
   // Separate fixed-purpose Storage and translation adapters may reference their
   // modern secrets. Normal cookie/browser clients must never use either.

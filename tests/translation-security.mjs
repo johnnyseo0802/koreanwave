@@ -5,7 +5,10 @@ import vm from 'node:vm';
 import crypto from 'node:crypto';
 import ts from 'typescript';
 const read=p=>fs.readFileSync(p,'utf8');
-function load(path,imports={},globals={}) { const context={exports:{},require:n=>n==='server-only'?{}:imports[n],...globals};vm.runInNewContext(ts.transpileModule(read(path),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,context);return context.exports; }
+let diagnostics;
+const diagnosticLogs=[];
+function load(path,imports={},globals={}) { const context={exports:{},require:n=>n==='server-only'?{}:n==='@/lib/translation-diagnostics'?diagnostics:imports[n],...globals};vm.runInNewContext(ts.transpileModule(read(path),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,context);return context.exports; }
+diagnostics=load('src/lib/translation-diagnostics.ts',{}, {console:{warn:value=>diagnosticLogs.push(JSON.parse(value))}});
 const model=load('src/lib/translation.ts');
 const ko='성수 주말은 진짜 너무 붐벼서 난 별로였음 ㅋㅋ',en='This is my honest opinion and I do not like the crowd.';
 assert.equal(model.detectConversationLanguage(ko),'ko');assert.equal(model.detectConversationLanguage(en),'en');

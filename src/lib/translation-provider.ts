@@ -1,5 +1,6 @@
 import "server-only";
 import type { TranslationLanguage } from "@/lib/translation";
+import { translationDiagnostic, TranslationFailure } from "@/lib/translation-diagnostics";
 
 export type TranslationInput = { text: string; sourceLanguage: TranslationLanguage; targetLanguage: TranslationLanguage };
 export type TranslationProvider = { name: string; model: string; translateText(input: TranslationInput): Promise<string> };
@@ -9,7 +10,9 @@ export type TranslationProvider = { name: string; model: string; translateText(i
 export function translationProvider(): TranslationProvider | null {
   const key = process.env.OPENAI_API_KEY;
   const model = process.env.OPENAI_TRANSLATION_MODEL;
-  if (!key || !model || !/^[a-zA-Z0-9._:-]{1,100}$/.test(model)) return null;
+  if (!key) { translationDiagnostic("configuration", "openai_key_missing"); return null; }
+  if (!model) { translationDiagnostic("configuration", "model_missing"); return null; }
+  if (!/^[a-zA-Z0-9._:-]{1,100}$/.test(model)) { translationDiagnostic("configuration", "model_format_invalid"); return null; }
   return {
     name: "openai", model,
     async translateText({ text, sourceLanguage, targetLanguage }) {
@@ -22,20 +25,35 @@ export function translationProvider(): TranslationProvider | null {
           input: [{ role: "user", content: JSON.stringify({ source_text: text }) }],
         }),
       });
-      if (!response.ok) throw new Error("translation_provider_unavailable");
-      const result = await response.json();
-      if (result.status !== "completed" || !Array.isArray(result.output)) throw new Error("translation_invalid_response");
+      if (!response.ok) {
+        // Do not read/log message, headers or raw response; only classify exact codes.
+        const body = await response.json().catch(() => null);
+        const code = body?.error?.code ?? body?.error?.type;
+        const reason = ["insufficient_quota", "billing_hard_limit_reached"].includes(code) ? "billing"
+          : ["model_not_found", "unsupported_model"].includes(code) ? "model_or_access"
+          : response.status === 401 || code === "invalid_api_key" ? "authentication"
+          : response.status === 429 || code === "rate_limit_exceeded" ? "rate_limit"
+          : response.status === 403 ? "permission"
+          : response.status >= 500 ? "provider_error" : "request_rejected";
+        throw new TranslationFailure("provider_response", reason, response.status, code);
+      }
+      let result;
+      try { result = await response.json(); }
+      catch { throw new TranslationFailure("provider_validation", "invalid_json", response.status); }
+      if (result?.status !== "completed") throw new TranslationFailure("provider_validation", "incomplete", response.status, result?.incomplete_details?.reason);
+      if (!Array.isArray(result.output)) throw new TranslationFailure("provider_validation", "invalid_output", response.status);
       const parts: string[] = [];
       for (const item of result.output) {
-        if (item.type !== "message") continue;
-        if (!Array.isArray(item.content)) throw new Error("translation_invalid_response");
+        if (item?.type !== "message") continue;
+        if (!Array.isArray(item.content)) throw new TranslationFailure("provider_validation", "invalid_output", response.status);
         for (const part of item.content) {
-          if (part.type !== "output_text" || typeof part.text !== "string") throw new Error("translation_invalid_response");
+          if (part?.type === "refusal") throw new TranslationFailure("provider_validation", "refusal", response.status);
+          if (part?.type !== "output_text" || typeof part.text !== "string") throw new TranslationFailure("provider_validation", "invalid_output", response.status);
           parts.push(part.text);
         }
       }
       const translated = parts.join("\n").trim();
-      if (!translated || Array.from(translated).length > 30000) throw new Error("translation_invalid_response");
+      if (!translated || Array.from(translated).length > 30000) throw new TranslationFailure("provider_validation", "empty_or_oversized", response.status);
       return translated;
     },
   };

@@ -151,12 +151,52 @@ Missing provider config can still serve existing cache with cache credentials.
 
 ## Diagnostics without sensitive logging
 
-No production console diagnostics or raw errors. Operator checks variable presence
+Only closed-vocabulary server diagnostics, never raw errors. Operator checks variable presence
 (never copies values), migration catalog/grants, and provider's dashboard status/
 quota. Inspect cache **counts/timestamps/provider metadata** in SQL Editor, not
 public APIs; avoid exporting text/actor IDs. First request increments attempts;
 identical cached request does not. Failure can leave a released null-text cache
 entry; later manual retry is permitted within limits. No extra admin console.
+
+### Production failure diagnostics (2026-10-08, pending deployment approval)
+
+A Server Action returns `{ok:false,message}` normally, so Vercel's HTTP 2xx is not
+evidence of OpenAI or cache success. Previously the action's two catch blocks, null
+configuration returns, collapsed cache errors, provider generic throws and false
+finalization all hid the failing stage. No exact Production cause is established
+without an observed event. API credit purchase alone cannot diagnose a cache/RPC,
+model permission, timeout or response-validation failure.
+
+After this change is explicitly released, operator clicks Translate once and opens
+that Vercel invocation's Runtime Logs (include warning level). Search for
+`translation.failure`. Each JSON event includes only version, stage, reason, optional
+numeric HTTP status and a strictly allowlisted error code. No IDs (including request
+IDs), hashes, env/model values, source/translated text, headers, message or stack.
+One failure may be followed by a separate cache_release failure; retain both safe
+events. No correlation identifier is necessary: use the Vercel invocation view.
+
+| Stage / reason | Operator check |
+| --- | --- |
+| configuration / openai_key_missing, model_missing, model_format_invalid | Variable configured for the deployed environment; model format has no whitespace. Validation is syntactic, not an availability check. |
+| configuration / cache_secret_missing, cache_secret_invalid, supabase_client_invalid | Correct server-only credential type and Supabase server config; never paste values into logs/chat. |
+| source_read / supabase_error | Normal SSR source read/API availability; no hidden object details are logged. |
+| source_validation / source_unavailable, source_changed | Source/ancestor no longer eligible or changed; do not weaken visibility checks. |
+| cache_read or cache_claim / supabase_error | HTTP status + safe code: 42501 permissions, 42P01/PGRST205 table missing, 42883/PGRST202 function/schema cache, 23514 constraint. Check reviewed migration/project alignment without widening grants. |
+| provider_response / model_or_access | model_not_found can mean unavailable to this API project, not necessarily a globally invalid model ID. |
+| provider_response / authentication, permission | Correct provider project key and project/model access. |
+| provider_response / billing | insufficient_quota or billing_hard_limit_reached; verify credit/billing for the same provider project. |
+| provider_response / rate_limit, provider_error, request_rejected | Provider throttling, 5xx availability or rejected request parameters. Unknown provider codes are omitted. |
+| provider_request / timeout, network | Existing 20-second timeout or transport failure; no automatic timeout/model/semantic change made. |
+| provider_validation / incomplete, refusal, invalid_json, invalid_output, empty_or_oversized | Provider answered but output failed existing validation; max_output_tokens/content_filter are safe incomplete codes. |
+| cache_finalize / supabase_error, zero_rows_or_expired_lease | Translation reached storage; inspect RPC/grants or expired/replaced 60-second lease. |
+| cache_release | Cleanup failed after another failure; inspect the earlier event first. |
+
+OpenAI Docs confirms `gpt-6-luna` is an API model with Responses support:
+https://developers.openai.com/api/docs/models/gpt-6-luna
+This does not verify this deployment's actual env value, model entitlement, API
+project billing or successful live access. No live provider request was made.
+Logger behavior/redaction is covered by `tests/translation-diagnostics-security.mjs`.
+User-facing messages, original toggle, RLS, quotas and moderation are unchanged.
 
 ## Pre-apply verification (read-only; do not execute automatically)
 

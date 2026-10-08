@@ -23,7 +23,7 @@ export async function translateConversation(input: unknown): Promise<Translation
     const text = await translationSource(client, request);
     if (!text || Array.from(text).length > 10000) { translationDiagnostic("source_validation", "source_unavailable"); return fail(); }
     const sourceLanguage = detectConversationLanguage(text);
-    if (!sourceLanguage) return fail("We could not confidently detect Korean or English. Please read the original.");
+    if (!sourceLanguage) return fail("We could not confidently detect Korean, English or Japanese. Please read the original.");
     if (sourceLanguage === request.targetLanguage) return fail("The original is already in the requested language.");
     const sourceHash = createHash("sha256").update(text, "utf8").digest("hex");
     const identity = { ...request, sourceLanguage, sourceHash };

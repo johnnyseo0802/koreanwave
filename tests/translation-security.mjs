@@ -12,10 +12,11 @@ diagnostics=load('src/lib/translation-diagnostics.ts',{}, {console:{warn:value=>
 const model=load('src/lib/translation.ts');
 const ko='성수 주말은 진짜 너무 붐벼서 난 별로였음 ㅋㅋ',en='This is my honest opinion and I do not like the crowd.';
 assert.equal(model.detectConversationLanguage(ko),'ko');assert.equal(model.detectConversationLanguage(en),'en');
-for(const text of ['123 😀','bonjour le monde','Seongsu','안녕 hello world this is mixed','これは日本語です'])assert.equal(model.detectConversationLanguage(text),null);
+for(const text of ['123 😀','bonjour le monde','Seongsu','안녕 hello world this is mixed','韓国旅行','你好世界','はい','日本語 hello world','안녕하세요 こんにちは'])assert.equal(model.detectConversationLanguage(text),null);
+for(const text of ['これは日本語です','週末の聖水は混みすぎて微妙だった笑 😂','ありがとう','カフェが好きです','ｶﾌｪが好きです','これは本当に楽しい café!'])assert.equal(model.detectConversationLanguage(text),'ja',text);
 assert.equal(model.detectConversationLanguage('오늘 날씨가 정말 좋아요 nice!'),'ko');
 const id='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',request={contentType:'post',contentId:id,targetLanguage:'en'};
-for(const bad of [{...request,sourceText:'forged'},{...request,sourceHash:'forged'},{...request,author_id:id},{...request,contentType:'article'},{...request,targetLanguage:'ja'},{...request,contentId:'bad'},null])assert.equal(model.parseTranslationRequest(bad),null);
+for(const bad of [{...request,sourceText:'forged'},{...request,sourceHash:'forged'},{...request,author_id:id},{...request,contentType:'article'},{...request,targetLanguage:'zh'},{...request,contentId:'bad'},null])assert.equal(model.parseTranslationRequest(bad),null);
 let authenticated=true,source=ko,providerCalls=0,readCalls=0,claimCalls=0,cache=new Map(),providerFailure=false,configured=true,limit=false,hideDuring=false;
 const client={auth:{getUser:async()=>({data:{user:authenticated?{id:'verified-server-user'}:null},error:null})}};
 const key=k=>k.contentType+k.contentId+k.sourceLanguage+k.targetLanguage+k.sourceHash;
@@ -40,6 +41,20 @@ providerFailure=true;assert.doesNotMatch(JSON.stringify(await translate(request)
 limit=true;assert.match((await translate(request)).message,/limit/);limit=false;
 hideDuring=true;assert.equal((await translate(request)).ok,false);assert.ok(!cache.has(current));hideDuring=false;
 assert.ok(claimCalls>0);
+// All six server-action directions; cache isolation by target, no-op in all three.
+const samples={ko,en,ja:'週末の聖水は混みすぎて微妙だった笑 😂'};
+cache=new Map();source=ko;
+for(const [language,text]of Object.entries(samples)){
+ source=text;
+ for(const targetLanguage of ['ko','en','ja']){
+  const n=providerCalls,result=await translate({...request,targetLanguage});
+  if(language===targetLanguage){assert.equal(result.ok,false);assert.match(result.message,/already/);assert.equal(providerCalls,n);continue;}
+  assert.equal(result.ok,true);assert.equal(result.sourceLanguage,language);assert.equal(result.targetLanguage,targetLanguage);assert.equal(providerCalls,n+1);
+  assert.equal((await translate({...request,targetLanguage})).ok,true);assert.equal(providerCalls,n+1);
+ }
+}
+assert.equal(cache.size,6);
+source=samples.ja+' 本当に';const n=providerCalls;assert.equal((await translate(request)).ok,true);assert.equal(providerCalls,n+1);
 // Exercise real source loader independently with a filter-aware fixture (including
 // admin-like visibility: mock does NOT enforce RLS, so app filters must work).
 const posts=[{id,type:'discussion',status:'approved',body:ko}];

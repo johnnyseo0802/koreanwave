@@ -9,9 +9,10 @@ const {chromium}=await import(process.env.PLAYWRIGHT_MODULE_PATH?pathToFileURL(p
 const id=n=>`aaaaaaaa-aaaa-4aaa-8aaa-${String(n).padStart(12,'0')}`,date='2026-10-05T01:00:00Z';
 const korean='성수 주말은 진짜 너무 붐벼서 난 별로였음 ㅋㅋ ';
 const english='This is my honest opinion and I do not like the crowd. ';
+const japanese='週末の聖水は混みすぎて微妙だった笑 😂 ';
 const post={id:id(1),title:'Translation fixture',body:korean.repeat(30),type:'discussion',status:'approved',published_at:date};
 const comments=[{id:id(2),post_id:id(1),parent_comment_id:null,body:english.repeat(15),status:'approved',created_at:date},{id:id(3),post_id:id(1),parent_comment_id:id(2),body:english+'<script>window.unsafe=true</script>',status:'approved',created_at:date}];
-const cache=[];let calls=0,fail=false,writes=0;
+const cache=[];let calls=0,fail=false,writes=0;const directions=new Set();
 const api=http.createServer(async(req,res)=>{
  const url=new URL(req.url,'http://127.0.0.1:4072');res.setHeader('Content-Type','application/json');
  let raw='';for await(const b of req)raw+=b;const payload=raw?JSON.parse(raw):{};
@@ -21,7 +22,8 @@ const api=http.createServer(async(req,res)=>{
   const source=JSON.parse(payload.input[0].content).source_text;assert.ok([post.body,...comments.map(c=>c.body)].includes(source));
   await new Promise(r=>setTimeout(r,350));
   if(fail){res.writeHead(503);end({error:{message:'RAW_SECRET_FIXTURE_ERROR'}});return;}
-  end({status:'completed',output:[{type:'message',content:[{type:'output_text',text:payload.instructions.includes('from ko to en')?english.repeat(20):korean.repeat(20)}]}]});return;
+  const pair=payload.instructions.match(/from (ko|en|ja) to (ko|en|ja)/);assert.ok(pair);directions.add(`${pair[1]}-${pair[2]}`);
+  end({status:'completed',output:[{type:'message',content:[{type:'output_text',text:({en:english,ko:korean,ja:japanese})[pair[2]].repeat(20)}]}]});return;
  }
  if(url.pathname==='/auth/v1/user'){end({id:id(99),aud:'authenticated',role:'authenticated',app_metadata:{},user_metadata:{},created_at:date});return;}
  const table=url.pathname.split('/').at(-1);
@@ -75,14 +77,36 @@ try{
  assert.equal(await block(3).getByText(/Translated from/).count(),0,'Root request does not translate reply');
  await block(3).getByRole('button',{name:'Translate to Korean'}).click();await block(3).getByText('Translated from English · AI translation').waitFor();
  const before=calls;await goto();await block(1).getByRole('button',{name:'Translate to English'}).click();await block(1).getByText(/Translated from Korean/).waitFor();assert.equal(calls,before,'Persistent cache survives page load');
+ // Target selection is explicit, excludes source, and does not auto-call provider.
+ const targets=async n=>block(n).locator('select option').evaluateAll(options=>options.map(o=>o.value));
+ assert.deepEqual(await targets(1),['en','ja']);assert.deepEqual(await targets(2),['ko','ja']);
+ assert.equal(await block(1).getByLabel('Translate into').isEnabled(),true);
+ for(const n of [1,2]){
+  const prior=calls;await block(n).getByLabel('Translate into').selectOption('ja');assert.equal(calls,prior);
+  await block(n).getByRole('button',{name:'Translate to Japanese'}).click();
+  await block(n).getByRole('button',{name:'Show original'}).waitFor();assert.equal(calls,prior+1);
+  assert.ok((await block(n).locator('p[lang="ja"]').innerText()).includes(japanese.trim()));
+ }
+ // Japanese source fixture represents an existing public reply, not a DB write.
+ comments[1].body=japanese.repeat(20);await goto();assert.deepEqual(await targets(3),['en','ko']);
+ for(const [language,label]of [['en','English'],['ko','Korean']]){
+  await block(3).getByLabel('Translate into').selectOption(language);
+  await block(3).getByRole('button',{name:`Translate to ${label}`}).click();
+  await block(3).getByText('Translated from Japanese · AI translation').waitFor();
+  assert.ok(await block(3).locator(`p[lang="${language}"]`).isVisible());
+ }
+ const reused=calls;await block(3).getByLabel('Translate into').selectOption('en');await block(3).getByRole('button',{name:'Translate to English'}).click();assert.equal(calls,reused,'Per-language client cache reused');
+ assert.deepEqual([...directions].sort(),['en-ja','en-ko','ja-en','ja-ko','ko-en','ko-ja']);
  await mkdir('.next/translation-qa',{recursive:true});
  for(const[width,height]of [[390,844],[390,320],[768,900],[1440,900]]){
   await page.setViewportSize({width,height});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
   await block(1).getByRole('button').focus();assert.equal(await block(1).getByRole('button').evaluate(el=>el===document.activeElement),true);
+  await block(3).getByLabel('Translate into').focus();assert.equal(await block(3).getByLabel('Translate into').evaluate(el=>el===document.activeElement),true);
+  assert.ok((await block(3).getByLabel('Translate into').boundingBox()).height>=44);
   await page.screenshot({path:`.next/translation-qa/${width}x${height}.png`,fullPage:true});
  }
  assert.equal(await page.evaluate(()=>window.unsafe),undefined);assert.equal(writes,0);assert.deepEqual(errors,[]);
- console.log('PASS: real translation action/UI at mobile+desktop; no auto requests, auth CTA/return, loading/double click, ko/en, error/retry, cache reuse, original DOM/toggle, independent reply, keyboard/44px/wrapping, no unsafe HTML or source writes.');
+ console.log('PASS: translation mobile/desktop; all six EN/KO/JA pairs, source-excluding accessible select, no auto calls, per-target cache, auth, loading/double click, failure/original/retry, independent replies, keyboard/44px/wrapping, no production writes.');
 }finally{
  await browser?.close();app.kill();await new Promise(r=>api.close(r));
 }

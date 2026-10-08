@@ -1,5 +1,32 @@
 import "server-only";
 
+// Timing payloads contain only fixed labels and elapsed milliseconds. Never accept
+// caller data, IDs or errors. A broken clock/logger must not affect translation.
+const timingStages = ["authentication", "source_lookup", "source_recheck_before_finalize", "source_recheck_before_delivery", "cache_read", "cache_claim", "provider_request", "provider_response_processing", "cache_finalize", "cache_release", "total_request"] as const;
+type TimingStage = typeof timingStages[number];
+export function startTranslationTimer(stage: TimingStage): () => void {
+  let start: number;
+  try {
+    if (!timingStages.includes(stage)) return () => {};
+    start = performance.now();
+  } catch { return () => {}; }
+  let stopped = false;
+  return () => {
+    if (stopped) return;
+    stopped = true;
+    try {
+      const elapsed = performance.now() - start;
+      if (!Number.isFinite(elapsed) || elapsed < 0) return;
+      const event = { event: "translation.duration", stage, duration_ms: Math.round(elapsed) };
+      console.info(JSON.stringify(event));
+    } catch { /* Telemetry never changes success, failure or cleanup. */ }
+  };
+}
+export async function measureTranslation<T>(stage: TimingStage, operation: () => Promise<T>): Promise<T> {
+  const stop = startTranslationTimer(stage);
+  try { return await operation(); } finally { stop(); }
+}
+
 // Closed vocabulary only: never serialize errors, messages, bodies, headers,
 // model/env values, request IDs, user/content/cache IDs or source hashes.
 const stages = ["configuration", "authentication", "source_read", "source_validation", "cache_read", "cache_claim", "provider_request", "provider_response", "provider_validation", "cache_finalize", "cache_release", "action"] as const;

@@ -1,6 +1,6 @@
 export const informationPages = {
   about: {
-    title: "About Korean Wave Community", intro: "Korean culture, real local Korea, and people who want to explore both.",
+    title: "About KGROOV", intro: "Discover Korean trends, meet new perspectives, and explore local places and experiences.",
     sections: [
       ["Beyond the screen", "Discover music, dramas, movies, beauty, fashion, and food alongside places, experiences, and community gatherings in Korea."],
       ["Built around useful contributions", "Ask a Local, answers, and place reviews are reviewed before publication. Moderation helps keep discussions useful; it is not a guarantee that every statement is accurate."],
@@ -27,7 +27,7 @@ export const informationPages = {
     ],
   },
   contact: {
-    title: "Contact", intro: "Support availability for the early Korean Wave Community MVP.",
+    title: "Contact", intro: "Support availability for the early KGROOV MVP.",
     sections: [
       ["Support channel not yet published", "A verified operator contact address has not been configured. This page does not accept messages and no response time is promised. A working contact channel must be published before the public launch."],
       ["Account and privacy requests", "Signed-in members can report approved Moments, Stories and Tips from their detail pages. Account deletion, data requests, and other abuse concerns still require an operator contact and handling process before general public use. Do not post private account details in Ask a Local."],

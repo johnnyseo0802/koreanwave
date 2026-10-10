@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brand } from "@/lib/brand";
 import { AuthProvider } from "@/components/auth-provider";
 import { createClient } from "@/lib/supabase/server";
 import "./globals.css";
@@ -8,8 +9,9 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://koreanwave-kappa.vercel.app"),
-  title: { default: "Korean Wave Community — Discover Korea Beyond the Screen", template: "%s | Korean Wave Community" },
-  description: "Discover Korean culture, explore local Korea, and connect with people who love Korea.",
+  title: { default: `${brand.name} — ${brand.tagline}`, template: `%s | ${brand.name}` },
+  description: brand.description,
+  openGraph: { title: `${brand.name} — ${brand.headline}`, description: brand.description, siteName: brand.name },
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

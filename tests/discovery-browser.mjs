@@ -81,7 +81,7 @@ try {
  const errors=[];page.on('pageerror',()=>errors.push('Browser runtime error'));
  await mkdir('.next/discovery-qa',{recursive:true});
  const paths=['/','/search','/search?q=Fixture','/search?q=unmatched','/k-contents','/k-contents/music','/k-contents/dramas','/k-contents/movies','/k-trends','/k-trends/beauty','/k-trends/fashion','/k-trends/food','/local-korea/places','/local-korea/places?area=Seongsu','/local-korea/experiences?category=Culture',`/articles/${uuid(1)}`,`/local-korea/places/${uuid(11)}`,`/local-korea/experiences/${uuid(21)}`,'/events',`/event/${uuid(31)}`];
- for(const width of [375,768,1440]){
+ for(const width of [390,768,1440]){
   await page.setViewportSize({width,height:900});
   await page.goto(base+'/local-korea',{waitUntil:'networkidle'});
   await page.getByRole('link',{name:/Guides.*Read editorial/}).click();
@@ -130,7 +130,37 @@ try {
    }
    if(path==='/local-korea/places?area=Seongsu')assert.equal(await page.getByRole('link',{name:/Fixture place/}).count(),3);
    if(path==='/local-korea/experiences?category=Culture')assert.equal(await page.getByRole('link',{name:/Fixture experience/}).count(),2);
-   if(path==='/')await page.screenshot({path:`.next/discovery-qa/home-${width}.png`,fullPage:true});
+   if(path==='/'){
+    const poster=await page.locator('.groov-poster').boundingBox();
+    assert.ok(poster);
+    assert.ok(width===390 ? poster.height>=234 && poster.height<=270 : width===1440 ? poster.height===480 : poster.height===440);
+    assert.equal(await page.getByText('Discover the new Korea. Be part of it.',{exact:true}).count(),1);
+    const community=page.locator('#community-conversations');
+    assert.equal(await community.getByRole('link',{name:'Explore conversations ↗'}).getAttribute('href'),'/community');
+    assert.equal(await community.getByRole('link',{name:'Share a story, moment or tip ↗'}).getAttribute('href'),'/write');
+    const eventImage=await page.locator('.groov-event-card li a > div').first().boundingBox();
+    assert.ok(eventImage);
+    assert.ok(Math.abs(eventImage.width/eventImage.height-(width===390?16/7:16/9))<0.02);
+    if(width===390){
+     await page.getByRole('link',{name:'Community Conversations ↗',exact:true}).click();
+     await page.waitForURL('**/#community-conversations');
+     await community.getByRole('link',{name:'Explore conversations ↗'}).click();
+     await page.waitForURL('**/community');
+     await page.goto(base,{waitUntil:'networkidle'});
+    }
+    assert.match(await page.title(),/KGROOV/);
+    assert.match(await page.locator('h1').innerText(),/Korea Is\s+a Vibe\./);
+    for(const name of ['Trending Now','Featured Lifestyle','Community Conversations']) assert.equal(await page.getByRole('heading',{name,exact:true}).count(),1);
+    assert.equal(await page.getByRole('link',{name:'KGROOV home'}).count(),1);
+    assert.equal(await page.locator('form[role="search"]').getAttribute('action'),'/search');
+    const lifestyle=page.locator('section').filter({has:page.getByRole('heading',{name:'Featured Lifestyle',exact:true})});
+    assert.ok(await lifestyle.getByRole('link',{name:/Fixture beauty story/}).count());
+    assert.ok(await lifestyle.getByRole('link',{name:/Fixture fashion story/}).count());
+    assert.equal(await lifestyle.getByRole('link',{name:/Fixture music story/}).count(),0);
+    assert.ok(!(await page.locator('body').innerText()).includes('Korean Wave Community'));
+    await page.screenshot({path:`.next/discovery-qa/home-${width}.png`,fullPage:true});
+    await page.screenshot({path:`.next/discovery-qa/home-top-${width}.png`});
+   }
   }
   console.log(`PASS: ${width}px, ${paths.length} populated public routes, search/filters, no draft exposure or overflow`);
  }
@@ -140,7 +170,7 @@ try {
  await page.route('**/_next/image*',route=>route.abort());
  await page.goto(base+`/articles/${uuid(1)}`,{waitUntil:'networkidle'});
  await page.locator('article').scrollIntoViewIfNeeded();
- await page.waitForFunction(()=>!document.querySelector('article img') && document.querySelector('article')?.innerText.toLowerCase().includes('korean wave / discover'),{},{timeout:10000});
+  await page.waitForFunction(()=>!document.querySelector('article img') && document.querySelector('article')?.innerText.toLowerCase().includes('kgroov / discover'),{},{timeout:10000});
  await page.unroute('**/_next/image*');
  for(const path of ['/admin/local-content','/admin/events','/admin/content/new']){await page.goto(base+path,{waitUntil:'networkidle'});assert.equal(new URL(page.url()).pathname,'/login');}
  // Local-only signed-session fixture; fake Auth endpoint verifies it, not production.

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthenticated } from "@/components/auth-provider";
 import { createClient } from "@/lib/supabase/client";
+import { brand } from "@/lib/brand";
 
 const navigation = [
   { label: "K-Contents", href: "/k-contents" },
@@ -94,9 +95,8 @@ export function SiteHeader() {
 
   return (<>
     <header className="relative mx-auto flex h-18 w-full max-w-7xl items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
-      <Link className="flex shrink-0 items-center gap-2.5 text-[15px] font-semibold tracking-[-0.03em]" href="/">
-        <span className="grid size-8 place-items-center rounded-xl bg-[#17201d] text-sm text-white">K</span>
-        Korean Wave <span className="hidden sm:inline">Community</span>
+      <Link className="groov-wordmark shrink-0" href="/" aria-label="KGROOV home">
+        {brand.name}<span aria-hidden="true" className="groov-logo-dot" />
       </Link>
       <nav aria-label="Main navigation" className="hidden flex-1 items-center justify-center gap-4 text-[13px] font-medium text-[#5b635f] xl:flex xl:text-sm">
         {navigation.map((item) => <Link className="whitespace-nowrap transition hover:text-[#17201d]" href={item.href} key={item.href}>{item.label}</Link>)}

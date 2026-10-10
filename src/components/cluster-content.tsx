@@ -3,7 +3,7 @@ import { DiscoveryCards } from "@/components/discovery-cards";
 import { clusterContents, publicClusters, relatedContent } from "@/lib/cluster-data";
 import type { Cluster, Target } from "@/lib/clusters";
 export function ClusterCards({ clusters }: { clusters: Cluster[] }) {
-  return <DiscoveryCards images={false} cards={clusters.map(c=>({id:c.id,title:c.title,summary:c.summary,href:`/explore/${c.slug}`,label:"Beyond the Screen"}))} />;
+  return <DiscoveryCards images={false} cards={clusters.map(c=>({id:c.id,title:c.title,summary:c.summary,href:`/explore/${c.slug}`,label:"KGROOV / Explore"}))} />;
 }
 export async function ClusterBody({ cluster, preview=false }: { cluster: Cluster; preview?: boolean }) {
   const content=await clusterContents(cluster.id,preview);

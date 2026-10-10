@@ -15,7 +15,7 @@ export async function HomeEvents() {
       .order("starts_at", { ascending: true }).limit(3);
     if (!error) events = data;
   } catch { /* Public fields only. No applications or meeting-detail query. */ }
-  return <div className="rounded-2xl border border-white/50 bg-white/75 p-5 text-[#59423c]">
+  return <div className="groov-event-card rounded-2xl border border-white/50 bg-white/75 p-5 text-[#59423c]">
     <h3 className="text-lg font-semibold">Upcoming gatherings</h3>
     {events === null ? <p role="status" className="mt-4 text-sm leading-6">We couldn’t load upcoming events. Please try the Events page again later.</p>
       : !events.length ? <p className="mt-4 text-sm leading-6">No upcoming events have been published yet. Check back for new gatherings.</p>

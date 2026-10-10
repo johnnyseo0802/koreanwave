@@ -28,7 +28,7 @@ export default async function AccountPage() {
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#557b39]">Your community</p>
         <h1 className="mt-4 text-4xl font-semibold tracking-[-0.06em] sm:text-5xl">My Account</h1>
-        <p className="mt-4 text-base leading-7 text-[#69736c]">You’re logged in. Welcome to your space in Korean Wave Community.</p>
+        <p className="mt-4 text-base leading-7 text-[#69736c]">You’re logged in. Welcome to your space in KGROOV.</p>
         {profile ? <ProfileForm initialProfile={profile} /> : <p role="alert" className="mt-10 rounded-2xl border border-[#e3e7e2] bg-white p-7 text-sm">We couldn’t load your profile. Please refresh the page or try again later.</p>}
         <nav aria-label="Account shortcuts" className="mt-10 grid gap-4 sm:grid-cols-2">{[
           ["My Events", "Check your applications and approved meeting details.", "/account/events"],

@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { brand } from "@/lib/brand";
 import { safeMediaUrl } from "@/lib/media";
-export const siteOrigin = "https://koreanwave-kappa.vercel.app";
+import { siteOrigin } from "@/lib/site-origin";
+export { siteOrigin } from "@/lib/site-origin";
+export function publicPageMetadata(title: string, path: string, description: string = brand.description): Metadata {
+  return publicMetadata(title, description, path);
+}
 export function publicMetadata(title: string, description: string, path: string, image?: string | null, alt?: string | null): Metadata {
   const safe = safeMediaUrl(image);
   return { title, description: description.slice(0, 160), alternates: { canonical: `${siteOrigin}${path}` },

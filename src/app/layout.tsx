@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { brand } from "@/lib/brand";
+import { siteOrigin } from "@/lib/site-origin";
 import { AuthProvider } from "@/components/auth-provider";
 import { createClient } from "@/lib/supabase/server";
 import "./globals.css";
@@ -8,7 +9,7 @@ import "./globals.css";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://koreanwave-kappa.vercel.app"),
+  metadataBase: new URL(siteOrigin),
   title: { default: `${brand.name} — ${brand.tagline}`, template: `%s | ${brand.name}` },
   description: brand.description,
   openGraph: { title: `${brand.name} — ${brand.headline}`, description: brand.description, siteName: brand.name },

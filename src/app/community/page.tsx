@@ -2,7 +2,8 @@ import Link from "next/link";
 import { CommunityCards, CommunityShell, communityButton } from "@/components/community-shell";
 import { communityFeed, weeklyPrompt } from "@/lib/community-data";
 import { TrendingConversations } from "@/components/conversation";
-export const metadata = { title: "Community" };
+import { publicPageMetadata } from "@/lib/public-metadata";
+export const metadata = publicPageMetadata("Community", "/community");
 const filters = [["trending","Trending"],["all","Latest"],["discussion","Discussions"],["moment","Moments"],["story","Stories"],["tip","Tips"],["questions","Questions"],["reviews","Reviews"]];
 export default async function CommunityPage({ searchParams }: { searchParams: Promise<{ type?: string }> }) {
   const { type } = await searchParams;

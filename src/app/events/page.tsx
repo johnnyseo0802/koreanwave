@@ -1,4 +1,5 @@
-export const metadata = { title: "Events" };
+import { publicPageMetadata } from "@/lib/public-metadata";
+export const metadata = publicPageMetadata("Events", "/events");
 
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";

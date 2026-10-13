@@ -6,6 +6,22 @@ import { createClient } from "@/lib/supabase/server";
 import { AnswerForm } from "@/components/answer-form";
 import { PublicAnswers } from "@/components/public-answers";
 import { submitAnswer } from "@/lib/submit-answer";
+import { publicMetadata } from "@/lib/public-metadata";
+import { uuidPattern } from "@/lib/editorial";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  if (!uuidPattern.test(id)) notFound();
+  let question: { id: string; title: string; body: string } | null = null;
+  try {
+    const client = await createClient();
+    const { data, error } = await client.from("questions").select("id,title,body")
+      .eq("id", id).eq("status", "approved").maybeSingle();
+    if (!error) question = data;
+  } catch { /* Metadata must not disclose private existence or database errors. */ }
+  if (!question) notFound();
+  return publicMetadata(question.title, question.body, `/community/questions/${question.id}`);
+}
 
 type PublicQuestion = { id: string; title: string; body: string; published_at: string };
 

@@ -1,4 +1,5 @@
-export const metadata = { title: "Discover Local Korea" };
+import { publicPageMetadata } from "@/lib/public-metadata";
+export const metadata = publicPageMetadata("Discover Local Korea", "/local-korea");
 
 import Link from "next/link";
 import { LocalPageShell } from "@/components/local-content";

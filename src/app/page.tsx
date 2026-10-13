@@ -6,6 +6,9 @@ import { HomeEditorial, HomeConversations } from "@/components/home-editorial";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { brand } from "@/lib/brand";
+import { publicPageMetadata } from "@/lib/public-metadata";
+
+export const metadata = publicPageMetadata(`${brand.name} — ${brand.headline}`, "/");
 
 const Loading = () => <p className="groov-section" role="status">Finding your next discovery…</p>;
 

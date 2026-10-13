@@ -1,4 +1,5 @@
-export const metadata = { title: "Ask a Local" };
+import { publicPageMetadata } from "@/lib/public-metadata";
+export const metadata = publicPageMetadata("Ask a Local", "/community/questions");
 
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";

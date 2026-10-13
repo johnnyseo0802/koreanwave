@@ -1,5 +1,6 @@
 import { InformationPage } from "@/components/information-page";
 import { informationPages } from "@/lib/information-pages";
 
-export const metadata = { title: informationPages.faq.title, description: informationPages.faq.intro };
+import { publicPageMetadata } from "@/lib/public-metadata";
+export const metadata = publicPageMetadata(informationPages.faq.title, "/faq", informationPages.faq.intro);
 export default function Page() { return <InformationPage page="faq" />; }

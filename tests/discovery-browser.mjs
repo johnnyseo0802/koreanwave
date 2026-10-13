@@ -78,6 +78,18 @@ try {
   if(u.hostname==='localhost' && u.pathname==='/_next/image') return route.fulfill({status:200,contentType:'image/png',body:fixturePng});
   return u.hostname==='localhost'&&['GET','HEAD'].includes(r.method())?route.continue():route.abort();});
  const page=await context.newPage();
+ const sitemapResponse=await fetch(base+'/sitemap.xml');
+ assert.equal(sitemapResponse.status,200);
+ const sitemapCache=sitemapResponse.headers.get('cache-control')??'';
+ assert.ok(/no-store/.test(sitemapCache)||(/max-age=0/.test(sitemapCache)&&/must-revalidate/.test(sitemapCache)));
+ assert.doesNotMatch(sitemapCache,/s-maxage=[1-9]|stale-while-revalidate|stale-if-error/);
+ assert.equal(sitemapResponse.headers.get('set-cookie'),null);
+ const publicSitemap=await sitemapResponse.text();
+ assert.ok(publicSitemap.includes('https://kgroov.com/articles/'+uuid(7)));
+ for(const hidden of [uuid(97),uuid(98),'/admin/','/account/','/search','/login'])
+  assert.ok(!publicSitemap.includes(hidden));
+ const robots=await fetch(base+'/robots.txt').then(r=>r.text());
+ assert.match(robots,/Allow: \//);assert.match(robots,/Sitemap: https:\/\/kgroov.com\/sitemap.xml/);
  const errors=[];page.on('pageerror',()=>errors.push('Browser runtime error'));
  await mkdir('.next/discovery-qa',{recursive:true});
  const paths=['/','/search','/search?q=Fixture','/search?q=unmatched','/k-contents','/k-contents/music','/k-contents/dramas','/k-contents/movies','/k-trends','/k-trends/beauty','/k-trends/fashion','/k-trends/food','/local-korea/places','/local-korea/places?area=Seongsu','/local-korea/experiences?category=Culture',`/articles/${uuid(1)}`,`/local-korea/places/${uuid(11)}`,`/local-korea/experiences/${uuid(21)}`,'/events',`/event/${uuid(31)}`];
@@ -129,6 +141,11 @@ try {
     assert.ok((await page.locator('meta[property="og:image"]').first().getAttribute('content')).includes('/site-media/'));
    }
    if(path==='/local-korea/places?area=Seongsu')assert.equal(await page.getByRole('link',{name:/Fixture place/}).count(),3);
+   if(!path.startsWith('/search')){
+    const canonical='https://kgroov.com'+path.split('?')[0];
+    assert.equal(new URL(await page.locator('link[rel="canonical"]').getAttribute('href')).href,new URL(canonical).href);
+    assert.equal(new URL(await page.locator('meta[property="og:url"]').getAttribute('content')).href,new URL(canonical).href);
+   } else assert.match(await page.locator('meta[name="robots"]').getAttribute('content'),/noindex/);
    if(path==='/local-korea/experiences?category=Culture')assert.equal(await page.getByRole('link',{name:/Fixture experience/}).count(),2);
    if(path==='/'){
     const poster=await page.locator('.groov-poster').boundingBox();
@@ -177,6 +194,9 @@ try {
  const jwt=[{alg:'HS256',typ:'JWT'},{sub:uuid(99),aud:'authenticated',role:'authenticated',exp:Math.floor(Date.now()/1000)+3600,iat:Math.floor(Date.now()/1000)}].map(v=>Buffer.from(JSON.stringify(v)).toString('base64url')).concat('fixture-signature').join('.');
  const value='base64-'+Buffer.from(JSON.stringify({access_token:jwt,refresh_token:'fixture',expires_at:Math.floor(Date.now()/1000)+3600,token_type:'bearer',user:{id:uuid(99)}})).toString('base64url');
  await context.addCookies([{name:'sb-127-auth-token',value,domain:'localhost',path:'/'}]);
+ const adminSitemap=await context.request.get(base+'/sitemap.xml');
+ assert.equal(adminSitemap.status(),200);
+ assert.equal(await adminSitemap.text(),publicSitemap,'Admin cookie must not widen sitemap visibility');
  for(const width of [375,768,1440]){
   await page.setViewportSize({width,height:900});
   for(const path of ['/admin/content/new',`/admin/local-content/places/${uuid(11)}`,`/admin/events/${uuid(31)}`]){

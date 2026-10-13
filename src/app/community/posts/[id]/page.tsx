@@ -6,7 +6,13 @@ import { CommunityShell, CommunityImage } from "@/components/community-shell";
 import { CommunityInteractions } from "@/components/community-interactions";
 import { PostConversation } from "@/components/conversation";
 import { TranslatableContent } from "@/components/translatable-content";
-export const metadata = { title: "Community contribution" };
+import { publicMetadata } from "@/lib/public-metadata";
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const post = await publicPost(id);
+  if (!post) notFound();
+  return publicMetadata(post.title ?? "Korea Moment", post.body, `/community/posts/${post.id}`);
+}
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const post = await publicPost(id); if (!post) notFound();

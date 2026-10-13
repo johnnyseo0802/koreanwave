@@ -28,6 +28,7 @@ failure=true;assert.match(renderToStaticMarkup(await HomeConversations()),/could
 assert.match(read('src/lib/editorial-data.ts'),/\.eq\("status", "published"\)/);
 assert.match(read('src/lib/conversation-data.ts'),/\.eq\("status", "approved"\)/);
 assert.doesNotMatch(read('src/components/home-editorial.tsx'),/service_role|secret|author_id|dangerouslySetInnerHTML|\.insert\(|\.update\(/);
-assert.match(read('src/app/layout.tsx'),/https:\/\/koreanwave-kappa.vercel.app/);
-assert.match(read('src/lib/public-metadata.ts'),/https:\/\/koreanwave-kappa.vercel.app/);
-console.log('PASS: KGROOV real-data adapters, bounded reads, truthful labels/counts, lifestyle categories, empty/error states, escaped text, canonical origin retained. Offline only.');
+assert.match(read('src/app/layout.tsx'),/metadataBase: new URL\(siteOrigin\)/);
+assert.match(read('src/lib/public-metadata.ts'),/from "@\/lib\/site-origin"/);
+assert.match(read('src/lib/site-origin.ts'),/https:\/\/kgroov\.com/);
+console.log('PASS: KGROOV real-data adapters, bounded reads, truthful labels/counts, lifestyle categories, empty/error states, escaped text, official canonical origin. Offline only.');

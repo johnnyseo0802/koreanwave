@@ -1,4 +1,5 @@
-export const metadata = { title: "Community reviews" };
+import { publicPageMetadata } from "@/lib/public-metadata";
+export const metadata = publicPageMetadata("Community reviews", "/community/reviews");
 
 import Link from "next/link";
 import { LocalPageShell } from "@/components/local-content";

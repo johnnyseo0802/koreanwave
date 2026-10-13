@@ -1,4 +1,5 @@
-export const metadata = { title: "K-Trends" };
+import { publicPageMetadata } from "@/lib/public-metadata";
+export const metadata = publicPageMetadata("K-Trends", "/k-trends");
 
 import { EditorialListing } from "@/components/editorial-content";
 

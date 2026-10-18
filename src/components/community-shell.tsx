@@ -1,3 +1,4 @@
+import { YouTubeVideo } from "@/components/youtube-video";
 import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
@@ -15,6 +16,7 @@ export function CommunityImage({ id, alt }: { id: string; alt: string | null }) 
 }
 export function CommunityCards({ cards }: { cards: FeedCard[] }) {
   return <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{cards.map(card => <article key={`${card.type}-${card.id}`} className="min-w-0 rounded-2xl border border-[#e3e7e2] bg-white p-5">
+    {card.youtube_video_id && <Link href={card.href}><YouTubeVideo thumbnail id={card.youtube_video_id} title={card.youtube_title} channel={card.youtube_channel_name} /></Link>}
     {card.image_id && <Link href={card.href}><CommunityImage id={card.image_id} alt={card.image_alt ?? null} /></Link>}
     <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-[#557b39]">{card.type}{card.is_featured ? " · Featured" : ""}</p><h2 className="mt-3 break-words text-xl font-semibold"><Link href={card.href}>{card.title} →</Link></h2><p className="mt-3 line-clamp-4 whitespace-pre-wrap break-words text-sm leading-6 text-[#626c66]">{card.body}</p>{card.published_at && <time dateTime={card.published_at} className="mt-4 block text-xs text-[#626c66]">{new Date(card.published_at).toLocaleDateString("en", { timeZone: "Asia/Seoul", dateStyle: "medium" })}</time>}
   </article>)}</div>;

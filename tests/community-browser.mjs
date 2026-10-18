@@ -10,6 +10,7 @@ const id=n=>`aaaaaaaa-aaaa-4aaa-8aaa-${String(n).padStart(12,'0')}`;
 const date='2026-09-28T00:00:00Z';
 let role='member',writes=0;
 const posts=['moment','story','tip'].map((type,i)=>({id:id(i+1),type,title:type==='moment'?null:`A thoughtful Korea ${type}`,body:'An honest experience from a walk around a Seoul neighborhood.\nA useful note for your next visit.',status:'approved',published_at:date,created_at:date,image_id:id(20+i),image_alt:'A quiet green neighborhood',location_label:'Seoul',topic:'culture',is_featured:i===0}));
+posts.push({...posts[0],id:id(4),image_id:null,youtube_video_id:'dQw4w9WgXcQ',youtube_title:'Synthetic video title',youtube_channel_name:'Synthetic channel'});
 posts.push({...posts[0],id:id(90),image_id:null,body:'PRIVATE PENDING SENTINEL',status:'pending',published_at:null,is_featured:false});
 posts.push({...posts[1],id:id(91),image_id:null,body:'PRIVATE REJECTED SENTINEL',status:'rejected',published_at:null,is_featured:false});
 const photo=await sharp({create:{width:400,height:300,channels:3,background:'#739b82'}}).webp().toBuffer();
@@ -39,7 +40,7 @@ try{
   for(let i=0;i<60;i++){try{if((await fetch('http://localhost:4035/community')).ok)break;}catch{}await new Promise(r=>setTimeout(r,500));if(i===59)throw new Error('Fixture server unavailable');}
   browser=await chromium.launch({channel:'msedge',headless:true});
   const context=await browser.newContext();
-  await context.route('**/*',route=>{const u=new URL(route.request().url());return u.hostname==='localhost'&&['GET','HEAD'].includes(route.request().method())?route.continue():route.abort();});
+  await context.route('**/*',route=>{const u=new URL(route.request().url());if(u.hostname==='localhost'&&u.pathname==='/community/youtube'&&route.request().method()==='POST')return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'dQw4w9WgXcQ',title:'Synthetic video title',channel:'Synthetic channel'})});return u.hostname==='localhost'&&['GET','HEAD'].includes(route.request().method())?route.continue():route.abort();});
   const page=await context.newPage();const errors=[];page.on('pageerror',()=>errors.push('Runtime error'));
   await mkdir('.next/community-qa',{recursive:true});
   async function check(path,width,privateAllowed=false){
@@ -48,9 +49,12 @@ try{
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,`${width} ${path} overflow`);
     if(!privateAllowed)assert.doesNotMatch(await page.locator('body').innerText(),/PRIVATE (PENDING|REJECTED) SENTINEL/);
   }
-  for(const width of [375,768,1440]){
+  for(const width of [390,768,1440]){
     await page.setViewportSize({width,height:900});
     for(const path of ['/community',...['moment','story','tip','questions','reviews'].map(t=>'/community?type='+t),`/community/posts/${id(1)}`,`/community/posts/${id(2)}`,`/community/posts/${id(3)}`])await check(path,width);
+    await check(`/community/posts/${id(4)}`,width);
+    await page.getByRole('button',{name:'Load YouTube player',exact:true}).click();
+    assert.equal(await page.locator('iframe').getAttribute('src'),'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=0');
     await page.screenshot({path:`.next/community-qa/public-${width}.png`,fullPage:true});
   }
   for(const value of [id(90),id(91),id(92),'invalid']){await check('/community/posts/'+value,375);assert.equal(await page.getByRole('heading',{name:'This page isn’t available.'}).count(),1);}
@@ -59,14 +63,22 @@ try{
   const value='base64-'+Buffer.from(JSON.stringify({access_token:jwt,refresh_token:'fixture',expires_at:Math.floor(Date.now()/1000)+3600,token_type:'bearer',user:{id:id(99)}})).toString('base64url');
   await context.addCookies([{name:'sb-127-auth-token',value,domain:'localhost',path:'/'}]);
   await check('/admin/community',1440);assert.equal(await page.getByRole('heading',{name:'This page isn’t available.'}).count(),1);
-  for(const width of [375,768,1440]){
+  for(const width of [390,768,1440]){
     await page.setViewportSize({width,height:900});
     for(const path of ['/write','/write/moment','/write/story?prompt=weekly','/write/tip','/account/contributions',`/community/posts/${id(1)}`])await check(path,width);
     await page.getByText('Report this post',{exact:true}).click();assert.equal(await page.getByLabel('Reason').count(),1);
     await page.goto('http://localhost:4035/write/moment',{waitUntil:'load'});
+    await page.getByRole('radio',{name:'Add YouTube Video'}).check();
+    await page.getByLabel('YouTube URL').fill('https://youtu.be/dQw4w9WgXcQ');
+    await page.getByLabel('Caption',{exact:true}).fill('My own perspective');
+    assert.equal(await page.locator('input[type=file]').count(),0);
+    await page.getByRole('button',{name:'Preview video',exact:true}).click();
+    await page.getByText('Synthetic video title',{exact:true}).waitFor();
+    await page.getByText('Synthetic channel',{exact:true}).waitFor();
+    await page.getByRole('radio',{name:'Photo',exact:true}).check();
     await page.locator('input[type=file]').setInputFiles({name:'fixture.webp',mimeType:'image/webp',buffer:photo});
     await page.getByAltText('Your selected photo preview').waitFor();
-    await page.getByLabel('Caption',{exact:true}).fill('A small discovery in Seoul.');
+    await page.locator('textarea[name=body]').fill('A small discovery in Seoul.');
     await page.screenshot({path:`.next/community-qa/form-${width}.png`,fullPage:true});
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
     role='admin';

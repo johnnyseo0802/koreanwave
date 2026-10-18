@@ -26,7 +26,7 @@ export async function weeklyPrompt() {
     return error ? null : data as { prompt: string; suggested_type: string } | null;
   } catch { return null; }
 }
-export type FeedCard = { id: string; title: string; body: string; href: string; type: string; published_at: string | null; image_id?: string | null; image_alt?: string | null; is_featured?: boolean };
+export type FeedCard = { id: string; title: string; body: string; href: string; type: string; published_at: string | null; image_id?: string | null; image_alt?: string | null; is_featured?: boolean; youtube_video_id?: string | null; youtube_title?: string | null; youtube_channel_name?: string | null };
 export async function communityFeed(filter: string): Promise<{ cards: FeedCard[]; unavailable: boolean }> {
   let unavailable = false;
   const cards: FeedCard[] = [];

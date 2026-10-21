@@ -6,6 +6,7 @@ import {pathToFileURL} from 'node:url';
 import {resolve} from 'node:path';
 import {buildPackage} from '../scripts/member-deployment/package.mjs';
 import {releaseGate} from '../scripts/member-deployment/release-gate.mjs';
+import {streamFixture} from './fixtures/member-stream.mjs';
 const {default:{Client}}=await import(pathToFileURL(process.env.PG_TEST_MODULE_PATH).href);
 const base={host:'127.0.0.1',port:55476,user:'postgres',password:'',connectionTimeoutMillis:3000,query_timeout:15000};
 const name='member_release_'+randomBytes(8).toString('hex'),ctl=new Client({...base,database:'postgres'}),connections=[];
@@ -75,7 +76,13 @@ try{
  await a.query("update member_deployment.gate set verified_sha=candidate_sha,verified_deployment='dpl_synthetic',verified_at=now()-interval '3 minutes'");
  await deny(()=>a.query(off),['55000']);await a.query('rollback');
  await a.query('update member_deployment.gate set verified_sha=null,verified_deployment=null,verified_at=null');
- stage='release_positive';await releaseGate(a,request,config,resolve('.'),app);
+ stage='stream_release_negative';
+ for(const transform of [h=>h.replace('</main>','<p>Private queue</p></main>'),h=>h.replace('1;url=/login','1;url=https://evil.invalid/login')]) {
+  await assert.rejects(()=>releaseGate(a,request,config,resolve('.'),async url=>new URL(url).pathname.startsWith('/admin/')?new Response(transform(streamFixture(new URL(url).pathname)),{headers:{'content-type':'text/html'}}):new Response('KGROOV')),e=>e.message==='APPLICATION_VERIFICATION_FAILED_GATE_REMAINS');passed++;
+  check((await a.query('select verified_sha is null and storage_frozen frozen from member_deployment.gate where singleton')).rows[0].frozen,'invalid stream cannot attest/unfreeze');
+  await a.query('select member_deployment.assert_guards(true)');passed++;
+ }
+ stage='release_positive';await releaseGate(a,request,config,resolve('.'),async url=>new URL(url).pathname.startsWith('/admin/')?new Response(streamFixture(new URL(url).pathname),{headers:{'content-type':'text/html'}}):new Response('KGROOV'));
  check((await a.query("select count(*) n from pg_trigger where tgname='a_member_deployment_freeze'")).rows[0].n==='0','verified release removed app guards');
  check((await a.query('select not storage_frozen released from member_deployment.gate where singleton')).rows[0].released,'permanent Storage guard dormant after verified release');
  await a.query("begin;insert into storage.objects(bucket_id,name) values('community-media','released-synthetic');rollback");passed++;

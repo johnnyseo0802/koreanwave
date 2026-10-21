@@ -3,6 +3,7 @@
 // request is a credential-bearing, read-only Vercel API adapter supplied locally.
 import fs from 'node:fs';
 import { buildPackage, unwrap } from './package.mjs';
+import { loginDestination, verifyStreamRedirect } from './stream-redirect.mjs';
 
 export function vercelReader(token, teamId, fetcher = fetch) {
   if (typeof token !== 'string' || !token || !/^team_[A-Za-z0-9]+$/.test(teamId)) throw Error('VERCEL_CONFIGURATION_INVALID');
@@ -27,10 +28,27 @@ export async function verifyPublicApplication(fetcher = fetch) {
   // Read-only, anonymous smoke; never sends Vercel/DB credentials to the app.
   try {
     for (const path of ['/', '/community', '/admin/community', '/admin/member-policy']) {
-      const response = await fetcher(`https://kgroov.com${path}`, { method: 'GET', redirect: 'manual', cache: 'no-store', signal: AbortSignal.timeout(5000) });
+      const response = await fetcher(`https://kgroov.com${path}`, { method: 'GET', credentials: 'omit', redirect: 'manual', cache: 'no-store', signal: AbortSignal.timeout(5000) });
       if (path.startsWith('/admin/')) {
-        const destination = new URL(response.headers.get('location') ?? '/', 'https://kgroov.com');
-        if (![302,303,307,308].includes(response.status) || destination.origin !== 'https://kgroov.com' || destination.pathname !== '/login') throw Error();
+        if (response.redirected) throw Error();
+        if ([302,303,307,308].includes(response.status)) loginDestination(response.headers.get('location'));
+        else {
+          if (response.status !== 200 || response.headers.has('location')
+              || !/^text\/html(?:;|$)/i.test(response.headers.get('content-type') ?? '')) throw Error();
+          const reader = response.body?.getReader();
+          if (!reader) throw Error();
+          const chunks = []; let bytes = 0;
+          try {
+            for (;;) {
+              const {done, value} = await reader.read();
+              if (done) break;
+              bytes += value.byteLength;
+              if (bytes > 512 * 1024) throw Error();
+              chunks.push(value);
+            }
+          } finally { await reader.cancel().catch(() => {}); }
+          verifyStreamRedirect(new TextDecoder('utf-8', {fatal: true}).decode(Buffer.concat(chunks)), path);
+        }
       } else if (response.status !== 200 || !(await response.text()).includes('KGROOV')) throw Error();
     }
   } catch { throw Error('NEW_APPLICATION_SMOKE_FAILED'); }

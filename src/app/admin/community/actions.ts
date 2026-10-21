@@ -1,20 +1,11 @@
 "use server";
+import { moderateMember } from "@/lib/member-moderation";
 import { getAdminAccess } from "@/lib/auth/admin-access";
 import { uuid, postTypes, count, type PostType, type ActionResult } from "@/lib/community";
 import { revalidatePath } from "next/cache";
 const failure = { ok: false, message: "We couldn’t save this change. Refresh and verify administrator access." };
-export async function moderateCommunity(id: string, decision: string): Promise<ActionResult> {
-  if (!uuid.test(id) || !["approved","rejected","feature","unfeature"].includes(decision)) return failure;
-  const access = await getAdminAccess(); if (access.status !== "admin") return failure;
-  try {
-    const feature = decision === "feature" || decision === "unfeature";
-    let query = access.client.from("community_posts").update(feature ? { is_featured: decision === "feature" } : { status: decision }).eq("id",id).eq("status",feature ? "approved" : "pending");
-    if (feature) query = query.eq("is_featured",decision !== "feature");
-    const { data, error } = await query.select("id").maybeSingle();
-    if (error || !data) return { ok: false, message: "This item changed or is unavailable. Refresh the queue." };
-    for (const path of ["/admin/community","/community","/","/account/contributions",`/community/posts/${id}`]) revalidatePath(path);
-    return { ok: true, message: feature ? "Featured status updated." : "Moderation decision saved." };
-  } catch { return failure; }
+export async function moderateCommunity(id:string,decision:string,revision:string):Promise<ActionResult>{
+  return moderateMember("post",id,decision,revision);
 }
 export async function resolveCommunityReport(id: string): Promise<ActionResult> {
   if (!uuid.test(id)) return failure;

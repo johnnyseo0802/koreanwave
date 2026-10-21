@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { reactToPost, reportComment, submitComment } from "@/app/community/conversation-actions";
 import { commentError, reactionKinds, type ConversationResult } from "@/lib/conversation";
 import { reportReasons } from "@/lib/community";
+import { CommercialDisclosure } from "@/components/commercial-disclosure";
 const input = "mt-2 block w-full min-w-0 rounded-xl border bg-white p-3";
 const button = "rounded-full border border-[#557b39] px-5 py-3 font-semibold disabled:opacity-50";
 function useRequest() {
@@ -20,7 +21,8 @@ export function CommentComposer({ postId, parent = null }: { postId: string; par
   if (done) return <p role="status" className="rounded-xl bg-[#edf3e5] p-4">{request.message}</p>;
   return <form className="my-4 min-w-0 space-y-3" onSubmit={e => { e.preventDefault();const error = commentError(body);setError(error ?? "");if (!error) { const form = new FormData(e.currentTarget);void request.run(() => submitComment(postId, parent, form), () => { setDone(true);setBody(""); }); } }}>
     <label htmlFor={fieldId} className="block font-semibold">{parent ? "Your reply" : "Add your take"}</label><textarea id={fieldId} name="body" value={body} onChange={e => setBody(e.target.value)} required rows={3} disabled={request.busy} className={input} />
-    <p className="text-sm">{Array.from(body.trim()).length} / 2,000 · Posts immediately. Disagree with ideas, not people.</p>
+    <p className="text-sm">{Array.from(body.trim()).length} / 2,000 · General comments appear immediately; commercial submissions require review. Disagree with ideas, not people.</p>
+    <CommercialDisclosure disabled={request.busy}/>
     <button disabled={request.busy} className={button}>{request.busy ? "Posting…" : parent ? "Post reply" : "Post comment"}</button>
     <p role="status" className="text-sm">{error || request.message}</p>
   </form>;

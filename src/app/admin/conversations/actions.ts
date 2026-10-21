@@ -1,4 +1,5 @@
 "use server";
+import { moderateMember } from "@/lib/member-moderation";
 import { getAdminAccess } from "@/lib/auth/admin-access";
 import { commentError, conversationId } from "@/lib/conversation";
 import { revalidatePath } from "next/cache";
@@ -15,22 +16,12 @@ export async function createDiscussion(form: FormData) {
     if (r.error) return failure;refresh();return { ok: true, message: "Discussion submitted to the existing pending queue. Review before approval." };
   } catch { return failure; }
 }
-export async function moderateComment(id: string, from: string, decision: string) {
-  if (!conversationId.test(id) || !["pending", "approved"].includes(from) || !["approved", "rejected"].includes(decision) || (from === "approved" && decision !== "rejected")) return failure;
-  const access = await getAdminAccess();if (access.status !== "admin") return failure;
-  try {
-    const r = await access.client.from("community_comments").update({ status: decision }).eq("id", id).eq("status", from).select("id").maybeSingle();
-    if (r.error || !r.data) return { ok: false, message: "Comment changed, its context is hidden, or it is unavailable. Refresh the queue." };
-    refresh();return { ok: true, message: decision === "approved" ? "Comment approved." : "Comment hidden/rejected. Replies are also hidden publicly." };
-  } catch { return failure; }
+export async function moderateComment(id:string,from:string,decision:string,revision:string){
+  if(!["pending","approved"].includes(from)||(from==="approved"&&decision!=="rejected"))return failure;
+  return moderateMember("comment",id,decision,revision);
 }
-export async function hideConversationPost(id: string) {
-  if (!conversationId.test(id)) return failure;
-  const access = await getAdminAccess();if (access.status !== "admin") return failure;
-  try {
-    const r = await access.client.from("community_posts").update({ status: "rejected" }).eq("id", id).eq("status", "approved").select("id").maybeSingle();
-    if (r.error || !r.data) return failure;refresh();return { ok: true, message: "Post hidden. Its public conversation and media are no longer available." };
-  } catch { return failure; }
+export async function hideConversationPost(id:string,revision:string){
+  return moderateMember("post",id,"rejected",revision);
 }
 export async function linkArticleDiscussion(form: FormData) {
   if (!(form instanceof FormData)) return failure;

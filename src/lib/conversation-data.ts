@@ -14,10 +14,10 @@ export async function conversationData(postId: string) {
     // orphan their parent when bounded. Private roots are never serialized.
     // Fetch newest bounded windows so a newly posted contribution is not silently
     // excluded behind the oldest 30/100 rows. Render each window oldest-to-newest.
-    const roots = await client.from("community_comments").select("id,parent_comment_id,body,status,created_at").eq("post_id", postId).eq("status", "approved").is("parent_comment_id", null).order("created_at", { ascending: false }).order("id", { ascending: false }).limit(30);
+    const roots = await client.from("community_comments").select("id,parent_comment_id,body,status,created_at,edited_at").eq("post_id", postId).eq("status", "approved").is("parent_comment_id", null).order("created_at", { ascending: false }).order("id", { ascending: false }).limit(30);
     if (roots.error) return { ...fallback, authenticated };
     const ids = (roots.data ?? []).map(c => c.id);
-    const replies = ids.length ? await client.from("community_comments").select("id,parent_comment_id,body,status,created_at").eq("post_id", postId).eq("status", "approved").in("parent_comment_id", ids).order("created_at", { ascending: false }).order("id", { ascending: false }).limit(100) : { data: [], error: null };
+    const replies = ids.length ? await client.from("community_comments").select("id,parent_comment_id,body,status,created_at,edited_at").eq("post_id", postId).eq("status", "approved").in("parent_comment_id", ids).order("created_at", { ascending: false }).order("id", { ascending: false }).limit(100) : { data: [], error: null };
     const counts = await client.rpc("conversation_reaction_counts", { target: postId });
     const mine = authenticated ? await client.from("community_helpful").select("reaction_type").eq("post_id", postId) : { data: [], error: null };
     const own = authenticated ? await client.rpc("my_conversation_comments", { target: postId }) : { data: [], error: null };

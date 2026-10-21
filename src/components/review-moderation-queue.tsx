@@ -4,7 +4,7 @@ import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { moderateReview } from "@/app/admin/reviews/actions";
 
-export type PendingReview = { id: string; place_name: string; body: string; created_at: string; status: string };
+export type PendingReview = { id: string; place_name: string; body: string; created_at: string; status: string; revision: string | number };
 
 export function ReviewModerationQueue({ reviews }: { reviews: PendingReview[] }) {
   const router = useRouter();
@@ -22,7 +22,7 @@ export function ReviewModerationQueue({ reviews }: { reviews: PendingReview[] })
     setPending(true);
     setFeedback(null);
     try {
-      const result = await moderateReview(id, decision);
+      const result = await moderateReview(id, decision, String(reviews.find(item => item.id === id)?.revision ?? ""));
       setFeedback(result);
       if (result.ok) {
         setCompleted((previous) => [...previous, id]);

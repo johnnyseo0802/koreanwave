@@ -11,14 +11,17 @@ for(const value of [' hi ','😀😀','x'.repeat(2000),'<script>alert(1)</script
 const id='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
 let calls=[],authenticated=false,admin=false,allowed=true,result={data:{id},error:null};
 const chain=new Proxy({}, {get:(_,key)=>key==='then'?resolve=>Promise.resolve(result).then(resolve):(...args)=>{calls.push([key,...args]);return chain;}});
-const client={auth:{getUser:async()=>({data:{user:authenticated?{id:'server-verified-user'}:null},error:null})},from:table=>{calls.push(['from',table]);return chain;},rpc:async(name,args)=>{calls.push(['rpc',name,args]);return {data:allowed,error:null};}};
+const client={auth:{getUser:async()=>({data:{user:authenticated?{id:'server-verified-user'}:null},error:null})},from:table=>{calls.push(['from',table]);return chain;},rpc:async(name,args)=>{calls.push(['rpc',name,args]);return name==="manage_member_content"?result:{data:allowed,error:null};}};
 const imports={'@/lib/conversation':model,'@/lib/community':community,'@/lib/supabase/server':{createClient:async()=>client},'next/cache':{revalidatePath(){}},'@/lib/auth/admin-access':{getAdminAccess:async()=>admin?{status:'admin',client}:{status:'forbidden'}}};
+imports['@/lib/publication-policy']=load('src/lib/publication-policy.ts');
+imports['@/lib/member-content']=load('src/lib/member-content.ts',{'@/lib/community':community});
+imports['@/lib/member-moderation']=load('src/lib/member-moderation.ts',imports);
 const actions=load('src/app/community/conversation-actions.ts',imports),moderation=load('src/app/admin/conversations/actions.ts',imports);
 const form=new FormData();for(const[k,v]of Object.entries({body:'Valid comment',author_id:'forged',status:'approved',published_at:'forged',post_id:'forged',role:'admin',parent_comment_id:'forged'}))form.set(k,v);
 assert.equal((await actions.submitComment(id,null,form)).ok,false);assert.equal(calls.length,0);
 authenticated=true;
 assert.equal((await actions.submitComment(id,null,form)).ok,true);
-assert.deepEqual(Object.keys(calls.find(c=>c[0]==='insert')[1]).sort(),['body','parent_comment_id','post_id']);
+assert.deepEqual(Object.keys(calls.find(c=>c[0]==='insert')[1]).sort(),['body','commercial_disclosure','parent_comment_id','post_id']);
 assert.ok(calls.some(c=>c[0]==='eq'&&c[1]==='status'&&c[2]==='approved'));
 calls=[];assert.equal((await actions.submitComment(id,id,form)).ok,true);
 assert.ok(calls.some(c=>c[0]==='is'&&c[1]==='parent_comment_id'&&c[2]===null));
@@ -38,14 +41,14 @@ calls=[];assert.equal((await actions.reportComment(id,id,report)).ok,true);
 assert.deepEqual(Object.keys(calls.find(c=>c[0]==='insert')[1]).sort(),['comment_id','details','post_id','reason']);
 report.set('reason','forged');assert.equal((await actions.reportComment(id,id,report)).ok,false);
 form.set('title','Operator prompt');
-calls=[];for(const fn of [()=>moderation.createDiscussion(form),()=>moderation.moderateComment(id,'pending','approved'),()=>moderation.hideConversationPost(id)])assert.equal((await fn()).ok,false);
+calls=[];for(const fn of [()=>moderation.createDiscussion(form),()=>moderation.moderateComment(id,'pending','approved','1'),()=>moderation.hideConversationPost(id,'1')])assert.equal((await fn()).ok,false);
 assert.equal(calls.length,0);
 admin=true;calls=[];assert.equal((await moderation.createDiscussion(form)).ok,true);
 const payload=calls.find(c=>c[0]==='insert')[1];assert.deepEqual(Object.keys(payload).sort(),['author_id','body','title','type']);assert.equal(payload.author_id,'server-verified-user');assert.equal(payload.type,'discussion');
-for(const from of ['pending','approved']){calls=[];assert.equal((await moderation.moderateComment(id,from,'rejected')).ok,true);assert.deepEqual(Object.keys(calls.find(c=>c[0]==='update')[1]),['status']);assert.ok(calls.some(c=>c[0]==='eq'&&c[1]==='status'&&c[2]===from));}
-assert.equal((await moderation.moderateComment(id,'rejected','approved')).ok,false);
-assert.equal((await moderation.moderateComment(id,'approved','approved')).ok,false);
-result={data:null,error:null};assert.equal((await moderation.moderateComment(id,'pending','approved')).ok,false);assert.equal((await moderation.hideConversationPost(id)).ok,false);
+for(const from of ['pending','approved']){calls=[];assert.equal((await moderation.moderateComment(id,from,'rejected','1')).ok,true);const rpc=calls.find(c=>c[0]==='rpc');assert.equal(rpc[1],'manage_member_content');assert.equal(rpc[2].kind,'comment');assert.equal(rpc[2].expected_revision,'1');assert.equal(rpc[2].operation,'reject');assert.ok(!calls.some(c=>c[0]==='update'));}
+assert.equal((await moderation.moderateComment(id,'rejected','approved','1')).ok,false);
+assert.equal((await moderation.moderateComment(id,'approved','approved','1')).ok,false);
+result={data:null,error:null};assert.equal((await moderation.moderateComment(id,'pending','approved','1')).ok,false);assert.equal((await moderation.hideConversationPost(id,'1')).ok,false);
 // Admin/author public page reads still explicitly constrain status and roots.
 const queries=load('src/lib/conversation-data.ts',imports);
 result={data:[],error:null};client.rpc=async()=>({data:[],error:null});calls=[];

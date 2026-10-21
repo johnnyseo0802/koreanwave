@@ -4,7 +4,7 @@ import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { moderateAnswer } from "@/app/admin/answers/actions";
 
-export type PendingAnswer = { id: string; question_title: string; body: string; created_at: string; status: string };
+export type PendingAnswer = { id: string; question_title: string; body: string; created_at: string; status: string; revision: string | number };
 
 export function AnswerModerationQueue({ answers }: { answers: PendingAnswer[] }) {
   const router = useRouter();
@@ -22,7 +22,7 @@ export function AnswerModerationQueue({ answers }: { answers: PendingAnswer[] })
     setPending(true);
     setFeedback(null);
     try {
-      const result = await moderateAnswer(id, decision);
+      const result = await moderateAnswer(id, decision, String(answers.find(item => item.id === id)?.revision ?? ""));
       setFeedback(result);
       if (result.ok) {
         setCompleted((previous) => [...previous, id]);

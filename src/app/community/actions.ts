@@ -1,4 +1,5 @@
 "use server";
+import { publicationDisclosure, submissionNotice } from "@/lib/publication-policy";
 import { createClient } from "@/lib/supabase/server";
 import { uuid, validatePost, reportReasons, type ActionResult, type PostInput } from "@/lib/community";
 import { youtubeMetadata } from "@/lib/youtube-metadata";
@@ -15,10 +16,12 @@ export async function submitCommunityPost(form: FormData): Promise<ActionResult>
     const video = input.youtube_video_id ? await youtubeMetadata(input.youtube_video_id) : null;
     if (input.youtube_video_id && !video) return { ok: false, message: "This video is unavailable. Your text has not been submitted." };
     // Explicit whitelist. No submitted identity, status, feature flag or timestamps.
-    const { error } = await client.from("community_posts").insert({ author_id: data.user.id, type: input.type, title: input.title || null, body: input.body, topic: input.topic || null, image_id: input.image_id || null, image_alt: video ? null : input.image_alt || null, location_label: input.location_label || null, ...(video ? { youtube_video_id: video.id, youtube_title: video.title, youtube_channel_name: video.channel } : {}) });
+    const { error } = await client.from("community_posts").insert({ commercial_disclosure: publicationDisclosure(form), author_id: data.user.id, type: input.type, title: input.title || null, body: input.body,
+      topic: input.topic || null, image_id: input.image_id || null, image_alt: video ? null : input.image_alt || null, location_label: input.location_label || null, ...(video ? { youtube_video_id: video.id, youtube_title: video.title, youtube_channel_name: video.channel } : {}) });
     if (error) return failure;
     revalidatePath("/account/contributions");
-    return { ok: true, message: "Thanks for sharing. Your post is being reviewed before it appears in the community." };
+    revalidatePath("/","layout");
+    return { ok: true, message: submissionNotice };
   } catch { return failure; }
 }
 export async function setHelpful(id: string, enabled: boolean): Promise<ActionResult> {

@@ -21,7 +21,7 @@ const api=http.createServer(async(req,res)=>{
   const table=url.pathname.split('/').at(-1);
   if(url.pathname.includes('/rpc/')){
     if(table==='community_helpful_counts'){res.end(JSON.stringify([{post_id:id(1),total:3}]));return;}
-    if(table==='my_community_contributions'){res.end(JSON.stringify(posts.slice(0,3).map(p=>({...p,kind:p.type,target_id:p.id}))));return;}
+    if(table==='my_manageable_content'){res.end(JSON.stringify(posts.slice(0,3).map(p=>({...p,kind:'post',revision:1}))));return;}
     res.writeHead(403);res.end('{}');return;
   }
   if(req.method!=='GET'){writes++;res.writeHead(405);res.end('{}');return;}
@@ -66,7 +66,9 @@ try{
   for(const width of [390,768,1440]){
     await page.setViewportSize({width,height:900});
     for(const path of ['/write','/write/moment','/write/story?prompt=weekly','/write/tip','/account/contributions',`/community/posts/${id(1)}`])await check(path,width);
-    await page.getByText('Report this post',{exact:true}).click();assert.equal(await page.getByLabel('Reason').count(),1);
+    await page.getByText('Report this post',{exact:true}).click();
+    const legacyReport=page.locator('details').filter({has:page.getByText('Report this post',{exact:true})});
+    await legacyReport.getByRole('combobox').waitFor({state:'visible'});assert.equal(await legacyReport.getByRole('combobox').count(),1);
     await page.goto('http://localhost:4035/write/moment',{waitUntil:'load'});
     await page.getByRole('radio',{name:'Add YouTube Video'}).check();
     await page.getByLabel('YouTube URL').fill('https://youtu.be/dQw4w9WgXcQ');

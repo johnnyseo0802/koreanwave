@@ -13,9 +13,9 @@ function useAdminRequest() {
     try { const r = await action();setMessage(r.message);if (r.ok) { done?.();router.refresh(); } } catch { setMessage("Could not confirm the change. Refresh before retrying."); } finally { lock.current = false;setBusy(false); }
   } };
 }
-export function ConversationModeration({ id, status, kind }: { id: string; status: string; kind: "comment" | "post" | "report" }) {
+export function ConversationModeration({ id, status, kind, revision = "" }: { id: string; status: string; kind: "comment" | "post" | "report"; revision?: string }) {
   const r = useAdminRequest();
-  return <div className="mt-4"><div className="flex flex-wrap gap-3">{kind === "report" ? <button disabled={r.busy} className={button} onClick={() => void r.run(() => resolveCommunityReport(id))}>Mark reviewed</button> : <>{kind === "comment" && status === "pending" && <button disabled={r.busy} className={button} onClick={() => void r.run(() => moderateComment(id, status, "approved"))}>Approve comment</button>}{["pending", "approved"].includes(status) && <button disabled={r.busy} className={button} onClick={() => void r.run(() => kind === "post" ? hideConversationPost(id) : moderateComment(id, status, "rejected"))}>{status === "approved" ? "Hide" : "Reject"}</button>}</>}</div><p role="status" className="mt-3 text-sm">{r.message}</p></div>;
+  return <div className="mt-4"><div className="flex flex-wrap gap-3">{kind === "report" ? <button disabled={r.busy} className={button} onClick={() => void r.run(() => resolveCommunityReport(id))}>Mark reviewed</button> : <>{kind === "comment" && status === "pending" && <button disabled={r.busy} className={button} onClick={() => void r.run(() => moderateComment(id, status, "approved", revision))}>Approve comment</button>}{["pending", "approved"].includes(status) && <button disabled={r.busy} className={button} onClick={() => void r.run(() => kind === "post" ? hideConversationPost(id, revision) : moderateComment(id, status, "rejected", revision))}>{status === "approved" ? "Hide" : "Reject"}</button>}</>}</div><p role="status" className="mt-3 text-sm">{r.message}</p></div>;
 }
 export function DiscussionEditor() {
   const r = useAdminRequest();const [done, setDone] = useState(false);

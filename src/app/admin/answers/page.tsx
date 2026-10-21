@@ -12,7 +12,7 @@ export default async function AdminAnswersPage() {
   let answers: PendingAnswer[] | null = null;
   try {
     const { data, error } = await access.client.from("answers")
-      .select("id,question_id,body,created_at,status").eq("status", "pending")
+      .select("id,question_id,body,created_at,status,revision").eq("status", "pending")
       .order("created_at", { ascending: true }).order("id", { ascending: true }).limit(100);
     if (!error && data) {
       const ids = [...new Set(data.map((answer) => answer.question_id))];
@@ -24,7 +24,7 @@ export default async function AdminAnswersPage() {
       }
       answers = data.map((answer) => ({
         id: answer.id, body: answer.body, created_at: answer.created_at,
-        status: answer.status, question_title: titles.get(answer.question_id) ?? "Question unavailable",
+        revision: answer.revision, status: answer.status, question_title: titles.get(answer.question_id) ?? "Question unavailable",
       }));
     }
   } catch {

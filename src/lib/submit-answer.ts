@@ -1,3 +1,5 @@
+import { revalidatePath } from "next/cache";
+import { publicationDisclosure, submissionNotice } from "@/lib/publication-policy";
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { validateAnswer, type AnswerResult } from "@/lib/answers";
@@ -26,9 +28,11 @@ export async function submitAnswer(questionId: string, formData: FormData): Prom
       question_id: question.id,
       author_id: auth.user.id,
       body: body.trim(),
+      commercial_disclosure: publicationDisclosure(formData),
     });
     if (error) return { ok: false, message: "We couldn’t submit your answer. Please try again later." };
-    return { ok: true, message: "Answer submitted for review." };
+    revalidatePath("/","layout");
+    return { ok: true, message: submissionNotice };
   } catch {
     return { ok: false, message: "We couldn’t confirm your submission. Please check your connection before trying again." };
   }

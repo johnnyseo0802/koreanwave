@@ -1,5 +1,7 @@
 "use server";
+import { revalidatePath } from "next/cache";
 
+import { publicationDisclosure, submissionNotice } from "@/lib/publication-policy";
 import { createClient } from "@/lib/supabase/server";
 import { validateQuestion } from "@/lib/questions";
 
@@ -24,9 +26,11 @@ export async function submitQuestion(formData: FormData): Promise<{ ok: boolean;
       author_id: data.user.id,
       title: input.title,
       body: input.body,
+      commercial_disclosure: publicationDisclosure(formData),
     });
     if (error) return { ok: false, message: "We couldn’t submit your question. Please try again later." };
-    return { ok: true, message: "Your question has been submitted for review." };
+    revalidatePath("/","layout");
+    return { ok: true, message: submissionNotice };
   } catch {
     return { ok: false, message: "We couldn’t confirm your submission. Please check your connection before trying again." };
   }

@@ -13,7 +13,7 @@ export default async function AdminQuestionsPage() {
   let questions: PendingQuestion[] | null = null;
   try {
     const { data, error } = await access.client.from("questions")
-      .select("id,title,body,created_at,status").eq("status", "pending")
+      .select("id,title,body,created_at,status,revision").eq("status", "pending")
       .order("created_at", { ascending: true }).order("id", { ascending: true }).limit(100);
     if (!error && data) questions = data;
   } catch {

@@ -19,6 +19,6 @@ export function validatePost(p: PostInput): string | null {
   if (count(p.image_alt) > 240 || count(p.location_label) > 120) return "Shorten the photo description (240) or location (120).";
   return null;
 }
-export type CommunityPost = { id: string; type: string; title: string | null; body: string; image_id: string | null; image_alt: string | null; location_label: string | null; topic: string | null; is_featured: boolean; published_at: string | null; youtube_video_id?: string | null; youtube_title?: string | null; youtube_channel_name?: string | null; status?: string; created_at?: string };
-export const publicPostFields = "id,type,title,body,image_id,image_alt,location_label,topic,is_featured,published_at,youtube_video_id,youtube_title,youtube_channel_name";
+export type CommunityPost = { id: string; type: string; title: string | null; body: string; image_id: string | null; image_alt: string | null; location_label: string | null; topic: string | null; is_featured: boolean; published_at: string | null; youtube_video_id?: string | null; youtube_title?: string | null; youtube_channel_name?: string | null; edited_at?: string | null; revision?: string | number; status?: string; created_at?: string };
+export const publicPostFields = "edited_at,revision,id,type,title,body,image_id,image_alt,location_label,topic,is_featured,published_at,youtube_video_id,youtube_title,youtube_channel_name";
 export type ActionResult = { ok: boolean; message: string };

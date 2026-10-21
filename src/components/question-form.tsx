@@ -1,5 +1,6 @@
 "use client";
 
+import { CommercialDisclosure } from "@/components/commercial-disclosure";
 import Link from "next/link";
 import { useRef, useState, type FormEvent } from "react";
 import { submitQuestion } from "@/app/write/question/actions";
@@ -39,7 +40,7 @@ export function QuestionForm() {
 
   if (feedback?.ok) return <section role="status" className="rounded-[2rem] border border-[#e3e7e2] bg-[#f4f7f0] p-7 sm:p-10">
     <h2 className="text-xl font-semibold">{feedback.message}</h2>
-    <p className="mt-3 text-sm leading-6 text-[#69736c]">Your question will only become public after approval.</p>
+    <p className="mt-3 text-sm leading-6 text-[#69736c]">Check My Contributions for the current publication status.</p>
     <Link href="/" className="mt-6 inline-block rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white">Back to Home</Link>
   </section>;
 
@@ -54,9 +55,9 @@ export function QuestionForm() {
         <textarea id="question-body" name="body" required rows={10} value={body} onChange={(event) => setBody(event.target.value)} className={inputClass} aria-describedby="question-count" aria-invalid={questionLength(body) > 5000} />
         <span id="question-count" className="mt-2 block text-xs text-[#717a74]">{questionLength(body)} / 5,000 characters · Minimum 10, excluding surrounding spaces</span>
       </label>
-    </fieldset>
-    <p className="mt-5 text-sm leading-6 text-[#69736c]">Questions are reviewed before publication. Please don’t include private contact details or sensitive personal information.</p>
+    <CommercialDisclosure disabled={pending}/></fieldset>
+    <p className="mt-5 text-sm leading-6 text-[#69736c]">General questions appear immediately; commercial submissions require review. Please don’t include private contact details or sensitive personal information.</p>
     {feedback && <p role="alert" className="mt-4 rounded-xl bg-[#fdf0ed] p-3 text-sm text-[#a1432d]">{feedback.message}</p>}
-    <button type="submit" disabled={pending} className="mt-6 rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white disabled:cursor-wait disabled:opacity-60">{pending ? "Submitting…" : "Submit for review"}</button>
+    <button type="submit" disabled={pending} className="mt-6 rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white disabled:cursor-wait disabled:opacity-60">{pending ? "Submitting…" : "Share question"}</button>
   </form>;
 }

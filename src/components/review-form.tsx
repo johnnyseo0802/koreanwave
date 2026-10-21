@@ -1,5 +1,6 @@
 "use client";
 
+import { CommercialDisclosure } from "@/components/commercial-disclosure";
 import Link from "next/link";
 import { useRef, useState, type FormEvent } from "react";
 import { reviewLength, validateReview, type ReviewResult } from "@/lib/reviews";
@@ -37,13 +38,13 @@ export function ReviewForm({ submitAction, loginHref }: {
   }
 
   return <section className="mt-8 rounded-[2rem] border border-[#e3e7e2] bg-white p-7 sm:p-10">
-    <h2 className="text-xl font-semibold">Share an review</h2>
-    <p className="mt-3 text-sm leading-6 text-[#69736c]">Reviews appear publicly only after approval. Please avoid sharing private contact details.</p>
-    {feedback?.ok ? <p role="status" className="mt-5 rounded-xl bg-[#f4f7f0] p-4 text-sm text-[#3d5630]">{feedback.message} It will appear publicly after approval.</p> : <form onSubmit={submit} aria-busy={pending} className="mt-6">
+    <h2 className="text-xl font-semibold">Share a review</h2>
+    <p className="mt-3 text-sm leading-6 text-[#69736c]">General reviews appear immediately; commercial submissions require review. Please avoid sharing private contact details.</p>
+    {feedback?.ok ? <p role="status" className="mt-5 rounded-xl bg-[#f4f7f0] p-4 text-sm text-[#3d5630]">{feedback.message} Check My Contributions for its status.</p> : <form onSubmit={submit} aria-busy={pending} className="mt-6">
       <label htmlFor="review-body" className="text-sm font-medium">Your review</label>
       <textarea id="review-body" name="body" required rows={7} disabled={pending || feedback?.loginRequired} value={body} onChange={(event) => setBody(event.target.value)} aria-describedby="review-count" aria-invalid={reviewLength(body) > 5000} className="mt-2 w-full rounded-xl border border-[#e0e5e0] px-4 py-3 text-sm outline-none focus:border-[#789a50] focus:ring-2 focus:ring-[#dbe4d7]" />
       <p id="review-count" className="mt-2 text-xs text-[#717a74]">{reviewLength(body)} / 5,000 characters · Minimum 2, excluding surrounding spaces</p>
-      {feedback && <p role="alert" className="mt-4 rounded-xl bg-[#fdf0ed] p-3 text-sm text-[#a1432d]">{feedback.message}</p>}
+      <CommercialDisclosure disabled={pending || feedback?.loginRequired}/>{feedback && <p role="alert" className="mt-4 rounded-xl bg-[#fdf0ed] p-3 text-sm text-[#a1432d]">{feedback.message}</p>}
       {feedback?.loginRequired ? <Link href={loginHref} className="mt-5 inline-block text-sm font-semibold underline">Log in to review</Link> : <button type="submit" disabled={pending} className="mt-6 rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white disabled:cursor-wait disabled:opacity-60">{pending ? "Submitting…" : "Submit review"}</button>}
     </form>}
   </section>;

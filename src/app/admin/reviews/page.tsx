@@ -12,7 +12,7 @@ export default async function AdminReviewsPage() {
   let reviews: PendingReview[] | null = null;
   try {
     const { data, error } = await access.client.from("reviews")
-      .select("id,place_id,body,created_at,status").eq("status", "pending")
+      .select("id,place_id,body,created_at,status,revision").eq("status", "pending")
       .order("created_at", { ascending: true }).order("id", { ascending: true }).limit(100);
     if (!error && data) {
       const ids = [...new Set(data.map((review) => review.place_id))];
@@ -24,7 +24,7 @@ export default async function AdminReviewsPage() {
       }
       reviews = data.map((review) => ({
         id: review.id, body: review.body, created_at: review.created_at,
-        status: review.status, place_name: titles.get(review.place_id) ?? "Place unavailable",
+        revision: review.revision, status: review.status, place_name: titles.get(review.place_id) ?? "Place unavailable",
       }));
     }
   } catch {

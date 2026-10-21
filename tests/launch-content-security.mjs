@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const base='docs/content/launch-1a-seongsu/';
-const read=p=>fs.readFileSync(p,'utf8');
+const read=p=>fs.readFileSync(p,'utf8').replace(/\r\n/g,'\n');
 const json=p=>JSON.parse(read(base+p));
 const pack=json('content-pack.json'),verification=json('verification.json'),images=json('images.json'),shoot=json('field-shoot.json');
 assert.equal(pack.assets.length,7);assert.equal(new Set(pack.assets.map(a=>a.id)).size,7);

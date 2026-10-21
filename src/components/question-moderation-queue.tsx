@@ -4,7 +4,7 @@ import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { moderateQuestion } from "@/app/admin/questions/actions";
 
-export type PendingQuestion = { id: string; title: string; body: string; created_at: string; status: string };
+export type PendingQuestion = { id: string; title: string; body: string; created_at: string; status: string; revision: string | number };
 
 export function QuestionModerationQueue({ questions }: { questions: PendingQuestion[] }) {
   const router = useRouter();
@@ -22,7 +22,7 @@ export function QuestionModerationQueue({ questions }: { questions: PendingQuest
     setPending(true);
     setFeedback(null);
     try {
-      const result = await moderateQuestion(id, decision);
+      const result = await moderateQuestion(id, decision, String(questions.find(item => item.id === id)?.revision ?? ""));
       setFeedback(result);
       if (result.ok) {
         setCompleted((previous) => [...previous, id]);

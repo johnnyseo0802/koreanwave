@@ -1,4 +1,6 @@
 import { YouTubeVideo } from "@/components/youtube-video";
+import { OwnerContentControls } from "@/components/owner-content-controls";
+import { EditedTimestamp } from "@/components/edited-timestamp";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { publicPost } from "@/lib/community-data";
@@ -26,6 +28,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     if (authenticated) { const own = await client.from("community_helpful").select("post_id").eq("post_id",id).eq("reaction_type","helpful").maybeSingle(); helpful = !!own.data; }
   } catch { unavailable = true; }
   return <CommunityShell title={post.title ?? "Korea Moment"} description={`Korea ${post.type}${post.is_featured ? " · Featured" : ""}`}><article className="mx-auto max-w-3xl rounded-2xl border bg-white p-6 sm:p-9">
+    <OwnerContentControls kind="post" id={id}/><EditedTimestamp value={post.edited_at}/>
     {post.youtube_video_id && <YouTubeVideo id={post.youtube_video_id} title={post.youtube_title} channel={post.youtube_channel_name} />}
     {post.image_id && <CommunityImage id={post.image_id} alt={post.image_alt} />}
     <p className="mt-5 text-sm text-[#557b39]">{[post.topic,post.location_label].filter(Boolean).join(" · ")}</p>

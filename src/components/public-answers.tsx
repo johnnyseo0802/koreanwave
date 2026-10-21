@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
+import { OwnerContentControls } from "@/components/owner-content-controls";
+import { EditedTimestamp } from "@/components/edited-timestamp";
 
-type PublicAnswer = { id: string; body: string; published_at: string };
+type PublicAnswer = { id: string; body: string; published_at: string; edited_at:string|null };
 
 // Called only after the parent page has verified an approved question.
 export async function PublicAnswers({ questionId }: { questionId: string }) {
@@ -8,7 +10,7 @@ export async function PublicAnswers({ questionId }: { questionId: string }) {
   try {
     const client = await createClient();
     const { data, error } = await client.from("answers")
-      .select("id,body,published_at").eq("question_id", questionId)
+      .select("id,body,published_at,edited_at").eq("question_id", questionId)
       .eq("status", "approved").order("published_at", { ascending: true });
     if (!error && data) answers = data;
   } catch {
@@ -20,6 +22,7 @@ export async function PublicAnswers({ questionId }: { questionId: string }) {
       : !answers.length ? <p className="mt-4 rounded-2xl border border-[#e3e7e2] bg-white p-6 text-sm text-[#69736c]">No answers have been published yet.</p>
       : <div className="mt-4 space-y-4">{answers.map((answer) => <article key={answer.id} className="rounded-2xl border border-[#e3e7e2] bg-white p-6 sm:p-8">
         <p className="text-xs text-[#557b39]">Published <time dateTime={answer.published_at}>{new Intl.DateTimeFormat("en", { dateStyle: "medium", timeZone: "Asia/Seoul" }).format(new Date(answer.published_at))}</time></p>
+        <OwnerContentControls kind="answer" id={answer.id}/><EditedTimestamp value={answer.edited_at}/>
         <p className="mt-4 whitespace-pre-wrap break-words text-base leading-8 text-[#56625a]">{answer.body}</p>
       </article>)}</div>}
   </section>;

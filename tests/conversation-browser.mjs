@@ -10,9 +10,11 @@ const id=n=>`aaaaaaaa-aaaa-4aaa-8aaa-${String(n).padStart(12,'0')}`,date='2026-1
 let role='member',sequence=100,empty=false,outage=false;
 const writes=[];
 const post={id:id(1),title:'A local conversation fixture',body:'A genuine question for this isolated browser fixture.',type:'discussion',status:'approved',published_at:date,created_at:date,image_id:null,image_alt:null,location_label:null,topic:null,is_featured:false};
+post.revision=1;
 const comments=[{id:id(10),post_id:post.id,parent_comment_id:null,body:'Different opinions can be helpful. <script>window.unsafe=true</script>',status:'approved',created_at:date},
  {id:id(11),post_id:post.id,parent_comment_id:id(10),body:'A reply with a very long unbroken word: '+'x'.repeat(400),status:'approved',created_at:date},
  {id:id(12),post_id:post.id,parent_comment_id:null,body:'PRIVATE COMMENT SENTINEL',status:'pending',created_at:date}];
+comments.forEach(c=>c.revision=1);
 const articles=[{id:id(20),title:'Local guide fixture',section:'local-korea',category:'guides',summary:'A concise guide for browser testing.',body:'## A useful perspective\n\nAn editorial body.',status:'published',published_at:date,image_url:null,source_url:null}];
 const rows={community_posts:[post],community_comments:comments,community_helpful:[],community_reports:[],article_discussions:[{article_id:id(20),post_id:id(1)}],editorial_articles:articles,profiles:[],community_prompt:[]};
 const ownIds=new Set();
@@ -23,6 +25,12 @@ const api=http.createServer(async(req,res)=>{
  const table=url.pathname.split('/').at(-1);
  const counts=()=>['helpful','like','interesting','agree'].map(kind=>({kind,total:rows.community_helpful.filter(r=>r.reaction_type===kind).length}));
  if(url.pathname.includes('/rpc/')){
+  if(table==='manage_member_content'){
+    assert.equal(role,'admin');const item=(payload.kind==='post'?rows.community_posts:comments).find(r=>r.id===payload.target);
+    if(!item||String(item.revision)!==String(payload.expected_revision)){res.writeHead(409);res.end('{}');return;}
+    assert.ok(['approve','reject'].includes(payload.operation));item.status=payload.operation==='approve'?'approved':'rejected';item.revision++;
+    writes.push({table,method:req.method});res.end(JSON.stringify({id:item.id,revision:item.revision,status:item.status}));return;
+  }
   const activity=[{post_id:post.id,comments:2,reactions:rows.community_helpful.length,participants:1,last_activity:date,score:3}];
   const rpc={community_can_help:true,community_helpful_counts:[{post_id:post.id,total:0}],conversation_reaction_counts:counts(),my_conversation_comments:comments.filter(c=>ownIds.has(c.id)),trending_conversations:empty?[]:activity,conversation_activity:activity,my_community_contributions:[]};
   if(outage){res.writeHead(503);res.end('{}');return;}res.end(JSON.stringify(rpc[table]??[]));return;
@@ -37,8 +45,8 @@ const api=http.createServer(async(req,res)=>{
  if(table==='article_discussions')data=rows.article_discussions.map(r=>({article_id:r.article_id,post_id:r.post_id,post:{id:post.id,title:post.title,status:post.status,type:post.type},article:{status:'published'}}));
  if(req.method==='POST'&&!url.pathname.includes('/rpc/')){
   writes.push({table,method:req.method,payload});
-  const item={id:id(sequence++),created_at:date,...payload};
-  if(table==='community_comments'){assert.deepEqual(Object.keys(payload).sort(),['body','parent_comment_id','post_id']);item.status='approved';item.published_at=date;ownIds.add(item.id);}
+  const item={id:id(sequence++),revision:1,created_at:date,...payload};
+  if(table==='community_comments'){assert.deepEqual(Object.keys(payload).sort(),['body','commercial_disclosure','parent_comment_id','post_id']);item.status='approved';item.published_at=date;ownIds.add(item.id);}
   if(table==='community_posts')item.status='pending';
   if(table==='community_reports')item.status='open';
   rows[table].push(item);data=[item];
@@ -87,13 +95,15 @@ try{
  for(const [width,height]of [[390,844],[390,320],[768,900],[1440,900]]){
   await page.setViewportSize({width,height});await goto('/community/posts/'+post.id);await overflow();
   const composer=thread().getByLabel('Add your take',{exact:true});await composer.fill('x');
-  await composer.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement?.tagName), 'BUTTON');
+  await composer.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement?.tagName), 'SELECT');
+  await thread().locator('select[name=commercial_disclosure]:visible').selectOption('personal');
+  await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement?.tagName),'BUTTON');
   await thread().getByRole('button',{name:'Post comment',exact:true}).click();
   await thread().getByText(/Write 2–2,000/).waitFor();
   await composer.fill('A considered local fixture comment '+width+' '+height);
   const before=writes.filter(w=>w.table==='community_comments').length;
   await thread().getByRole('button',{name:'Post comment',exact:true}).dblclick();
-  await thread().getByText('Your comment is live.',{exact:true}).waitFor();
+  await thread().getByText(/^Saved\. General contributions are public immediately/).waitFor();
   await thread().locator('ol').first().getByText('A considered local fixture comment '+width+' '+height,{exact:true}).waitFor();
   assert.equal(writes.filter(w=>w.table==='community_comments').length,before+1,'Double click inserts once');
   assert.equal(await thread().getByLabel('Add your take',{exact:true}).count(),0,'Success replaces form');
@@ -102,8 +112,9 @@ try{
   await like.click();await page.waitForFunction(()=>[...document.querySelectorAll('button')].some(b=>b.textContent==='like · 0'&&b.getAttribute('aria-pressed')==='false'));
   await thread().locator('summary').filter({hasText:/^Reply$/}).first().click();
   await thread().locator('textarea[name="body"]:visible').fill('A reply from the local browser fixture.');
+  await thread().locator('select[name=commercial_disclosure]:visible').selectOption('personal');
   await thread().getByRole('button',{name:'Post reply',exact:true}).click();
-  await thread().getByText('Your reply is live.',{exact:true}).waitFor();
+  await thread().getByText(/^Saved\. General contributions are public immediately/).last().waitFor();
   await thread().locator('ol ol').getByText('A reply from the local browser fixture.',{exact:true}).first().waitFor();
   await thread().locator('summary').filter({hasText:/^Report comment$/}).first().click();
   await thread().getByLabel('Reason',{exact:true}).first().selectOption('harassment');

@@ -77,7 +77,7 @@ export async function LocalContentDetail({ kind, id }: { kind: Kind; id: string 
         {item.visitor_info && <section className="mt-8"><h2 className="text-xl font-semibold">Before you visit</h2><p className="mt-3 whitespace-pre-wrap break-words leading-7 text-[#69736c]">{item.visitor_info}</p></section>}
       </article>
       {kind === "places" && <><PublicReviews placeId={placeId} />
-        {authenticated ? <ReviewForm key={placeId} submitAction={reviewAction} loginHref={loginHref} /> : <section className="mt-8 rounded-2xl border border-[#e3e7e2] bg-white p-7"><h2 className="text-xl font-semibold">Share your visit</h2><p className="mt-3 text-sm text-[#69736c]">Reviews appear publicly after approval.</p><Link href={loginHref} className="mt-5 inline-block rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white">Log in to review</Link></section>}
+        {authenticated ? <ReviewForm key={placeId} submitAction={reviewAction} loginHref={loginHref} /> : <section className="mt-8 rounded-2xl border border-[#e3e7e2] bg-white p-7"><h2 className="text-xl font-semibold">Share your visit</h2><p className="mt-3 text-sm text-[#69736c]">General reviews appear immediately; commercial submissions require review.</p><Link href={loginHref} className="mt-5 inline-block rounded-full bg-[#17201d] px-5 py-3 text-sm font-semibold text-white">Log in to review</Link></section>}
       </>}
       <RelatedContent target={kind === "places" ? "place_id" : "experience_id"} id={id}/>
       <Link href={`/local-korea/${kind}`} className="mt-8 inline-block text-sm font-semibold underline">← Back to {kind}</Link>

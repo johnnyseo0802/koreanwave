@@ -17,6 +17,7 @@ const render=fs.readFileSync('src/components/youtube-video.tsx','utf8');assert.m
 const actions=fs.readFileSync('src/app/community/actions.ts','utf8');assert.match(actions,/auth\.getUser/);assert.match(actions,/await youtubeMetadata/);
 let authenticated=false, metadataCalls=0, inserted=null, unavailable=false;
 const action=load('src/app/community/actions.ts',{
+  '@/lib/publication-policy':load('src/lib/publication-policy.ts'),
   '@/lib/community':model,
   '@/lib/youtube-metadata':{youtubeMetadata:async()=>{metadataCalls++;return unavailable?null:{id,title:'Safe title',channel:'Channel'};}},
   '@/lib/supabase/server':{createClient:async()=>({auth:{getUser:async()=>({data:{user:authenticated?{id:'verified-user'}:null},error:null})},from:()=>({insert:async value=>{inserted=value;return {error:null};}})})},

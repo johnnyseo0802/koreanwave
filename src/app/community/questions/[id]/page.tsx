@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { OwnerContentControls } from "@/components/owner-content-controls";
+import { EditedTimestamp } from "@/components/edited-timestamp";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -23,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return publicMetadata(question.title, question.body, `/community/questions/${question.id}`);
 }
 
-type PublicQuestion = { id: string; title: string; body: string; published_at: string };
+type PublicQuestion = { id: string; title: string; body: string; published_at: string; edited_at: string|null };
 
 export default async function QuestionDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -34,7 +36,7 @@ export default async function QuestionDetailPage({ params }: { params: Promise<{
     const client = await createClient();
     // Mandatory even for authors/admins: this route never reads private questions.
     const { data, error } = await client.from("questions")
-      .select("id,title,body,published_at")
+      .select("id,title,body,published_at,edited_at")
       .eq("id", id).eq("status", "approved").maybeSingle();
     if (!error && data) question = data;
   } catch {
@@ -65,6 +67,7 @@ export default async function QuestionDetailPage({ params }: { params: Promise<{
     <article className="mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20">
       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#557b39]">Community / Ask a Local</p>
       <h1 className="mt-4 break-words text-4xl font-semibold tracking-[-0.06em] sm:text-5xl">{question.title}</h1>
+      <OwnerContentControls kind="question" id={id}/><EditedTimestamp value={question.edited_at}/>
       <p className="mt-5 text-sm text-[#69736c]">Published <time dateTime={question.published_at}>{new Intl.DateTimeFormat("en", { dateStyle: "medium", timeZone: "Asia/Seoul" }).format(new Date(question.published_at))}</time></p>
       <div className="mt-8 rounded-[2rem] border border-[#e3e7e2] bg-white p-7 sm:p-10">
         <p className="whitespace-pre-wrap break-words text-base leading-8 text-[#56625a]">{question.body}</p>

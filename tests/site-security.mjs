@@ -43,9 +43,13 @@ for (const area of ['questions', 'answers', 'reviews', 'event-applications']) {
   const action = read(`src/app/admin/${area}/actions.ts`);
   assert.match(page, /await getAdminAccess\(\)/);
   assert.match(page, /access.status !== "admin"\) notFound\(\)/);
-  assert.match(action, /await getAdminAccess\(\)/);
-  assert.match(action, /access.status !== "admin"/);
-  assert.match(action, /if \(!data\)/);
+  if(area==='event-applications'){
+    assert.match(action, /await getAdminAccess\(\)/);assert.match(action, /access.status !== "admin"/);assert.match(action, /if \(!data\)/);
+  }else{
+    assert.match(action,/moderateMember/);const shared=read('src/lib/member-moderation.ts');
+    assert.match(shared,/await getAdminAccess\(\)/);assert.match(shared,/access.status!=="admin"/);
+    assert.match(shared,/validRevision/);assert.match(shared,/expected_revision:revision/);assert.match(shared,/r.data\?\.id!==id/);
+  }
 }
 let role = 'member';
 const mock = { auth: { getUser: async () => ({ data: { user: { id: 'verified-user' } }, error: null }) }, from: name => {
@@ -68,7 +72,7 @@ for (const path of walk('src').filter(p => /\.(ts|tsx)$/.test(p))) {
   // Separate fixed-purpose Storage and translation adapters may reference their
   // modern secrets. Normal cookie/browser clients must never use either.
   // Permit its format-prefix check, not a literal credential or a browser import.
-  const writer = path === 'src/lib/supabase/community-media-writer.ts';
+  const writer = ['src/lib/supabase/community-media-writer.ts','src/lib/member-media-cleanup.ts','src/lib/verify-member-video.ts'].includes(path);
   if (writer) {
     assert.match(code, /^import "server-only";/);
     assert.match(code, /process\.env\.SUPABASE_COMMUNITY_MEDIA_SECRET_KEY/);

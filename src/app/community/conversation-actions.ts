@@ -1,4 +1,5 @@
 "use server";
+import { publicationDisclosure, submissionNotice } from "@/lib/publication-policy";
 import { createClient } from "@/lib/supabase/server";
 import { commentError, conversationId, reactionKinds, type ReactionKind } from "@/lib/conversation";
 import { reportReasons } from "@/lib/community";
@@ -20,9 +21,9 @@ export async function submitComment(postId: string, parent: string | null, form:
       if (root.error || !root.data) return failure;
     }
     // DB auth.uid() default owns identity. No author/status/timestamps from form.
-    const saved = await client.from("community_comments").insert({ post_id: postId, parent_comment_id: parent, body: (body as string).trim() });
+    const saved = await client.from("community_comments").insert({ commercial_disclosure: publicationDisclosure(form), post_id: postId, parent_comment_id: parent, body: (body as string).trim() });
     if (saved.error) return { ok: false, message: "Could not submit. Please wait a moment, refresh and check your submissions before retrying." };
-    refresh(postId); return { ok: true, message: parent ? "Your reply is live." : "Your comment is live." };
+    refresh(postId); return { ok: true, message: submissionNotice };
   } catch { return failure; }
 }
 export async function reactToPost(postId: string, kind: string, enabled: boolean) {

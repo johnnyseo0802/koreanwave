@@ -3,11 +3,11 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { moderateCommunity, resolveCommunityReport, saveWeeklyPrompt } from "@/app/admin/community/actions";
 import { type ActionResult, postTypes } from "@/lib/community";
-export function CommunityAdminAction({ id, status, featured, report = false }: { id: string; status: string; featured?: boolean; report?: boolean }) {
+export function CommunityAdminAction({ id, status, featured, revision = "", report = false }: { id: string; status: string; featured?: boolean; revision?: string; report?: boolean }) {
   const lock = useRef(false); const [busy,setBusy]=useState(false); const [message,setMessage]=useState(""); const router=useRouter();
   async function run(decision: string) {
     if (lock.current) return; lock.current=true; setBusy(true);
-    try { const result = report ? await resolveCommunityReport(id) : await moderateCommunity(id,decision); setMessage(result.message); if (result.ok) router.refresh(); }
+    try { const result = report ? await resolveCommunityReport(id) : await moderateCommunity(id,decision,revision); setMessage(result.message); if (result.ok) router.refresh(); }
     catch { setMessage("Could not confirm the change. Refresh before retrying."); }
     finally { lock.current=false; setBusy(false); }
   }

@@ -20,15 +20,19 @@ assert.equal(model.validatePost({...base,type:'moment',image_id:id,body:'ðŸ˜€ðŸ˜
 assert.ok(model.validatePost({...base,type:'story',body:'short'}));
 let calls=[], result={data:{id},error:null}, authenticated=false, admin=false, allowed=false;
 const chain=new Proxy({}, {get:(_,key)=>key==='then' ? resolve=>Promise.resolve(result).then(resolve) : (...args)=>{calls.push([key,...args]);return chain;}});
-const client={auth:{getUser:async()=>({data:{user:authenticated?{id:'verified-user'}:null},error:null})},from:table=>{calls.push(['from',table]);return chain;},rpc:async(name,args)=>{calls.push(['rpc',name,args]);return {data:allowed,error:null};}};
+const client={auth:{getUser:async()=>({data:{user:authenticated?{id:'verified-user'}:null},error:null})},from:table=>{calls.push(['from',table]);return chain;},rpc:async(name,args)=>{calls.push(['rpc',name,args]);return name==="manage_member_content"?result:{data:allowed,error:null};}};
 const imports={'@/lib/community':model,'@/lib/supabase/server':{createClient:async()=>client},'next/cache':{revalidatePath(){}},'@/lib/auth/admin-access':{getAdminAccess:async()=>admin?{status:'admin',client}:{status:'forbidden'}}};
+imports['@/lib/publication-policy']=load('src/lib/publication-policy.ts');
+imports['@/lib/member-content']=load('src/lib/member-content.ts',{'@/lib/community':model});
+imports['@/lib/member-moderation']=load('src/lib/member-moderation.ts',imports);
 const actions=load('src/app/community/actions.ts',imports);
 const form=new FormData();for(const[k,v]of Object.entries({...base,author_id:'forged',status:'approved',published_at:'forged',is_featured:'true'}))form.set(k,v);
 assert.equal((await actions.submitCommunityPost(form)).ok,false);assert.equal(calls.length,0);
 authenticated=true;assert.equal((await actions.submitCommunityPost(form)).ok,true);
 const inserted=calls.find(c=>c[0]==='insert')[1];
 assert.equal(inserted.author_id,'verified-user');
-assert.deepEqual(Object.keys(inserted).sort(),['author_id','type','title','body','topic','image_id','image_alt','location_label'].sort());
+assert.deepEqual(Object.keys(inserted).sort(),['commercial_disclosure','author_id','type','title','body','topic','image_id','image_alt','location_label'].sort());
+assert.equal(inserted.commercial_disclosure,'unspecified','Missing disclosure never means personal');
 form.set('body',' ');calls=[];assert.equal((await actions.submitCommunityPost(form)).ok,false);assert.equal(calls.length,0);
 result={data:null,error:{message:'PRIVATE_ERROR',code:'42501'}};form.set('body',base.body);assert.ok(!JSON.stringify(await actions.submitCommunityPost(form)).includes('PRIVATE_ERROR'));
 calls=[];assert.equal((await actions.setHelpful(id,true)).ok,false);assert.ok(!calls.some(c=>c[0]==='insert'));
@@ -36,15 +40,17 @@ allowed=true;result={data:null,error:{code:'23505'}};assert.equal((await actions
 result={data:null,error:null};assert.equal((await actions.setHelpful(id,false)).ok,true);
 assert.ok(calls.some(c=>c[0]==='delete'));
 const moderation=load('src/app/admin/community/actions.ts',imports);
-calls=[];assert.equal((await moderation.moderateCommunity(id,'approved')).ok,false);assert.equal(calls.length,0);
+calls=[];assert.equal((await moderation.moderateCommunity(id,'approved','1')).ok,false);assert.equal(calls.length,0);
 admin=true;result={data:{id},error:null};
 for(const decision of ['approved','rejected','feature','unfeature']){
-  calls=[];assert.equal((await moderation.moderateCommunity(id,decision)).ok,true);
-  assert.deepEqual(Object.keys(calls.find(c=>c[0]==='update')[1]),[decision.includes('feature')?'is_featured':'status']);
-  assert.ok(calls.some(c=>c[0]==='eq'&&c[1]==='status'&&c[2]===(decision.includes('feature')?'approved':'pending')));
+  calls=[];assert.equal((await moderation.moderateCommunity(id,decision,'1')).ok,true);
+  const rpc=calls.find(c=>c[0]==='rpc');assert.equal(rpc[1],'manage_member_content');
+  assert.equal(rpc[2].kind,'post');assert.equal(rpc[2].target,id);assert.equal(rpc[2].expected_revision,'1');
+  assert.equal(rpc[2].operation,decision==='approved'?'approve':decision==='rejected'?'reject':decision);
+  assert.ok(!calls.some(c=>c[0]==='update'),'No direct UPDATE bypass');
 }
-result={data:null,error:null};assert.equal((await moderation.moderateCommunity(id,'approved')).ok,false);
-assert.equal((await moderation.moderateCommunity(id,'draft')).ok,false);
+result={data:null,error:null};assert.equal((await moderation.moderateCommunity(id,'approved','1')).ok,false);
+assert.equal((await moderation.moderateCommunity(id,'draft','1')).ok,false);
 // Public queries filter even for authenticated authors/admins; no identities.
 const queries=load('src/lib/community-data.ts',imports);result={data:[],error:null};calls=[];
 await queries.communityFeed('all');
